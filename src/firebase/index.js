@@ -2,9 +2,6 @@ import firebase from 'firebase/app';
 import "firebase/firestore";
 import "firebase/storage";
 
-console.log('this is apiKey', process.env.API_KEY);
-console.log('this is storageBucket', process.env.STORAGE_BUCKET);
-
 // get configuration from Project Settings for app in Firebase Console
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

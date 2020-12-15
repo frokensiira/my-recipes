@@ -1,9 +1,15 @@
 import { useState } from 'react';
-import {storage} from '../firebase';
+import { db, storage } from '../firebase';
+import { useNavigate } from 'react-router-dom';
 
 const CreateRecipeWithPhoto = () => {
 
-    const [recipe, setRecipe] = useState({});
+    const navigate = useNavigate();
+    const [recipe, setRecipe] = useState({
+        name: '',
+        url: '',
+        comment: '',
+    });
     const [photo, setPhoto] = useState(null);
 
     const handleSubmit = (e) => {
@@ -13,7 +19,7 @@ const CreateRecipeWithPhoto = () => {
         const storageRef = storage.ref();
 
         //create a reference based on the photos name
-        const fileRef = storageRef.child(photo.name);
+        const fileRef = storageRef.child(`photos/${photo.name}`);
         
         //upload photo to fileRef
         fileRef.put(photo)
@@ -22,6 +28,18 @@ const CreateRecipeWithPhoto = () => {
 
                 //retrieve url to uploaded photo
                 snapshot.ref.getDownloadURL().then(url => {
+
+                    //add uploaded photo to database
+                    db.collection('recipes').add({
+                        name: recipe.name,
+                        url: recipe.url,
+                        comment: recipe.comment,
+                        path: snapshot.ref.fullPath,
+                        photoUrl: url
+                    })
+                        .then(() => {
+                            navigate('/my-recipes/')
+                        })
                     
                 })
             })
