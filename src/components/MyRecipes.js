@@ -4,8 +4,8 @@ import RecipeCard from './RecipeCard';
 
 const MyRecipes = () => {
 
-    const [recipes, setRecipes] = useState(null);
-
+    const [recipes, setRecipes] = useState([]);
+    console.log('this is recipes from My recipes', recipes);
     const getRecipes = async () => {
         const myRecipes = [];
 
@@ -33,7 +33,7 @@ const MyRecipes = () => {
             <div className="card-columns">
 
             {
-                recipes && (
+                recipes.length !== 0 && (
                     recipes.map(recipe => 
                         <RecipeCard recipe={recipe} key={recipe.id}/>  
                     )

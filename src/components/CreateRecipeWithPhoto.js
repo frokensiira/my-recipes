@@ -83,16 +83,17 @@ const CreateRecipeWithPhoto = () => {
                         onChange={handleInput}
                     />
                 </div>
+
                 <div className="mb-3">
-                    <label htmlFor="url" className="form-label">Länk</label>
+                    <label htmlFor="recipePhoto" className="form-label">Bild på recept</label>
                     <input 
-                        type="url" 
+                        type="file" 
                         className="form-control" 
-                        id="url" 
-                        required
-                        onChange={handleInput}
+                        id="recipePhoto" 
+                        onChange={handleFileChange}
                     />
                 </div>
+
                 <div className="mb-3">
                     <label htmlFor="comment" className="form-label">Ev. kommentar</label>
                     <textarea 
@@ -105,7 +106,7 @@ const CreateRecipeWithPhoto = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="photo" className="form-label">Ev. bild</label>
+                    <label htmlFor="photo" className="form-label">Ev. bild på rätt</label>
                     <input 
                         type="file" 
                         className="form-control" 
