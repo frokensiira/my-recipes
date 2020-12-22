@@ -1,9 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
+
 import CreateRecipe from './components/CreateRecipe';
 import CreateRecipeWithPhoto from './components/CreateRecipeWithPhoto';
 import CreateRecipeWithUrl from './components/CreateRecipeWithUrl';
 import Home from '../src/components/Home';
+import Login from '../src/components/Login';
 import MyRecipes from './components/MyRecipes';
 import Navbar from './components/Navbar';
 import NotFound from './components/NotFound';
@@ -15,6 +17,7 @@ function App() {
 
 	 
 	return (
+		
 		<div className="App">
 			<header className="App-header">
 				<Navbar/>
@@ -29,6 +32,10 @@ function App() {
 
 					<Route path="/signup">
 						<SignUp/>
+					</Route>
+
+					<Route path="/login">
+						<Login/>
 					</Route>
 
 					<Route path="/my-recipes/">
