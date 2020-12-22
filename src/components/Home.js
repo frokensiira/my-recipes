@@ -5,7 +5,7 @@ import RecipeCard from './RecipeCard';
 const Home = () => {
 
     const [recipes, setRecipes] = useState([]);
-    console.log('this is recipes from My recipes', recipes);
+
     const getRecipes = async () => {
         const myRecipes = [];
 
@@ -17,8 +17,6 @@ const Home = () => {
                 ...doc.data(),
             });
         });
-
-        console.log('this is myRecipes', myRecipes);
 
         setRecipes(myRecipes);
     }

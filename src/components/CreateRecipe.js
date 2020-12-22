@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import CreateRecipeWithPhoto from './CreateRecipeWithPhoto';
 
 const CreateRecipe = () => {
     return (

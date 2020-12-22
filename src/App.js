@@ -3,6 +3,7 @@ import './App.scss';
 import Home from '../src/components/Home';
 import Navbar from './components/Navbar';
 import MyRecipes from './components/MyRecipes';
+import ShowSingleRecipe from './components/ShowSingleRecipe';
 import CreateRecipe from './components/CreateRecipe';
 import CreateRecipeWithUrl from './components/CreateRecipeWithUrl';
 import CreateRecipeWithPhoto from './components/CreateRecipeWithPhoto';
@@ -25,11 +26,16 @@ function App() {
 
 			<Routes>
 				<Route path="/my-recipes/">
-					<MyRecipes/>
-				</Route>
-			</Routes>
 
-			<Routes>
+					<Route path="/">
+						<MyRecipes/>
+					</Route>
+
+					<Route path="/:recipeId">
+						<ShowSingleRecipe/>
+					</Route>
+				</Route>
+
 				<Route path="/create-recipe/">
 					
 					<Route path="/">
