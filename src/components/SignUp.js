@@ -1,6 +1,6 @@
-import { useRef, useState, useContext } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const SignUp = () => {
 
@@ -8,7 +8,7 @@ const SignUp = () => {
     const passwordRef = useRef();
     const passwordConfirmRef =  useRef();
     const [error, setError] = useState(null);
-    const { signup } = useContext(AuthContext);
+    const { signup } = useAuth();
 
     const handleSubmit = async e => {
         e.preventDefault();
