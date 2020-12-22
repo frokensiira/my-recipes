@@ -7,7 +7,7 @@ const RecipeCard = ({recipe}) => {
     const handleClickRecipe = () => {
         navigate(`/my-recipes/${recipe.id}`, {state: {recipe}})
     }
-    
+
     return (
         <div>
             <div className="card">
@@ -15,7 +15,7 @@ const RecipeCard = ({recipe}) => {
             {
                 recipe.photoUrl 
                 
-                ? (<img src={recipe.photoUrl} className="card-img-top"/>)
+                ? (<img src={recipe.photoUrl} className="card-img-top" alt={recipe.name}/>)
                 : (<img src={foodPlaceholder} id="placeholder" className="card-img-top" alt="plate with cutlery"/>)
             }
 

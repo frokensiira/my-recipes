@@ -1,12 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
-import Home from '../src/components/Home';
-import Navbar from './components/Navbar';
-import MyRecipes from './components/MyRecipes';
-import ShowSingleRecipe from './components/ShowSingleRecipe';
 import CreateRecipe from './components/CreateRecipe';
-import CreateRecipeWithUrl from './components/CreateRecipeWithUrl';
 import CreateRecipeWithPhoto from './components/CreateRecipeWithPhoto';
+import CreateRecipeWithUrl from './components/CreateRecipeWithUrl';
+import Home from '../src/components/Home';
+import MyRecipes from './components/MyRecipes';
+import Navbar from './components/Navbar';
+import NotFound from './components/NotFound';
+import ShowSingleRecipe from './components/ShowSingleRecipe';
+import SignUp from './components/SignUp';
 
 
 function App() {
@@ -18,41 +20,48 @@ function App() {
 				<Navbar/>
 			</header>
 
-			<Routes>
-				<Route path="/">
-					<Home/>
-				</Route>
-			</Routes>
-
-			<Routes>
-				<Route path="/my-recipes/">
+			<div className="container py-3">
+				<Routes>
 
 					<Route path="/">
-						<MyRecipes/>
+						<Home/>
 					</Route>
 
-					<Route path="/:recipeId">
-						<ShowSingleRecipe/>
-					</Route>
-				</Route>
-
-				<Route path="/create-recipe/">
-					
-					<Route path="/">
-						<CreateRecipe/>
+					<Route path="/signup">
+						<SignUp/>
 					</Route>
 
-					<Route path="/url/">
-						<CreateRecipeWithUrl/>
+					<Route path="/my-recipes/">
+
+						<Route path="/">
+							<MyRecipes/>
+						</Route>
+
+						<Route path="/:recipeId">
+							<ShowSingleRecipe/>
+						</Route>
 					</Route>
 
-					<Route path="/photo/">
-						<CreateRecipeWithPhoto/>
+					<Route path="/create-recipe/">
+						
+						<Route path="/">
+							<CreateRecipe/>
+						</Route>
+
+						<Route path="/url/">
+							<CreateRecipeWithUrl/>
+						</Route>
+
+						<Route path="/photo/">
+							<CreateRecipeWithPhoto/>
+						</Route>
+						
 					</Route>
-					
-				</Route>
-			</Routes>
-			
+
+					<Route path="*" element={<NotFound/>}/>
+						
+				</Routes>
+			</div>
 		</div>
 	);
 }
