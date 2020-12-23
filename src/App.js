@@ -1,11 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
-
 import CreateRecipe from './components/CreateRecipe';
 import CreateRecipeWithPhoto from './components/CreateRecipeWithPhoto';
 import CreateRecipeWithUrl from './components/CreateRecipeWithUrl';
 import Home from '../src/components/Home';
-import Login from '../src/components/Login';
+//import Login from '../src/components/Login';
 import MyRecipes from './components/MyRecipes';
 import Navbar from './components/Navbar';
 import NotFound from './components/NotFound';
@@ -34,9 +33,9 @@ function App() {
 						<SignUp/>
 					</Route>
 
-					<Route path="/login">
+					{/* <Route path="/login">
 						<Login/>
-					</Route>
+					</Route> */}
 
 					<Route path="/my-recipes/">
 

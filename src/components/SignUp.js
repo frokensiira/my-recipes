@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const SignUp = () => {
@@ -8,24 +8,31 @@ const SignUp = () => {
     const passwordRef = useRef();
     const passwordConfirmRef =  useRef();
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const { signup } = useAuth();
+
+    const navigate = useNavigate();
 
     const handleSubmit = async e => {
         e.preventDefault();
 
         // check that the user entered the same password twice
         if(passwordRef.current.value !== passwordConfirmRef.current.value) {
-            return setError("The password do not match");
+            return setError("The passwords do not match");
         }
 
         setError(null);
 
         try {
-            //try to log in user
-            signup(emailRef.current.value, passwordRef.current.value)
+            //try to sign up the user
+            setLoading(true);
+            await signup(emailRef.current.value, passwordRef.current.value);
+            navigate('/');
         } catch (error) {
             setError(error.message);
+            setLoading(false);
         }
+
     }
 
     return (  
@@ -35,7 +42,7 @@ const SignUp = () => {
                     <div className="card-body">
                         <div className="card-title">Skapa konto</div>
 
-                        {error && (<div className="alert-danger">{error}</div>)}
+                        {error && (<div className="alert alert-danger">{error}</div>)}
 
                         <form onSubmit={handleSubmit}>
                             <div className="form-group" id="email">
@@ -59,7 +66,7 @@ const SignUp = () => {
                                 <input className="form-control" type="password" ref={passwordConfirmRef} required/>
                             </div>
 
-                            <button className="btn btn-primary">Skapa konto</button>
+                            <button disabled={loading} className="btn btn-primary">Skapa konto</button>
                         </form>
                     </div>
                 </div>
