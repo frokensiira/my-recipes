@@ -32,11 +32,12 @@ const Home = () => {
         <>
             { loading 
                 ? (<p>loading...</p>) 
-                : (<p>You are signed up as <strong>{currentUser && currentUser.email}</strong></p>)
+                : (<p>You are signed in as <strong>{currentUser && currentUser.email}</strong></p>)
             }
-            <main className="container mt-5">
+            <section className="banner-section">hej</section>
+            <main className="">
 
-                <div className="card-columns">
+                <div className="">
                     <h1>Alla recept</h1>
                     {
                     recipes.length !== 0 && (

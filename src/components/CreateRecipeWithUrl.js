@@ -90,34 +90,34 @@ const CreateRecipeWithUrl = () => {
     }
 
     return (
-        <div className="container mt-3">
+        <div className="">
             <form onSubmit={handleSubmit}>
 
-                <div className="mb-3">
+                <div className="">
                     <label htmlFor="name" className="form-label">Receptnamn</label>
                     <input 
                         type="text"     
-                        className="form-control" 
+                        className="" 
                         id="name" 
                         required
                         onChange={handleInput}
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="url" className="form-label">Länk</label>
+                    <label htmlFor="url" className="">Länk</label>
                     <input 
                         type="url" 
-                        className="form-control" 
+                        className="" 
                         id="url" 
                         required
                         onChange={handleInput}
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="comment" className="form-label">Ev. kommentar</label>
+                    <label htmlFor="comment" className="">Ev. kommentar</label>
                     <textarea 
                         name="comment" 
-                        className="form-control" 
+                        className="" 
                         id="comment" 
                         onChange={handleInput}
                     >
@@ -125,7 +125,7 @@ const CreateRecipeWithUrl = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="photo" className="form-label">Ev. bild</label>
+                    <label htmlFor="photo" className="">Ev. bild</label>
                     <input 
                         type="file" 
                         className="form-control" 
@@ -134,7 +134,7 @@ const CreateRecipeWithUrl = () => {
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="">Submit</button>
 
             </form>
             

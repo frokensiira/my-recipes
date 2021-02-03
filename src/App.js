@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import './App.scss';
+import '../src/styles/app.css';
 import CreateRecipe from './components/CreateRecipe';
 import CreateRecipeWithPhoto from './components/CreateRecipeWithPhoto';
 import CreateRecipeWithUrl from './components/CreateRecipeWithUrl';
@@ -14,7 +14,6 @@ import SignUp from './components/SignUp';
 
 function App() {
 
-	 
 	return (
 		
 		<div className="App">

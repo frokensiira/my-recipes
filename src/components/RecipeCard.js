@@ -10,20 +10,20 @@ const RecipeCard = ({recipe}) => {
 
     return (
         <div>
-            <div className="card">
+            <div className="">
 
             {
                 recipe.photoUrl 
                 
-                ? (<img src={recipe.photoUrl} className="card-img-top" alt={recipe.name}/>)
-                : (<img src={foodPlaceholder} id="placeholder" className="card-img-top" alt="plate with cutlery"/>)
+                ? (<img src={recipe.photoUrl} className="" alt={recipe.name}/>)
+                : (<img src={foodPlaceholder} id="placeholder" className="" alt="plate with cutlery"/>)
             }
 
-                <div className="card-body">
+                <div className="">
                     <h5 className="card-title">{recipe.name}</h5>
                     <p className="card-text">{recipe.comment}</p>
                    
-                    <button className="btn btn-lg btn-outline-secondary mx-4" onClick={handleClickRecipe}> Till receptet</button>
+                    <button className="" onClick={handleClickRecipe}> Till receptet</button>
 
                 </div>
             </div>

@@ -9,7 +9,7 @@ const ShowSingleRecipe = (props) => {
     const { name } = location.state.recipe;
 
     return (
-        <div className="container text-center">
+        <div className="">
             <h1>{name}</h1>
 
             {
@@ -21,14 +21,14 @@ const ShowSingleRecipe = (props) => {
 
             {
                 location.state.recipe.url && (
-                    <div class="d-grid gap-2 col-6 mx-auto my-3">
+                    <div class="">
                         <a href={location.state.recipe.url} className="btn btn-primary" target="_blank" rel="noreferrer">Länk till receptet</a>
                     </div>
                 )
             }
             {
                 location.state.recipe.comment && (
-                    <div className="container w-50">
+                    <div className="">
                         <p id="recipe-text">Kommentar</p>
                         <p>{location.state.recipe.comment}</p>
                     </div>

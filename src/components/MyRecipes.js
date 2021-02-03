@@ -28,9 +28,9 @@ const MyRecipes = () => {
     }, [])
     
     return (
-        <main className="container mt-5">
+        <main className="">
 
-            <div className="card-columns">
+            <div className="">
 
             {
                 recipes.length !== 0 && (

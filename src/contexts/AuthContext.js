@@ -19,7 +19,6 @@ const AuthContextProvider = props => {
     //when any of the child components mounts, check if the user is logged in or out
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user)=> {
-            console.log('Auth state changed', user);
             setCurrentUser(user);
             setLoading(false);
         });

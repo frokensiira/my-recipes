@@ -90,14 +90,13 @@ const CreateRecipeWithPhoto = () => {
     }
 
     return (
-        <div className="container mt-3">
+        <div>
             <form onSubmit={handleSubmit}>
 
-                <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Receptnamn</label>
+                <div>
+                    <label htmlFor="name">Receptnamn</label>
                     <input 
                         type="text"     
-                        className="form-control" 
                         id="name" 
                         required
                         onChange={handleInput}
@@ -105,38 +104,37 @@ const CreateRecipeWithPhoto = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="recipePhoto" className="form-label">Bild på recept</label>
+                    <label htmlFor="recipePhoto">Bild på recept</label>
                     <input 
-                        type="file" 
-                        className="form-control" 
+                        type="file"  
                         id="recipePhoto" 
                         onChange={handleFileChange}
                         required
                     />
                 </div>
 
-                <div className="mb-3">
-                    <label htmlFor="comment" className="form-label">Ev. kommentar</label>
+                <div className="">
+                    <label htmlFor="comment" className="">Ev. kommentar</label>
                     <textarea 
                         name="comment" 
-                        className="form-control" 
+                        className="" 
                         id="comment" 
                         onChange={handleInput}
                     >
                     </textarea>
                 </div>
 
-                <div className="mb-3">
-                    <label htmlFor="photo" className="form-label">Ev. bild på rätt</label>
+                <div className="">
+                    <label htmlFor="photo" className="">Ev. bild på rätt</label>
                     <input 
                         type="file" 
-                        className="form-control" 
+                        className="" 
                         id="photo" 
                         onChange={handleFileChange}
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="">Submit</button>
 
             </form>
             
