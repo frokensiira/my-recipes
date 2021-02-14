@@ -25,7 +25,7 @@
 .navbar__nav-items {
     display: flex;
     justify-content: space-around;
-    width: 40%;
+    margin-right: 1rem;
 }
 
 .navbar__nav-link {
@@ -38,6 +38,8 @@
 
 .navbar__nav-item {
     list-style: none;
+    padding-right: 1rem;
+    padding-left: 1rem;
 }
 
 @media (max-width: 1024px) {
