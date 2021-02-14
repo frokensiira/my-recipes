@@ -17,8 +17,6 @@ const ShowSingleRecipe = (props) => {
                 ? ( <img src={recipe.photoUrl } className="" alt="food"/>)
                 : ( <img src={foodPlaceholder} className="" alt="plate"/>)
             }
-           
-
             {
                 recipe.url && (
                     <div className="">
@@ -37,12 +35,13 @@ const ShowSingleRecipe = (props) => {
                         <p id="recipe-text">Kommentar</p>
                         <p>{recipe.comment}</p>
 
-                        {
-                            recipe.vegan && (<p>Veganskt</p>)
-                        }
+                        
                     </div>
                 )
                 
+            }
+            {
+                recipe.vegan && (<p>Veganskt</p>)
             }
             
         </div>

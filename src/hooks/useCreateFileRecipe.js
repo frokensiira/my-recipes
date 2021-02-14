@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const useCreateFileRecipe = (recipe, photo, vegan, submit) => {
+const useCreateFileRecipe = (recipe, photo, file, vegan, submit) => {
 
     const [error, setError ] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -16,30 +16,63 @@ const useCreateFileRecipe = (recipe, photo, vegan, submit) => {
             return;
         }
 
-        if(photo) {
-            //get root reference
-            const storageRef = storage.ref();
+        //get root reference
+        const storageRef = storage.ref();
 
-            //create a reference based on the photos name
-            const fileRef = storageRef.child(`photos/${photo.name}`);
-            
-            //upload photo to fileRef
-            fileRef.put(photo)
-                .then(snapshot => {
-                    console.log('this is snapshot', snapshot);
+        //create a reference based on the files name
+        const fileRef = storageRef.child(`files/${file.name}`);
 
-                    //retrieve url to uploaded photo
-                    snapshot.ref.getDownloadURL().then(url => {
+        //upload file to fileRef
+        fileRef.put(file)
+            .then(snapshot => {
 
-                        //add uploaded photo to database
+                //retrieve url to uploaded file
+                snapshot.ref.getDownloadURL().then(url => {
+
+                    const fileUrl = url;
+
+                    if(photo) {
+                        //create a reference based on the photos name
+                        const photoRef = storageRef.child(`photos/${photo.name}`);
+
+                        //upload file to fileRef
+                        photoRef.put(photo)
+                            .then(snapshot => {
+                                //retrieve url to uploaded photo
+                                snapshot.ref.getDownloadURL().then(url => {
+                                    console.log('this is fileUrl', fileUrl);
+
+                                //add uploaded photo to database
+                                db.collection('recipes').add({
+                                    owner: currentUser.uid,
+                                    name: recipe.name,
+                                    comment: recipe.comment,
+                                    path: snapshot.ref.fullPath,
+                                    photoUrl: url, 
+                                    recipeUrl: fileUrl,
+                                    vegan
+                                })
+                                    .then(() => {
+                                        navigate('/my-recipes/')
+                                    })
+                                    .catch(err => {
+                                        console.log('something went wrong', err);
+                                    })
+
+                                })
+                            })
+                            .catch(err => {
+                                console.log('problem uploading photo', err);
+                            })
+                    } else {
+                        //add uploaded recipe to database
                         db.collection('recipes').add({
                             owner: currentUser.uid,
                             name: recipe.name,
-                            url: recipe.url,
                             comment: recipe.comment,
                             path: snapshot.ref.fullPath,
-                            photoUrl: url,
-                            vegan: vegan
+                            recipeUrl: fileUrl,
+                            vegan
                         })
                             .then(() => {
                                 navigate('/my-recipes/')
@@ -47,29 +80,15 @@ const useCreateFileRecipe = (recipe, photo, vegan, submit) => {
                             .catch(err => {
                                 console.log('something went wrong', err);
                             })
-                        
-                    })
-                })
-            .catch(err => {
-                console.log('something went wrong', err);
-            })
-
-        } else {
-            //add uploaded recipe to database
-            db.collection('recipes').add({
-                owner: currentUser.uid,
-                name: recipe.name,
-                url: recipe.url,
-                comment: recipe.comment,
-                vegan: vegan
-            })
-                .then(() => {
-                    navigate('/my-recipes/')
+                    }
                 })
                 .catch(err => {
                     console.log('something went wrong', err);
                 })
-        }
+            })
+            .catch(err => {
+                console.log('something went wrong', err);
+            })
 
     }, [submit]);
 
