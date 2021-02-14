@@ -10,8 +10,6 @@ const useRecipes = () => {
 
     useEffect(() => {
 
-        console.log(currentUser.uid);
-
         //subscribe to recipe snapshots from firebase to update component whenever something changes
         const unsubscribe = db.collection('recipes')
             .where('owner', '==', currentUser.uid)

@@ -2,79 +2,29 @@ import { useState } from 'react';
 import { db, storage } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import useCreateUrlRecipe from '../hooks/useCreateUrlRecipe';
 
 const CreateRecipeWithUrl = () => {
 
-    const { currentUser } = useAuth();
-
-    console.log('currentuser', currentUser);
-
+    const [submit, setSubmit] = useState(null);
+    const [vego, setVego] = useState({});
     const navigate = useNavigate();
-    const [recipe, setRecipe] = useState({
-        name: '',
-        url: '',
-        comment: '',
-    });
+    const [recipe, setRecipe] = useState(null);
     const [photo, setPhoto] = useState(null);
+    useCreateUrlRecipe(recipe, photo, submit);
+
+    const handleCheckbox = (e) => {
+
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if(photo) {
-            //get root reference
-            const storageRef = storage.ref();
-
-            //create a reference based on the photos name
-            const fileRef = storageRef.child(`photos/${photo.name}`);
-            
-            //upload photo to fileRef
-            fileRef.put(photo)
-                .then(snapshot => {
-                    console.log('this is snapshot', snapshot);
-
-                    //retrieve url to uploaded photo
-                    snapshot.ref.getDownloadURL().then(url => {
-
-                        //add uploaded photo to database
-                        db.collection('recipes').add({
-                            owner: currentUser.uid,
-                            name: recipe.name,
-                            url: recipe.url,
-                            comment: recipe.comment,
-                            path: snapshot.ref.fullPath,
-                            photoUrl: url
-                        })
-                            .then(() => {
-                                navigate('/my-recipes/')
-                            })
-                            .catch(err => {
-                                console.log('something went wrong', err);
-                            })
-                        
-                    })
-                })
-            .catch(err => {
-                console.log('something went wrong', err);
-            })
-
-        } else {
-            //add uploaded recipe to database
-            db.collection('recipes').add({
-                owner: currentUser.uid,
-                name: recipe.name,
-                url: recipe.url,
-                comment: recipe.comment,
-            })
-                .then(() => {
-                    navigate('/my-recipes/')
-                })
-                .catch(err => {
-                    console.log('something went wrong', err);
-                })
+        if(!recipe) {
+            return;
         }
 
-        
-
+        setSubmit(true);
     }
 
     const handleInput = (e) => {
@@ -102,7 +52,7 @@ const CreateRecipeWithUrl = () => {
             <form onSubmit={handleSubmit}>
 
                 <div className="">
-                    <label htmlFor="name" className="form-label">Receptnamn</label>
+                    <label htmlFor="name" className="form-label">Receptnamn *</label>
                     <input 
                         type="text"     
                         className="" 
@@ -112,7 +62,7 @@ const CreateRecipeWithUrl = () => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="url" className="">Länk</label>
+                    <label htmlFor="url" className="">Länk *</label>
                     <input 
                         type="url" 
                         className="" 
@@ -122,7 +72,7 @@ const CreateRecipeWithUrl = () => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="comment" className="">Ev. kommentar</label>
+                    <label htmlFor="comment" className="">Kommentar</label>
                     <textarea 
                         name="comment" 
                         className="" 
@@ -133,7 +83,7 @@ const CreateRecipeWithUrl = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="photo" className="">Ev. bild</label>
+                    <label htmlFor="photo" className="">Bild</label>
                     <input 
                         type="file" 
                         className="form-control" 
@@ -142,7 +92,14 @@ const CreateRecipeWithUrl = () => {
                     />
                 </div>
 
-                <button type="submit" className="">Submit</button>
+                <div>
+                    <input type="checkbox" name="Veganskt" onChange={handleCheckbox} defaultChecked={true}/>
+                    <label>Veganskt</label>
+                    <input type="checkbox" name="Vegetariskt" onChange={handleCheckbox}/>
+                    <label>Vegetariskt</label>
+                </div>
+
+                <button type="submit" className="">Skapa recept</button>
 
             </form>
             
