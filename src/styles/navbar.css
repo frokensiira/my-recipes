@@ -9,7 +9,6 @@
     justify-content: space-around;
     align-items: center;
     min-height: 8vh;
-    background-color: var(--light-pink);
 }
 
 .navbar__logo {

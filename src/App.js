@@ -1,10 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
 import '../src/styles/app.css';
+import AuthContextProvider from '../src/contexts/AuthContext';
+import AuthRoute from '../src/components/AuthRoute';
 import CreateRecipe from './components/CreateRecipe';
-import CreateRecipeWithPhoto from './components/CreateRecipeWithPhoto';
+import CreateRecipeWithFile from './components/CreateRecipeWithFile';
 import CreateRecipeWithUrl from './components/CreateRecipeWithUrl';
 import Home from '../src/components/Home';
-//import Login from '../src/components/Login';
+import Login from '../src/components/Login';
+import Logout from '../src/components/Logout';
 import MyRecipes from './components/MyRecipes';
 import Navbar from './components/Navbar';
 import NotFound from './components/NotFound';
@@ -15,13 +18,13 @@ import SignUp from './components/SignUp';
 function App() {
 
 	return (
-		
-		<div className="App">
-			<header className="App-header">
+		<AuthContextProvider>
+
+			<header>
 				<Navbar/>
 			</header>
 
-			<div className="container py-3">
+			<div>
 				<Routes>
 
 					<Route path="/">
@@ -32,11 +35,15 @@ function App() {
 						<SignUp/>
 					</Route>
 
-					{/* <Route path="/login">
+					<Route path="/login">
 						<Login/>
-					</Route> */}
+					</Route>
 
-					<Route path="/my-recipes/">
+					<Route path="/logout">
+						<Logout/>
+					</Route>
+
+					<AuthRoute path="/my-recipes">
 
 						<Route path="/">
 							<MyRecipes/>
@@ -45,29 +52,28 @@ function App() {
 						<Route path="/:recipeId">
 							<ShowSingleRecipe/>
 						</Route>
-					</Route>
-
-					<Route path="/create-recipe/">
 						
-						<Route path="/">
+						<Route path="/create-recipe">
 							<CreateRecipe/>
 						</Route>
 
-						<Route path="/url/">
+						<Route path="/create-recipe/url">
 							<CreateRecipeWithUrl/>
 						</Route>
 
-						<Route path="/photo/">
-							<CreateRecipeWithPhoto/>
+						<Route path="/create-recipe/file">
+							<CreateRecipeWithFile/>
 						</Route>
 						
-					</Route>
+					</AuthRoute>
+
+					
 
 					<Route path="*" element={<NotFound/>}/>
 						
 				</Routes>
 			</div>
-		</div>
+		</AuthContextProvider>
 	);
 }
 

@@ -14,8 +14,8 @@ const ShowSingleRecipe = (props) => {
 
             {
                 location.state.recipe.photoUrl 
-                ? ( <img src={location.state.recipe.photoUrl } className="w-50 p-3 img-thumbnail"/>)
-                : ( <img src={foodPlaceholder} className="w-50 p-3 img-thumbnail"/>)
+                ? ( <img src={location.state.recipe.photoUrl } className="w-50 p-3 img-thumbnail" alt="food"/>)
+                : ( <img src={foodPlaceholder} className="w-50 p-3 img-thumbnail" alt="plate"/>)
             }
            
 

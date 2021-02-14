@@ -7,15 +7,14 @@ const Navbar = () => {
 	const { currentUser } = useAuth();
 	const [newClass, setNewClass] = useState('');
 
+	/* console.log(currentUser); */
+
 	const handleBurgerMenu = () => {
-		console.log('someone clicked');
 		if(newClass === '') {
 			setNewClass('navbar--active');
 		} else {
 			setNewClass('');
 		}
-
-
 	}
 
     return (
@@ -35,10 +34,13 @@ const Navbar = () => {
 					? (
 						<>
 							<li className="navbar__nav-item">
-								<NavLink to={`/my-recipes/`} onClick={handleBurgerMenu} className="navbar__nav-link">Mina recept</NavLink>
+								<NavLink to={`/my-recipes`} onClick={handleBurgerMenu} className="navbar__nav-link">Mina recept</NavLink>
 							</li>
 							<li className="navbar__nav-item">
-								<NavLink to={`/create-recipe/`} onClick={handleBurgerMenu} className="navbar__nav-link">Skapa recept</NavLink>
+								<NavLink to={`/my-recipes/create-recipe`} onClick={handleBurgerMenu} className="navbar__nav-link">Skapa recept</NavLink>
+							</li>
+							<li className="navbar__nav-item">
+								<NavLink to={`/logout`} onClick={handleBurgerMenu} className="navbar__nav-link">Logga ut</NavLink>
 							</li>
 						</>
 					)

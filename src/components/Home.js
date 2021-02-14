@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
+import { Link } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
 
 const Home = () => {
@@ -32,9 +33,15 @@ const Home = () => {
         <>
             { loading 
                 ? (<p>loading...</p>) 
-                : (<p>You are signed in as <strong>{currentUser && currentUser.email}</strong></p>)
+                : currentUser ? 
+                (<p>You are signed in as <strong>{currentUser && currentUser.email}</strong></p>)
+                : ''
             }
-            <section className="banner-section">hej</section>
+            <section className="banner-section">
+                <h1>My Veggie Recipes</h1>
+                <p>Skapa och inspireras av nya vegetariska och veganska recept</p>
+                <button><Link to={`/signup`} className="navbar__nav-link">Skapa konto</Link></button>
+            </section>
             <main className="">
 
                 <div className="">

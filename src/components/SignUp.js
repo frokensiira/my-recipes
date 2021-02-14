@@ -36,45 +36,43 @@ const SignUp = () => {
     }
 
     return (  
-        <div className="row">
-            <div className="col-md-6 offset-3">
-                <div className="card">
-                    <div className="card-body">
-                        <div className="card-title">Skapa konto</div>
+        <>
+                <div className="">
+                    <div className="">
+                        <div className="">Skapa konto</div>
 
-                        {error && (<div className="alert alert-danger">{error}</div>)}
+                        {error && (<div className="">{error}</div>)}
 
                         <form onSubmit={handleSubmit}>
-                            <div className="form-group" id="email">
-                                <div className="form-label">
+                            <div className="" id="email">
+                                <div className="">
                                     Email
                                 </div>
-                                <input className="form-control" type="email" ref={emailRef} required/>
+                                <input className="" type="email" ref={emailRef} required/>
                             </div>
 
-                            <div className="form-group" id="password">
+                            <div className="" id="password">
                                 <div className="form-label">
                                     Lösenord
                                 </div>
-                                <input className="form-control" type="password" ref={passwordRef} required/>
+                                <input className="" type="password" ref={passwordRef} required/>
                             </div>
 
-                            <div className="form-group" id="password-confirm">
+                            <div className="" id="password-confirm">
                                 <div className="form-label">
                                     Bekräfta lösenord
                                 </div>
-                                <input className="form-control" type="password" ref={passwordConfirmRef} required/>
+                                <input className="" type="password" ref={passwordConfirmRef} required/>
                             </div>
 
-                            <button disabled={loading} className="btn btn-primary">Skapa konto</button>
+                            <button disabled={loading} className="">Skapa konto</button>
                         </form>
                     </div>
                 </div>
-                <div className="text-center mt-2">
-                    Already have an account? <Link to='/login'>Log In</Link>
+                <div className="">
+                    Har du redan ett konto? <Link to='/login'>Logga in</Link>
                 </div>
-            </div>
-        </div>
+    </>
         
     );
 }

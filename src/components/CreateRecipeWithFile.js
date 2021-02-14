@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { db, storage } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 
-const CreateRecipeWithPhoto = () => {
+const CreateRecipeWithFile = () => {
 
     const navigate = useNavigate();
     const [recipe, setRecipe] = useState({
@@ -142,4 +142,4 @@ const CreateRecipeWithPhoto = () => {
     )
 }
 
-export default CreateRecipeWithPhoto;
+export default CreateRecipeWithFile;

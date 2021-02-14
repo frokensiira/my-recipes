@@ -16,6 +16,16 @@ const AuthContextProvider = props => {
         return auth.createUserWithEmailAndPassword(email, password);
     }
 
+    const login = (email, password) => {
+        console.log('logging in');
+        return auth.signInWithEmailAndPassword(email, password)
+    }
+
+    const logout = () => {
+        console.log('logging out');
+        return auth.signOut();
+    }
+
     //when any of the child components mounts, check if the user is logged in or out
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user)=> {
@@ -28,13 +38,15 @@ const AuthContextProvider = props => {
 
     const contextValues = {
         currentUser,
+        loading,
         signup,
-        loading
+        login,
+        logout,
     }
 
     return(
         <AuthContext.Provider value={contextValues}>
-            {loading && (<div className="d-flex justify-content-center my-5"><RingLoader color={"#888"} size={50}/></div>)}
+            {loading && (<div><RingLoader color={"#888"} size={50}/></div>)}
             {!loading && props.children}
         </AuthContext.Provider>
     )
