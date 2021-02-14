@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import '../src/styles/app.css';
+import SimpleReactLightbox from 'simple-react-lightbox';
 import AccessDenied from './components/AccessDenied';
 import AuthContextProvider from '../src/contexts/AuthContext';
 import AuthRoute from '../src/components/AuthRoute';
@@ -20,7 +21,7 @@ function App() {
 
 	return (
 		<AuthContextProvider>
-
+			<SimpleReactLightbox>
 			<header>
 				<Navbar/>
 			</header>
@@ -76,6 +77,7 @@ function App() {
 						
 				</Routes>
 			</div>
+			</SimpleReactLightbox>
 		</AuthContextProvider>
 	);
 }

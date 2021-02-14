@@ -42,10 +42,11 @@ const Home = () => {
                 <p>Skapa och inspireras av nya vegetariska och veganska recept</p>
                 <button><Link to={`/signup`} className="navbar__nav-link">Skapa konto</Link></button>
             </section>
-            <main className="">
+            <main className="page">
 
-                <div className="">
-                    <h1>Alla recept</h1>
+                <h1 className="page__title">Alla recept</h1>
+                <div className="cards">
+                    
                     {
                     recipes.length !== 0 && (
                         recipes.map(recipe => 
