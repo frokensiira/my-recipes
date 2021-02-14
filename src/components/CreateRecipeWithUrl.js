@@ -7,14 +7,17 @@ import useCreateUrlRecipe from '../hooks/useCreateUrlRecipe';
 const CreateRecipeWithUrl = () => {
 
     const [submit, setSubmit] = useState(null);
-    const [vego, setVego] = useState({});
+    const [vegan, setVegan] = useState(false);
     const navigate = useNavigate();
     const [recipe, setRecipe] = useState(null);
     const [photo, setPhoto] = useState(null);
-    useCreateUrlRecipe(recipe, photo, submit);
+    useCreateUrlRecipe(recipe, photo, vegan, submit);
 
     const handleCheckbox = (e) => {
-
+        setVegan(false);
+        if(e.target.checked === true) {
+            setVegan(true);
+        }
     }
 
     const handleSubmit = (e) => {
@@ -93,10 +96,8 @@ const CreateRecipeWithUrl = () => {
                 </div>
 
                 <div>
-                    <input type="checkbox" name="Veganskt" onChange={handleCheckbox} defaultChecked={true}/>
+                    <input type="checkbox" name="Veganskt" onChange={handleCheckbox}/>
                     <label>Veganskt</label>
-                    <input type="checkbox" name="Vegetariskt" onChange={handleCheckbox}/>
-                    <label>Vegetariskt</label>
                 </div>
 
                 <button type="submit" className="">Skapa recept</button>

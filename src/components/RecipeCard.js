@@ -19,6 +19,10 @@ const RecipeCard = ({recipe}) => {
                 <div className="">
                     <h5 className="card-title">{recipe.name}</h5>
                     <p className="card-text">{recipe.comment}</p>
+
+                    {
+                        recipe.vegan && (<p>Veganskt</p>)
+                    }
                    
                     <Link to={`/my-recipes/${recipe.id}`} className=""> Till receptet</Link>
 

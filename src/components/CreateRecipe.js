@@ -7,7 +7,7 @@ const CreateRecipe = () => {
                 <Link to={`/my-recipes/create-recipe/url/`}>
                     Skapa recept med länk
                 </Link>
-                <Link to={`/my-recipes/create-recipe/photo/`}>
+                <Link to={`/my-recipes/create-recipe/file/`}>
                     Skapa recept med foto
                 </Link>
             </div>

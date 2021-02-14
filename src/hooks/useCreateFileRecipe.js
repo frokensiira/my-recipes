@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const useCreateUrlRecipe = (recipe, photo, vegan, submit) => {
+const useCreateFileRecipe = (recipe, photo, vegan, submit) => {
 
     const [error, setError ] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -76,4 +76,4 @@ const useCreateUrlRecipe = (recipe, photo, vegan, submit) => {
     return { error, loading };
 }
 
-export default useCreateUrlRecipe;
+export default useCreateFileRecipe;

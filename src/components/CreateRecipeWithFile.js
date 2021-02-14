@@ -1,42 +1,83 @@
 import { useState } from 'react';
 import { db, storage } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const CreateRecipeWithFile = () => {
 
     const navigate = useNavigate();
+    const { currentUser } = useAuth();
     const [recipe, setRecipe] = useState({
         name: '',
         url: '',
         comment: '',
     });
     const [photo, setPhoto] = useState(null);
+    const [file, setFile] = useState(null);
 
     const handleSubmit = (e) => {
+        console.log();
         e.preventDefault();
 
-        if(photo) {
-            //get root reference
-            const storageRef = storage.ref();
+        if(!file){
+            return;
+        }
 
-            //create a reference based on the photos name
-            const fileRef = storageRef.child(`photos/${photo.name}`);
+        //get root reference
+        const storageRef = storage.ref();
 
-            //upload photo to fileRef
-            fileRef.put(photo)
-                .then(snapshot => {
-                    console.log('this is snapshot', snapshot);
+        //create a reference based on the files name
+        const fileRef = storageRef.child(`files/${file.name}`);
 
-                    //retrieve url to uploaded photo
-                    snapshot.ref.getDownloadURL().then(url => {
-                        console.log('this is url', url);
-                        //add uploaded photo to database
+        //upload file to fileRef
+        fileRef.put(file)
+            .then(snapshot => {
+
+                //retrieve url to uploaded file
+                snapshot.ref.getDownloadURL().then(url => {
+
+                    const fileUrl = url;
+
+                    if(photo) {
+                        //create a reference based on the photos name
+                        const photoRef = storageRef.child(`photos/${photo.name}`);
+
+                        //upload file to fileRef
+                        photoRef.put(photo)
+                            .then(snapshot => {
+                                //retrieve url to uploaded photo
+                                snapshot.ref.getDownloadURL().then(url => {
+                                    console.log('this is fileUrl', fileUrl);
+
+                                //add uploaded photo to database
+                                db.collection('recipes').add({
+                                    owner: currentUser.uid,
+                                    name: recipe.name,
+                                    comment: recipe.comment,
+                                    path: snapshot.ref.fullPath,
+                                    photoUrl: url, 
+                                    recipeUrl: fileUrl
+                                })
+                                    .then(() => {
+                                        navigate('/my-recipes/')
+                                    })
+                                    .catch(err => {
+                                        console.log('something went wrong', err);
+                                    })
+
+                                })
+                            })
+                            .catch(err => {
+                                console.log('problem uploading photo', err);
+                            })
+                    } else {
+                        //add uploaded recipe to database
                         db.collection('recipes').add({
+                            owner: currentUser.uid,
                             name: recipe.name,
                             comment: recipe.comment,
                             path: snapshot.ref.fullPath,
-                            photoUrl: url, 
-                            recipeUrl: 'hej'
+                            recipeUrl: fileUrl
                         })
                             .then(() => {
                                 navigate('/my-recipes/')
@@ -44,28 +85,15 @@ const CreateRecipeWithFile = () => {
                             .catch(err => {
                                 console.log('something went wrong', err);
                             })
-                        
-                    })
+                    }
                 })
                 .catch(err => {
                     console.log('something went wrong', err);
                 })
-
-        } else {
-            //add uploaded recipe to database
-            db.collection('recipes').add({
-                name: recipe.name,
-                url: recipe.url,
-                comment: recipe.comment,
             })
-                .then(() => {
-                    navigate('/my-recipes/')
-                })
-                .catch(err => {
-                    console.log('something went wrong', err);
-                })
-        }
-
+            .catch(err => {
+                console.log('something went wrong', err);
+            })
         
     }
 
@@ -78,6 +106,18 @@ const CreateRecipeWithFile = () => {
 
     const handleFileChange = (e) => {
 
+        const allowedFileTypes = ['image/jpeg', 'image/png'];
+        const selectedFile = e.target.files[0];
+
+        //if there is a photo and the type is ok, add it to state
+        if(selectedFile) {
+            if(allowedFileTypes.includes(selectedFile.type)) {
+                setFile(e.target.files[0])
+            }
+        }
+    }
+
+    const handlePhotoChange = (e) => {
         const allowedPhotoTypes = ['image/jpeg', 'image/png'];
         const selectedPhoto = e.target.files[0];
 
@@ -94,7 +134,7 @@ const CreateRecipeWithFile = () => {
             <form onSubmit={handleSubmit}>
 
                 <div>
-                    <label htmlFor="name">Receptnamn</label>
+                    <label htmlFor="name">Receptnamn *</label>
                     <input 
                         type="text"     
                         id="name" 
@@ -104,7 +144,7 @@ const CreateRecipeWithFile = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="recipePhoto">Bild på recept</label>
+                    <label htmlFor="recipePhoto">Ladda upp recept</label>
                     <input 
                         type="file"  
                         id="recipePhoto" 
@@ -114,7 +154,7 @@ const CreateRecipeWithFile = () => {
                 </div>
 
                 <div className="">
-                    <label htmlFor="comment" className="">Ev. kommentar</label>
+                    <label htmlFor="comment" className="">Kommentar</label>
                     <textarea 
                         name="comment" 
                         className="" 
@@ -125,16 +165,16 @@ const CreateRecipeWithFile = () => {
                 </div>
 
                 <div className="">
-                    <label htmlFor="photo" className="">Ev. bild på rätt</label>
+                    <label htmlFor="photo" className="">Bild</label>
                     <input 
                         type="file" 
                         className="" 
                         id="photo" 
-                        onChange={handleFileChange}
+                        onChange={handlePhotoChange}
                     />
                 </div>
 
-                <button type="submit" className="">Submit</button>
+                <button type="submit" className="">Skapa recept</button>
 
             </form>
             

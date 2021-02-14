@@ -27,10 +27,19 @@ const ShowSingleRecipe = (props) => {
                 )
             }
             {
+                recipe.recipeUrl && (
+                    <img src={recipe.recipeUrl } className="" alt="food"/>
+                )
+            }
+            {
                 recipe.comment && (
                     <div className="">
                         <p id="recipe-text">Kommentar</p>
                         <p>{recipe.comment}</p>
+
+                        {
+                            recipe.vegan && (<p>Veganskt</p>)
+                        }
                     </div>
                 )
                 
