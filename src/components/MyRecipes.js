@@ -1,31 +1,10 @@
-import { useEffect, useState } from 'react';
-import { db } from '../firebase';
 import RecipeCard from './RecipeCard';
+import useRecipes from '../hooks/useRecipes';
+
 
 const MyRecipes = () => {
 
-    const [recipes, setRecipes] = useState([]);
-    console.log('this is recipes from My recipes', recipes);
-    const getRecipes = async () => {
-        const myRecipes = [];
-
-        const snapshot = await db.collection('recipes').get();
-
-        snapshot.forEach(doc => {
-            myRecipes.push({
-                id: doc.id,
-                ...doc.data(),
-            });
-        });
-
-        console.log('this is myRecipes', myRecipes);
-
-        setRecipes(myRecipes);
-    }
-
-    useEffect(() => {
-        getRecipes();
-    }, [])
+    const { recipes } = useRecipes();
     
     return (
         <main className="">

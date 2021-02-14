@@ -1,12 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import foodPlaceholder from '../images/food_placeholder.png';
+import { Link } from 'react-router-dom';
 
 const RecipeCard = ({recipe}) => {
     const navigate = useNavigate();
-
-    const handleClickRecipe = () => {
-        navigate(`/my-recipes/${recipe.id}`, {state: {recipe}})
-    }
 
     return (
         <div>
@@ -23,7 +20,7 @@ const RecipeCard = ({recipe}) => {
                     <h5 className="card-title">{recipe.name}</h5>
                     <p className="card-text">{recipe.comment}</p>
                    
-                    <button className="" onClick={handleClickRecipe}> Till receptet</button>
+                    <Link to={`/my-recipes/${recipe.id}`} className=""> Till receptet</Link>
 
                 </div>
             </div>

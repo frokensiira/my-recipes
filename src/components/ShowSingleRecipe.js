@@ -1,36 +1,36 @@
 import foodPlaceholder from '../images/food_placeholder.png';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import useRecipe from '../hooks/useRecipe';
 
 const ShowSingleRecipe = (props) => {
 
-    const location = useLocation();
-
-    console.log('this is location.state.recipe', location.state.recipe);
-    const { name } = location.state.recipe;
+    const { recipeId } = useParams();
+    const { recipe, loading } = useRecipe(recipeId);
 
     return (
         <div className="">
-            <h1>{name}</h1>
+        
+            <h1>{recipe.name}</h1>
 
             {
-                location.state.recipe.photoUrl 
-                ? ( <img src={location.state.recipe.photoUrl } className="w-50 p-3 img-thumbnail" alt="food"/>)
-                : ( <img src={foodPlaceholder} className="w-50 p-3 img-thumbnail" alt="plate"/>)
+                recipe.photoUrl 
+                ? ( <img src={recipe.photoUrl } className="" alt="food"/>)
+                : ( <img src={foodPlaceholder} className="" alt="plate"/>)
             }
            
 
             {
-                location.state.recipe.url && (
-                    <div class="">
-                        <a href={location.state.recipe.url} className="btn btn-primary" target="_blank" rel="noreferrer">Länk till receptet</a>
+                recipe.url && (
+                    <div className="">
+                        <a href={recipe.url} className="btn btn-primary" target="_blank" rel="noreferrer">Länk till receptet</a>
                     </div>
                 )
             }
             {
-                location.state.recipe.comment && (
+                recipe.comment && (
                     <div className="">
                         <p id="recipe-text">Kommentar</p>
-                        <p>{location.state.recipe.comment}</p>
+                        <p>{recipe.comment}</p>
                     </div>
                 )
                 

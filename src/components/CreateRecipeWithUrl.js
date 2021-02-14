@@ -1,8 +1,14 @@
 import { useState } from 'react';
 import { db, storage } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const CreateRecipeWithUrl = () => {
+
+    const { currentUser } = useAuth();
+
+    console.log('currentuser', currentUser);
+
     const navigate = useNavigate();
     const [recipe, setRecipe] = useState({
         name: '',
@@ -31,6 +37,7 @@ const CreateRecipeWithUrl = () => {
 
                         //add uploaded photo to database
                         db.collection('recipes').add({
+                            owner: currentUser.uid,
                             name: recipe.name,
                             url: recipe.url,
                             comment: recipe.comment,
@@ -53,6 +60,7 @@ const CreateRecipeWithUrl = () => {
         } else {
             //add uploaded recipe to database
             db.collection('recipes').add({
+                owner: currentUser.uid,
                 name: recipe.name,
                 url: recipe.url,
                 comment: recipe.comment,

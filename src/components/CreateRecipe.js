@@ -4,10 +4,10 @@ const CreateRecipe = () => {
     return (
         <div>
             <div>
-                <Link to={`/create-recipe/url/`}>
+                <Link to={`/my-recipes/create-recipe/url/`}>
                     Skapa recept med länk
                 </Link>
-                <Link to={`/create-recipe/photo/`}>
+                <Link to={`/my-recipes/create-recipe/photo/`}>
                     Skapa recept med foto
                 </Link>
             </div>

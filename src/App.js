@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import '../src/styles/app.css';
+import AccessDenied from './components/AccessDenied';
 import AuthContextProvider from '../src/contexts/AuthContext';
 import AuthRoute from '../src/components/AuthRoute';
 import CreateRecipe from './components/CreateRecipe';
@@ -67,7 +68,9 @@ function App() {
 						
 					</AuthRoute>
 
-					
+					<Route path="/403">
+						<AccessDenied/>
+					</Route>
 
 					<Route path="*" element={<NotFound/>}/>
 						
