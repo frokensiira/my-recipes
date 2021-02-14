@@ -1,14 +1,10 @@
 import { useState } from 'react';
-import { db, storage } from '../firebase';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 import useCreateUrlRecipe from '../hooks/useCreateUrlRecipe';
 
 const CreateRecipeWithUrl = () => {
 
     const [submit, setSubmit] = useState(null);
     const [vegan, setVegan] = useState(false);
-    const navigate = useNavigate();
     const [recipe, setRecipe] = useState(null);
     const [photo, setPhoto] = useState(null);
     useCreateUrlRecipe(recipe, photo, vegan, submit);
@@ -51,7 +47,9 @@ const CreateRecipeWithUrl = () => {
     }
 
     return (
-        <div className="">
+        <>
+            <h1 className="page__title">Skapa recept</h1>
+            <p className="page__text">Steg 2 av 2</p>
             <form onSubmit={handleSubmit}>
 
                 <div className="">
@@ -104,7 +102,7 @@ const CreateRecipeWithUrl = () => {
 
             </form>
             
-        </div>
+        </>
     )
 }
 

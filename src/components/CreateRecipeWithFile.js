@@ -1,13 +1,8 @@
 import { useState } from 'react';
-import { db, storage } from '../firebase';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 import useCreateFileRecipe from '../hooks/useCreateFileRecipe';
 
 const CreateRecipeWithFile = () => {
 
-    const navigate = useNavigate();
-    const { currentUser } = useAuth();
     const [recipe, setRecipe] = useState(null);
     const [photo, setPhoto] = useState(null);
     const [file, setFile] = useState(null);
@@ -67,6 +62,8 @@ const CreateRecipeWithFile = () => {
 
     return (
         <div>
+            <h1 className="page__title">Skapa recept</h1>
+            <p className="page__text">Steg 2 av 2</p>
             <form onSubmit={handleSubmit}>
 
                 <div>

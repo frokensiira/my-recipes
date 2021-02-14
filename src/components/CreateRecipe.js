@@ -1,17 +1,12 @@
-import { Link } from 'react-router-dom';
+import CreateRecipeButtons from './CreateRecipeButtons'
 
 const CreateRecipe = () => {
     return (
-        <div>
-            <div>
-                <Link to={`/my-recipes/create-recipe/url/`}>
-                    Skapa recept med länk
-                </Link>
-                <Link to={`/my-recipes/create-recipe/file/`}>
-                    Skapa recept med foto
-                </Link>
-            </div>
-        </div>
+        <>
+            <h1 className="page__title">Skapa recept</h1>
+            <p className="page__text">Steg 1 av 2</p>
+            <CreateRecipeButtons/>
+        </>
     )
 }
 

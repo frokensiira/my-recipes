@@ -1,3 +1,4 @@
-.page__title {
+.page__title,
+.page__text {
     text-align: center;
 }

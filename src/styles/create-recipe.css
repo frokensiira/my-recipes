@@ -1,0 +1,25 @@
+.create-recipe {
+    display: flex;
+    max-width: 30rem;
+    margin: 3rem auto;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-recipe__button {
+    padding: 1rem;
+    width: 100%;
+    display: block;
+    cursor: pointer;
+    background-color: #000;
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.create-recipe__link{
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    
+    margin-bottom: 1rem;
+}
