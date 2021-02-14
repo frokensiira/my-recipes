@@ -52,11 +52,6 @@ const Navbar = () => {
 				}
 				
 			</ul>
-			<div className="navbar__burger" onClick={handleBurgerMenu}>
-				<div className="navbar__burger--line"></div>
-				<div className="navbar__burger--line"></div>
-				<div className="navbar__burger--line"></div>
-			</div>
 
 		</nav>
 

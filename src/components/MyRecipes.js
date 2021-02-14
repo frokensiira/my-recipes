@@ -7,9 +7,7 @@ const MyRecipes = () => {
     const { recipes } = useRecipes();
     
     return (
-        <main className="">
-
-            <div className="">
+        <main className="cards">
 
             {
                 recipes.length !== 0 && (
@@ -19,7 +17,6 @@ const MyRecipes = () => {
                 )
             }   
 
-            </div>
         </main> 
     )
 }
