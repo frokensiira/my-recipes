@@ -25,7 +25,6 @@ const useRecipes = () => {
                     });
                 });
 
-                console.log('myrecipes', myRecipes);
                 setLoading(false);
                 setRecipes(myRecipes);
         });

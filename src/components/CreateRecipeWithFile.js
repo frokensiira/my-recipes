@@ -7,16 +7,12 @@ const CreateRecipeWithFile = () => {
 
     const navigate = useNavigate();
     const { currentUser } = useAuth();
-    const [recipe, setRecipe] = useState({
-        name: '',
-        url: '',
-        comment: '',
-    });
+    const [recipe, setRecipe] = useState(null);
     const [photo, setPhoto] = useState(null);
     const [file, setFile] = useState(null);
+    const [vegan, setVegan] = useState(false);
 
     const handleSubmit = (e) => {
-        console.log();
         e.preventDefault();
 
         if(!file){
@@ -56,7 +52,8 @@ const CreateRecipeWithFile = () => {
                                     comment: recipe.comment,
                                     path: snapshot.ref.fullPath,
                                     photoUrl: url, 
-                                    recipeUrl: fileUrl
+                                    recipeUrl: fileUrl,
+                                    vegan
                                 })
                                     .then(() => {
                                         navigate('/my-recipes/')
@@ -77,7 +74,8 @@ const CreateRecipeWithFile = () => {
                             name: recipe.name,
                             comment: recipe.comment,
                             path: snapshot.ref.fullPath,
-                            recipeUrl: fileUrl
+                            recipeUrl: fileUrl,
+                            vegan
                         })
                             .then(() => {
                                 navigate('/my-recipes/')
@@ -102,6 +100,13 @@ const CreateRecipeWithFile = () => {
 			...recipe,
 			[e.target.id]: e.target.value
 		});
+    }
+
+    const handleCheckbox = (e) => {
+        setVegan(false);
+        if(e.target.checked === true) {
+            setVegan(true);
+        }
     }
 
     const handleFileChange = (e) => {
@@ -172,6 +177,11 @@ const CreateRecipeWithFile = () => {
                         id="photo" 
                         onChange={handlePhotoChange}
                     />
+                </div>
+
+                <div>
+                    <input type="checkbox" name="Veganskt" onChange={handleCheckbox}/>
+                    <label>Veganskt</label>
                 </div>
 
                 <button type="submit" className="">Skapa recept</button>
