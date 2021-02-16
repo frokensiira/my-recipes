@@ -1,0 +1,58 @@
+.form {
+    background-color: #91b39b46;
+    padding: 3rem;
+    border-radius: 4px;
+}
+
+.form form {
+    margin-bottom: 1rem;
+}
+
+.form__wrapper{
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    
+}
+
+.form__inputs {
+    margin-bottom: 1.5rem;
+}
+
+.form__input {
+    margin-bottom: 0.8rem;
+    width: 100%;
+}
+
+.form__input input {
+    padding: 0.7rem;
+    border: 0;
+    border: 1px solid #eee;
+    transition: .3s border-color;
+    box-shadow:0 0 10px 4px rgba(0,0,0,0.06);
+    font-size: 0.8rem;
+}
+
+.form__input input:hover {
+    border: 1px solid #aaa;
+}
+
+.form__icon {
+    margin-right: 0.5rem;
+}
+
+.form__button {
+    display: flex;
+    justify-content: center;
+}
+
+.form__button button {
+    padding: 0.7rem 2rem;
+    background-color: #000;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.form__text {
+    font-size: 0.7rem;
+}

@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -27,43 +27,34 @@ const Login = () => {
     }
 
     return (  
-        <div>
-            <div>
-                <div>
-                    <div className="">
-                        <div className="">
-                            <div className="">
-                                Logga in
-                            </div>
+        <>
+            <h1 className="page__title">Logga in</h1>
+            <div className="form__wrapper">
+                <div className="form">
 
-                            {error && (<div variant="danger">{error}</div>)}
+                    {error && (<div variant="danger">{error}</div>)}
 
-                            <form onSubmit={handleSubmit}>
-                                
-                                <div>
-                                    <label ><FontAwesomeIcon icon={faUser}/></label>
-                                    
-                                    <div className="">
-                                        <input className="" type="email" ref={emailRef} placeholder="Email" required/>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label ><FontAwesomeIcon icon={faUnlockAlt}/></label>
-                                    <div className="">
-                                        <input className="" type="password" ref={passwordRef} required placeholder="Lösenord"/>
-                                    </div>
-                                </div>
-                                
-
-                                <button disabled={loading} type="submit" className="">Logga in</button>
-                            </form>
-                            <p>Har du inget ett konto? <Link to="/signup">Skapa konto</Link></p>
+                    <form onSubmit={handleSubmit}>
+                        
+                        <div className="form__input">
+                            <FontAwesomeIcon icon={faUser} className="form__icon"/>
+                            <input type="email" ref={emailRef} placeholder="Email" required/>
                         </div>
-                    </div>
+
+                        <div className="form__input">
+                            <FontAwesomeIcon icon={faLock} className="form__icon"/>
+                            <input type="password" ref={passwordRef} required placeholder="Lösenord"/>
+                        </div>
+                        
+                        <div className="form__button">
+                            <button disabled={loading} type="submit" className="">Logga in</button>
+                            
+                        </div>
+                    </form>
+                    <p className="form__text">Har du inget ett konto? <Link to="/signup">Skapa konto</Link></p>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
  
