@@ -3,6 +3,8 @@ import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
 import { Link } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
+/* import banner from '../assets/banner.svg'; */
+import {ReactComponent as Banner} from '../assets/banner.svg';
 
 const Home = () => {
     const { currentUser, loading } = useAuth();
@@ -37,14 +39,19 @@ const Home = () => {
                 (<p>You are signed in as <strong>{currentUser && currentUser.email}</strong></p>)
                 : ''
             }
-            <section className="banner-section">
-                <h1>My Veggie Recipes</h1>
-                <p>Skapa och inspireras av nya vegetariska och veganska recept</p>
-                <button><Link to={`/signup`} className="navbar__nav-link">Skapa konto</Link></button>
+            <section className="banner">
+                <div className="banner__text-area">
+                    <h1 className="banner__heading">My Veggie Recipes</h1>
+                    <p className="banner__text">Skapa och inspireras av nya vegetariska recept! Se alla recept i menyn eller skapa konto för att kunna lägga in dina favoritrecept eller spara andras.</p>
+                    <button className="banner__button"><Link className="banner__link" to={`/signup`}>Skapa konto</Link></button>
+                </div>
+                <div className="banner__image">
+                    <Banner/>
+                </div>
             </section>
             <main className="page">
 
-                <h1 className="page__title">Alla recept</h1>
+                <h1 className="page__title">Senast tillagda recepten</h1>
                 <div className="cards">
                     
                     {

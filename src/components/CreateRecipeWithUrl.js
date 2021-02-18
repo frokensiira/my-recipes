@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useCreateUrlRecipe from '../hooks/useCreateUrlRecipe';
-import placeholder from '../images/placeholder.png';
+import placeholder from '../assets/images/placeholder.png';
 
 const CreateRecipeWithUrl = () => {
 

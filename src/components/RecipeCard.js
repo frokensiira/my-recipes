@@ -1,4 +1,4 @@
-import foodPlaceholder from '../images/food_placeholder.png';
+import foodPlaceholder from '../assets//images/food_placeholder.png';
 import { Link } from 'react-router-dom';
 
 const RecipeCard = ({recipe}) => {

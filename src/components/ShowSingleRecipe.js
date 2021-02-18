@@ -1,4 +1,4 @@
-import foodPlaceholder from '../images/food_placeholder.png';
+import foodPlaceholder from '../assets/images/food_placeholder.png';
 import { useParams } from 'react-router-dom';
 import useRecipe from '../hooks/useRecipe';
 import { SRLWrapper } from 'simple-react-lightbox';

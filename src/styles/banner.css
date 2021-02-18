@@ -1,0 +1,43 @@
+.banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 2rem;
+}
+
+.banner__text-area {
+    align-self: center;
+    justify-self: center;
+    max-width: 20rem;
+    text-align: center;
+}
+
+.banner__heading {
+    font-weight: 800;
+    font-size: 2.5rem;
+    line-height: 3rem;
+}
+
+.banner__text:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+.banner__button {
+    padding: 0.7rem 2rem;
+    background-color: #000;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.banner__link {
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    font-weight: 400;
+}
+
+.banner__image svg{
+    max-width: 30rem;
+    transform: rotate(-15deg);
+}
+
