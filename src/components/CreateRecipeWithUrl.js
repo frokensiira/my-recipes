@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import useCreateUrlRecipe from '../hooks/useCreateUrlRecipe';
 import placeholder from '../assets/images/placeholder.png';
 import axios from 'axios';
+import { storage } from '../firebase';
 
 const CreateRecipeWithUrl = () => {
 
@@ -13,9 +14,10 @@ const CreateRecipeWithUrl = () => {
         photoUrl: '',
         url: ''
     });
-    const [photo, setPhoto] = useState(null);
+    const [photoUrl, setPhotoUrl] = useState(null);
+    const [fullPath, setFullPath] = useState(null);
 
-    useCreateUrlRecipe(recipe, photo, vegan, submit);
+    useCreateUrlRecipe(recipe, photoUrl, fullPath, vegan, submit);
 
     const handleCheckbox = (e) => {
         setVegan(false);
@@ -43,12 +45,14 @@ const CreateRecipeWithUrl = () => {
             const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
             const response = await axios.get(requestUrl);
 
+            console.log(response);
+
             if(!response.data.error) {
 
                 setRecipe({
                     ...recipe,
                     name: response.data.ogTitle,
-                    comment: response.data.twitterDescription,
+                    comment: response.data.ogDescription ? response.data.ogDescription : response.data.twitterDescription,
                     photoUrl: response.data.ogImage.url,
                     url: e.target.value
                 });
@@ -65,7 +69,28 @@ const CreateRecipeWithUrl = () => {
         //if there is a photo and the type is ok, add it to state
         if(selectedPhoto) {
             if(allowedPhotoTypes.includes(selectedPhoto.type)) {
-                setPhoto(e.target.files[0])
+
+                //get root reference
+                const storageRef = storage.ref();
+    
+                //create a reference based on the photos name
+                const fileRef = storageRef.child(`photos/${e.target.files[0].name}`);
+                
+                //upload photo to fileRef
+                fileRef.put(e.target.files[0])
+                    .then(snapshot => {
+    
+                        //retrieve url to uploaded photo
+                        snapshot.ref.getDownloadURL().then(url => {
+                            setFullPath(snapshot.ref.fullPath);
+                            setPhotoUrl(url);
+                            
+                        })
+                    })
+                .catch(err => {
+                    console.log('something went wrong', err);
+                })
+    
             }
         }
     }
@@ -80,8 +105,8 @@ const CreateRecipeWithUrl = () => {
                     <img className="recipe-form__image" 
                         src=
                         {
-                            recipe.photoUrl
-                            ? `${recipe.photoUrl}` 
+                            photoUrl ? `${photoUrl}`
+                            : recipe.photoUrl ? `${recipe.photoUrl}`
                             : `${placeholder}`
                         }
                         
@@ -146,4 +171,4 @@ const CreateRecipeWithUrl = () => {
     )
 }
 
-export default CreateRecipeWithUrl
+export default CreateRecipeWithUrl;
