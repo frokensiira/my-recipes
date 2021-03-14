@@ -21,11 +21,28 @@ const ShowSingleRecipe = (props) => {
                 : (
                     <div className="recipe">       
 
+                        
                         {
                             recipe.photoUrl 
-                            ? ( <img src={recipe.photoUrl } className="recipe__image" alt="food"/>)
-                            : ( <img src={foodPlaceholder} className="" alt="plate"/>)
+                            ? 
+                            ( 
+                                <SRLWrapper>
+                                    <a href={recipe.photoUrl} title="Visa bild" data-attribute="SRL">
+                                        <img src={recipe.photoUrl } className="recipe__image" alt="food"/>
+                                    </a>
+                                </SRLWrapper>
+                            )
+                            : 
+                            ( 
+                                <SRLWrapper>
+                                    <a href={recipe.photoUrl} title="Visa bild" data-attribute="SRL">
+                                        <img src={foodPlaceholder} className="" alt="plate"/>
+                                    </a>
+                                </SRLWrapper>
+                            )
+
                         }
+                        
 
                         <div className="recipe__content">
 
