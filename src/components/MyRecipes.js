@@ -1,3 +1,4 @@
+import React from 'react';
 import RecipeCard from './RecipeCard';
 import useRecipes from '../hooks/useRecipes';
 

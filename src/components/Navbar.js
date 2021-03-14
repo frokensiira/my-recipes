@@ -1,52 +1,54 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import '../styles/navbar.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSortDown } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
 	const { currentUser } = useAuth();
-	const [newClass, setNewClass] = useState('');
-
-	/* console.log(currentUser); */
-
-	const handleBurgerMenu = () => {
-		if(newClass === '') {
-			setNewClass('navbar--active');
-		} else {
-			setNewClass('');
-		}
-	}
 
     return (
 
         <nav className="navbar">
 			<div>
-				<Link to={`/`} onClick={handleBurgerMenu} className="navbar__logo">My Veggie Recipes</Link>
+				<Link to={`/`} className="navbar__logo">My Veggie Recipes</Link>
 			</div>
 
 
-			<ul className={`navbar__nav-items ${newClass}`}>
+			<ul className={`navbar__nav-items`}>
 				<li className="navbar__nav-item">
-					<NavLink to={`/`} onClick={handleBurgerMenu} className="navbar__nav-link">Alla recept</NavLink>
+					<NavLink to={`/`} className="navbar__nav-link">Alla recept</NavLink>
 				</li>
 
 				{currentUser 
 					? (
 						<>
 							<li className="navbar__nav-item">
-								<NavLink to={`/my-recipes`} onClick={handleBurgerMenu} className="navbar__nav-link">Mina recept</NavLink>
+								<NavLink to={`/my-recipes`} className="navbar__nav-link">Mina recept</NavLink>
 							</li>
 							<li className="navbar__nav-item">
-								<NavLink to={`/my-recipes/create-recipe`} onClick={handleBurgerMenu} className="navbar__nav-link">Skapa recept</NavLink>
+								<NavLink to={`/my-recipes/create-recipe`} className="navbar__nav-link">Skapa recept</NavLink>
 							</li>
-							<li className="navbar__nav-item">
-								<NavLink to={`/logout`} onClick={handleBurgerMenu} className="navbar__nav-link">Logga ut</NavLink>
-							</li>
+							<button className="navbar__profile-button" aria-expanded="false">
+								<FontAwesomeIcon icon={faUserCircle} />
+								<FontAwesomeIcon icon={faSortDown} />
+							</button>
+							<ul className="navbar__dropdown">
+								<li className="navbar__nav-item">
+									<NavLink to={`/logout`} className="navbar__nav-link">Logga ut</NavLink>
+								</li>
+							</ul>
+							
 						</>
 					)
 					: (
 						<li className="navbar__nav-item">
-							<NavLink to={`/login`} onClick={handleBurgerMenu} className="navbar__nav-link">Logga in</NavLink>
+							<NavLink to={`/login`} className="navbar__nav-link">
+								<FontAwesomeIcon icon={faUser} className="form__icon"/>
+								Logga in
+							</NavLink>
 						</li>
 					)
 				}

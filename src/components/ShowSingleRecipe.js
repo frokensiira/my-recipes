@@ -1,3 +1,4 @@
+import React from 'react';
 import foodPlaceholder from '../assets/images/food_placeholder.png';
 import { useParams } from 'react-router-dom';
 import useRecipe from '../hooks/useRecipe';
@@ -7,6 +8,8 @@ const ShowSingleRecipe = (props) => {
 
     const { recipeId } = useParams();
     const { recipe, loading } = useRecipe(recipeId);
+
+    console.log('recipe', recipe);
 
     return (
 

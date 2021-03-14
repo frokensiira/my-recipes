@@ -12,7 +12,7 @@ const useCreateUrlRecipe = (recipe, photo, vegan, submit) => {
 
     useEffect(() => {
 
-        if(!recipe) {
+        if(!submit) {
             return;
         }
 
@@ -30,6 +30,8 @@ const useCreateUrlRecipe = (recipe, photo, vegan, submit) => {
 
                     //retrieve url to uploaded photo
                     snapshot.ref.getDownloadURL().then(url => {
+
+                        console.log('this is photo url', url);
 
                         //add uploaded photo to database
                         db.collection('recipes').add({
@@ -61,6 +63,7 @@ const useCreateUrlRecipe = (recipe, photo, vegan, submit) => {
                 name: recipe.name,
                 url: recipe.url,
                 comment: recipe.comment,
+                photoUrl: recipe.photoUrl,
                 vegan: vegan
             })
                 .then(() => {

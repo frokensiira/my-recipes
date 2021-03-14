@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import useCreateUrlRecipe from '../hooks/useCreateUrlRecipe';
 import placeholder from '../assets/images/placeholder.png';
+import axios from 'axios';
 
 const CreateRecipeWithUrl = () => {
 
     const [submit, setSubmit] = useState(null);
     const [vegan, setVegan] = useState(false);
-    const [recipe, setRecipe] = useState(null);
+    const [recipe, setRecipe] = useState({
+        name: '',
+        comment: '',
+        photoUrl: '',
+        url: ''
+    });
     const [photo, setPhoto] = useState(null);
+
     useCreateUrlRecipe(recipe, photo, vegan, submit);
 
     const handleCheckbox = (e) => {
@@ -20,18 +27,34 @@ const CreateRecipeWithUrl = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if(!recipe) {
-            return;
-        }
-
         setSubmit(true);
     }
 
-    const handleInput = (e) => {
+    const handleInput = async (e) => {
+
         setRecipe({
-			...recipe,
+            ...recipe,
 			[e.target.id]: e.target.value
 		});
+
+        if(e.target.id === 'url') {
+            const url = e.target.value;
+            const urlEncoded = encodeURIComponent(url);
+            const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
+            const response = await axios.get(requestUrl);
+
+            if(!response.data.error) {
+
+                setRecipe({
+                    ...recipe,
+                    name: response.data.ogTitle,
+                    comment: response.data.twitterDescription,
+                    photoUrl: response.data.ogImage.url,
+                    url: e.target.value
+                });
+
+            }
+        }
     }
 
     const handleFileChange = (e) => {
@@ -54,46 +77,56 @@ const CreateRecipeWithUrl = () => {
             <form className="recipe-form" onSubmit={handleSubmit}>
 
                 <div className="recipe-form__content">
-                    <img className="recipe-form__image" src={placeholder} alt="placeholder-image"/>
+                    <img className="recipe-form__image" 
+                        src=
+                        {
+                            recipe.photoUrl
+                            ? `${recipe.photoUrl}` 
+                            : `${placeholder}`
+                        }
+                        
+                        alt="placeholder-image"/>
 
                     <div className="recipe-form__inputs">
                         <div className="mb-3">
                             <label htmlFor="url" className="">Länk *</label>
-                            <input 
-                                type="url" 
-                                className="" 
-                                id="url" 
+                            <input
+                                type="url"
+                                className=""
+                                id="url"
                                 required
                                 onChange={handleInput}
                             />
                         </div>
                         <div className="">
                             <label htmlFor="name" className="form-label">Receptnamn *</label>
-                            <input 
-                                type="text"     
-                                className="" 
-                                id="name" 
+                            <input
+                                type="text"
+                                className=""
+                                id="name"
                                 required
+                                value={recipe.name}
                                 onChange={handleInput}
                             />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="comment" className="">Kommentar</label>
-                            <textarea 
-                                name="comment" 
-                                className="" 
-                                id="comment" 
+                            <textarea
+                                name="comment"
+                                className=""
+                                id="comment"
                                 onChange={handleInput}
+                                value={recipe.comment}
                             >
                             </textarea>
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="photo" className="">Bild</label>
-                            <input 
-                                type="file" 
-                                className="form-control" 
-                                id="photo" 
+                            <input
+                                type="file"
+                                className="form-control"
+                                id="photo"
                                 onChange={handleFileChange}
                             />
                         </div>
@@ -108,7 +141,7 @@ const CreateRecipeWithUrl = () => {
                 <button type="submit" className="">Skapa recept</button>
 
             </form>
-            
+
         </>
     )
 }

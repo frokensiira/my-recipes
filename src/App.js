@@ -1,3 +1,4 @@
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import '../src/styles/app.css';
 import SimpleReactLightbox from 'simple-react-lightbox';

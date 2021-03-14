@@ -26,6 +26,7 @@
     display: flex;
     justify-content: space-around;
     margin-right: 1rem;
+    align-items: center;
 }
 
 .navbar__nav-link {
@@ -40,6 +41,56 @@
     list-style: none;
     padding-right: 1rem;
     padding-left: 1rem;
+}
+
+.navbar__profile-button {
+    background-color: var(--light-pink);
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar__profile-button[aria-expanden] {
+
+}
+
+.navbar__dropdown {
+
+}
+
+.navbar__nav-item a {
+    position: relative;
+    padding-bottom: 0.5em;
+}
+
+.navbar__nav-item a::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 0%;
+    content: '.';
+    color: transparent;
+    background: #aaa;
+    height: 1px;
+    transition: all .5s;
+}
+
+.navbar__nav-item a:hover::after {
+    width: 100%;
+}
+
+
+.navbar__profile-button .svg-inline--fa.fa-w-16 {
+    width: 2em;
+    height: auto;
+}
+
+.navbar__profile-button .svg-inline--fa.fa-w-10 {
+    width: 1em;
+    height: auto;
+    margin-left: 0.3em;
 }
 
 @media (max-width: 1024px) {

@@ -1,6 +1,5 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../firebase';
-import { RingLoader } from 'react-spinners';
 
 const AuthContext = createContext();
 
@@ -46,7 +45,7 @@ const AuthContextProvider = props => {
 
     return(
         <AuthContext.Provider value={contextValues}>
-            {loading && (<div><RingLoader color={"#888"} size={50}/></div>)}
+            {loading && (<div></div>)}
             {!loading && props.children}
         </AuthContext.Provider>
     )

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 

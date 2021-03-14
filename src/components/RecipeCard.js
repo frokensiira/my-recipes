@@ -1,3 +1,4 @@
+import React from 'react';
 import foodPlaceholder from '../assets//images/food_placeholder.png';
 import { Link } from 'react-router-dom';
 
