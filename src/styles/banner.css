@@ -35,13 +35,12 @@
 .banner__link {
     color: #fff;
     text-decoration: none;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     letter-spacing: 1px;
     font-weight: 400;
 }
 
-.banner__image svg{
+.banner__image svg {
     max-width: 30rem;
     transform: rotate(-15deg);
 }
-

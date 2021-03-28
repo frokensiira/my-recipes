@@ -1,7 +1,7 @@
-import firebase from 'firebase/app';
+import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
-import 'firebase/auth';
+import "firebase/auth";
 
 // get configuration from Project Settings for app in Firebase Console
 const firebaseConfig = {
@@ -10,13 +10,11 @@ const firebaseConfig = {
     projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
     storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
-
 
 // initialize connection to Firebase
 firebase.initializeApp(firebaseConfig);
-
 
 // initialize Firebase Auth
 const auth = firebase.auth();
@@ -27,4 +25,4 @@ const db = firebase.firestore();
 // initialize Firebase Storage
 const storage = firebase.storage();
 
-export { auth, db, storage, firebase as default }
+export { auth, db, storage, firebase as default };

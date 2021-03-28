@@ -2,9 +2,9 @@
  * Main app styles
  */
 
-@import './variables.css';
-@import './typography.css';
-@import './main.css';
+@import "./variables.css";
+@import "./typography.css";
+@import "./main.css";
 
 * {
     padding: 0;
@@ -36,4 +36,3 @@ h2 {
 button {
     cursor: pointer;
 }
-

@@ -2,10 +2,10 @@
  * CSS Variables
  */
 
- :root {
-    --light-pink: #F4EBE2;
-    --light-red: #EBA69C;
-    --green: #84B292;
-    --light-yellow: #F7EA89;
-    --yellow: #FEDF81;
+:root {
+    --light-pink: #f4ebe2;
+    --light-red: #eba69c;
+    --green: #84b292;
+    --light-yellow: #f7ea89;
+    --yellow: #fedf81;
 }

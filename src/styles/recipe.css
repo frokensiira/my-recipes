@@ -24,11 +24,10 @@
 }
 
 .recipe__file {
-
     align-self: end;
 }
 
-.recipe__file img{
+.recipe__file img {
     display: block;
     width: 100%;
     height: 10vw;
@@ -37,9 +36,8 @@
 }
 
 .recipe__file-button {
-    padding: 
+    padding: ;
 }
 
 .recipe__file::after {
-
 }

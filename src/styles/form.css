@@ -8,7 +8,7 @@
     margin-bottom: 1rem;
 }
 
-.form__wrapper{
+.form__wrapper {
     display: flex;
     justify-content: center;
     margin-top: 3rem;
@@ -27,8 +27,8 @@
     padding: 0.7rem;
     border: 0;
     border: 1px solid #eee;
-    transition: .3s border-color;
-    box-shadow:0 0 10px 4px rgba(0,0,0,0.06);
+    transition: 0.3s border-color;
+    box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.06);
     font-size: 0.8rem;
 }
 
@@ -50,9 +50,8 @@
     background-color: #000;
     color: #fff;
     font-size: 0.9rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 400;
-    
 }
 
 .form__text {

@@ -17,12 +17,11 @@
     position: relative;
 }
 
-.recipe-form__image img{
+.recipe-form__image img {
     display: block;
     width: 100%;
     height: 18rem;
     object-fit: cover;
-    
 }
 
 .recipe-form__overlay {
@@ -33,7 +32,7 @@
     right: 0;
     height: 100%;
     width: 100%;
-    background: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.5);
     filter: blur(10px);
     -webkit-filter: blur(3px);
     -moz-filter: blur(3px);
@@ -51,5 +50,24 @@
 .recipe-form__inputs {
     padding-left: 2rem;
     padding-right: 2rem;
-    
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-form__input {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.recipe-form__input,
+.recipe-form__textarea {
+    border: 1px solid rgb(211, 209, 209);
+    border-radius: 0.3rem;
+}
+
+.recipe-form__textarea {
+    margin-bottom: 1rem;
 }
