@@ -97,6 +97,10 @@ const CreateRecipeWithUrl = () => {
         }
     }
 
+    console.log('photoUrl is', photoUrl);
+    console.log('photoUrl recipe is', recipe.photoUrl);
+    
+
     return (
         <>
             <h1 className="page__title">Skapa recept</h1>
@@ -119,9 +123,12 @@ const CreateRecipeWithUrl = () => {
                         }
                         
                         alt="placeholder-image"/>
-                        <div className="recipe-form__overlay">
-                            {/* <div className="recipe-form__image-text">Bild på recept</div> */}
-                        </div>
+                        {
+                            !photoUrl && !recipe.photoUrl  &&
+                            (<div className="recipe-form__overlay">
+                            </div>)
+                        }
+                        
                         <p className="recipe-form__image-text">Bild på recept</p>
                     </div>
 
