@@ -14,13 +14,42 @@
 }
 
 .recipe-form__image {
+    position: relative;
+}
+
+.recipe-form__image img{
     display: block;
     width: 100%;
-    height: 20vw;
+    height: 33vw;
     object-fit: cover;
+    
+}
+
+.recipe-form__overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255,255,255,0.5);
+    filter: blur(10px);
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+}
+
+.recipe-form__image-text {
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    color: #fff;
 }
 
 .recipe-form__inputs {
     padding-left: 2rem;
     padding-right: 2rem;
+    
 }

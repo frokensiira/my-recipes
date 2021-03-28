@@ -16,6 +16,7 @@ const CreateRecipeWithUrl = () => {
     });
     const [photoUrl, setPhotoUrl] = useState(null);
     const [fullPath, setFullPath] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useCreateUrlRecipe(recipe, photoUrl, fullPath, vegan, submit);
 
@@ -40,6 +41,7 @@ const CreateRecipeWithUrl = () => {
 		});
 
         if(e.target.id === 'url') {
+            setLoading(true);
             const url = e.target.value;
             const urlEncoded = encodeURIComponent(url);
             const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
@@ -56,7 +58,7 @@ const CreateRecipeWithUrl = () => {
                     photoUrl: response.data.ogImage.url,
                     url: e.target.value
                 });
-
+                setLoading(false);
             }
         }
     }
@@ -101,8 +103,14 @@ const CreateRecipeWithUrl = () => {
             <p className="page__text">Steg 2 av 2</p>
             <form className="recipe-form" onSubmit={handleSubmit}>
 
+            {
+                loading && (<p>Laddar...</p>)
+            }
+                
                 <div className="recipe-form__content">
-                    <img className="recipe-form__image" 
+
+                    <div className="recipe-form__image">
+                        <img className="recipe-form__image" 
                         src=
                         {
                             photoUrl ? `${photoUrl}`
@@ -111,10 +119,17 @@ const CreateRecipeWithUrl = () => {
                         }
                         
                         alt="placeholder-image"/>
+                        <div className="recipe-form__overlay">
+                            {/* <div className="recipe-form__image-text">Bild på recept</div> */}
+                        </div>
+                        <p className="recipe-form__image-text">Bild på recept</p>
+                    </div>
+
+                    
 
                     <div className="recipe-form__inputs">
                         <div className="mb-3">
-                            <label htmlFor="url" className="">Länk *</label>
+                            <label htmlFor="url" className="">Länk*</label>
                             <input
                                 type="url"
                                 className=""
@@ -124,7 +139,7 @@ const CreateRecipeWithUrl = () => {
                             />
                         </div>
                         <div className="">
-                            <label htmlFor="name" className="form-label">Receptnamn *</label>
+                            <label htmlFor="name" className="form-label">Receptnamn*</label>
                             <input
                                 type="text"
                                 className=""

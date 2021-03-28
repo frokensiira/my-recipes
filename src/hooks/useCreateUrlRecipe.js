@@ -28,15 +28,13 @@ const useCreateUrlRecipe = (recipe, photoUrl, fullPath, vegan, submit) => {
                 photoUrl: photoUrl,
                 vegan: vegan
             })
-                .then(() => {
-                    navigate('/my-recipes/')
-                })
-                .catch(err => {
-                    console.log('something went wrong', err);
-                })
+            .then(() => {
+                navigate('/my-recipes/')
+            })
             .catch(err => {
                 console.log('something went wrong', err);
             })
+            
 
         } else {
             //add uploaded recipe to database
@@ -48,12 +46,12 @@ const useCreateUrlRecipe = (recipe, photoUrl, fullPath, vegan, submit) => {
                 photoUrl: recipe.photoUrl,
                 vegan: vegan
             })
-                .then(() => {
-                    navigate('/my-recipes/')
-                })
-                .catch(err => {
-                    console.log('something went wrong', err);
-                })
+            .then(() => {
+                navigate('/my-recipes/')
+            })
+            .catch(err => {
+                console.log('something went wrong', err);
+            })
         }
 
     }, [submit]);

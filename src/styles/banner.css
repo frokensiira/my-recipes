@@ -28,6 +28,10 @@
     font-size: 0.9rem;
 }
 
+.banner__button:hover {
+    background-color: var(--light-red);
+}
+
 .banner__link {
     color: #fff;
     text-decoration: none;

@@ -3,7 +3,6 @@ import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
 import { Link } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
-/* import banner from '../assets/banner.svg'; */
 import {ReactComponent as Banner} from '../assets/banner.svg';
 
 const Home = () => {

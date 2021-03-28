@@ -11,7 +11,7 @@ const CreateRecipeButtons = () => {
             </Link>
             <Link className="create-recipe__link" to={`/my-recipes/create-recipe/file/`}>
                 <button className="create-recipe__button">
-                    Ladda upp receptfil
+                    Ladda upp en receptfil
                 </button>
             </Link>
         </div>
