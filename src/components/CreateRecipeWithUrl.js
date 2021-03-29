@@ -48,14 +48,22 @@ const CreateRecipeWithUrl = () => {
                 const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
                 const response = await axios.get(requestUrl);
 
+                console.log("response", response);
+
                 if (!response.data.error) {
                     setRecipe({
                         ...recipe,
-                        name: response.data.ogTitle,
+                        name: response.data.ogTitle
+                            ? response.data.ogTitle
+                            : "",
                         comment: response.data.ogDescription
                             ? response.data.ogDescription
-                            : response.data.twitterDescription,
-                        photoUrl: response.data.ogImage.url,
+                            : response.data.twitterDescription
+                            ? response.data.twitterDescription
+                            : "",
+                        photoUrl: response.data.ogImage
+                            ? response.data.ogImage.url
+                            : "",
                         url: e.target.value,
                     });
                     setLoading(false);
@@ -71,9 +79,6 @@ const CreateRecipeWithUrl = () => {
         if (acceptedFile.length === 0) {
             return;
         }
-
-        console.log("acceptedFile[0]", acceptedFile[0]);
-        console.log("acceptedFile[0].name", acceptedFile[0].name);
 
         //get root reference
         const storageRef = storage.ref();
