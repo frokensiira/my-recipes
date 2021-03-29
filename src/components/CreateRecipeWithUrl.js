@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import useCreateUrlRecipe from "../hooks/useCreateUrlRecipe";
 import placeholder from "../assets/images/placeholder.png";
 import axios from "axios";
 import { storage } from "../firebase";
 import ClipLoader from "react-spinners/ClipLoader";
+import { useDropzone } from "react-dropzone";
 
 const CreateRecipeWithUrl = () => {
     const [submit, setSubmit] = useState(null);
@@ -40,7 +41,6 @@ const CreateRecipeWithUrl = () => {
         });
 
         if (e.target.id === "url") {
-
             if (e.target.value.includes("http")) {
                 setLoading(true);
                 const url = e.target.value;
@@ -66,53 +66,57 @@ const CreateRecipeWithUrl = () => {
         }
     };
 
-    const handleFileChange = (e) => {
-        console.log("this is photo", e.target.files[0]);
-        const allowedPhotoTypes = ["image/jpeg", "image/png"];
-        const selectedPhoto = e.target.files[0];
-
-        //if there is a photo and the type is ok, add it to state
-        if (selectedPhoto) {
-            if (allowedPhotoTypes.includes(selectedPhoto.type)) {
-                //get root reference
-                const storageRef = storage.ref();
-
-                //create a reference based on the photos name
-                const fileRef = storageRef.child(
-                    `photos/${e.target.files[0].name}`
-                );
-
-                //upload photo to fileRef
-                fileRef
-                    .put(e.target.files[0])
-                    .then((snapshot) => {
-                        //retrieve url to uploaded photo
-                        snapshot.ref.getDownloadURL().then((url) => {
-                            setFullPath(snapshot.ref.fullPath);
-                            setPhotoUrl(url);
-                        });
-                    })
-                    .catch((err) => {
-                        console.log("something went wrong", err);
-                    });
-            }
+    // Dropzone
+    const onDrop = useCallback((acceptedFile) => {
+        if (acceptedFile.length === 0) {
+            return;
         }
-    };
 
-    console.log("photoUrl is", photoUrl);
-    console.log("photoUrl recipe is", recipe.photoUrl);
+        console.log("acceptedFile[0]", acceptedFile[0]);
+        console.log("acceptedFile[0].name", acceptedFile[0].name);
+
+        //get root reference
+        const storageRef = storage.ref();
+
+        //create a reference based on the photos name
+        const fileRef = storageRef.child(`photos/${acceptedFile[0].name}`);
+
+        // //upload photo to fileRef
+        fileRef
+            .put(acceptedFile[0])
+            .then((snapshot) => {
+                //retrieve url to uploaded photo
+                snapshot.ref.getDownloadURL().then((url) => {
+                    setFullPath(snapshot.ref.fullPath);
+                    setPhotoUrl(url);
+                });
+            })
+            .catch((err) => {
+                console.log("something went wrong", err);
+            });
+    }, []);
+
+    const {
+        getRootProps,
+        getInputProps,
+        isDragActive,
+        isDragAccept,
+        isDragReject,
+    } = useDropzone({
+        accept: "image/jpeg, image/png",
+        onDrop,
+    });
 
     return (
         <>
             <h1 className="page__title">Skapa recept</h1>
             <p className="page__text">Steg 2 av 2</p>
             <form className="recipe-form" onSubmit={handleSubmit}>
-                {loading && 
-                
-                <div class="recipe-form--loading"><ClipLoader color="var(--green)"/></div>
-                
-                
-                }
+                {loading && (
+                    <div className="recipe-form--loading">
+                        <ClipLoader color="var(--green)" />
+                    </div>
+                )}
 
                 <div className="recipe-form__content">
                     <div className="recipe-form__image">
@@ -173,15 +177,21 @@ const CreateRecipeWithUrl = () => {
                             value={recipe.comment}
                         ></textarea>
 
-                        <label htmlFor="photo" className="form-label-file">
-                            Bild
-                        </label>
-                        <input
-                            type="file"
-                            className="form-control"
-                            id="photo"
-                            onChange={handleFileChange}
-                        />
+                        <div {...getRootProps()}>
+                            <input
+                                {...getInputProps()}
+                                className="recipe-form__dropzone"
+                            />
+                            {isDragActive ? (
+                                isDragAccept ? (
+                                    <p>Just drop it already</p>
+                                ) : (
+                                    <p>Sorry, not the right file type</p>
+                                )
+                            ) : (
+                                <p>Give me some files</p>
+                            )}
+                        </div>
 
                         <div>
                             <input

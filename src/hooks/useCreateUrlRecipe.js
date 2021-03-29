@@ -7,7 +7,7 @@ const useCreateUrlRecipe = (recipe, photoUrl, fullPath, vegan, submit) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const { currentUser } = useAuth();
-    const navigate = useNavigate();
+    const navigate = useNavigate();    
 
     useEffect(() => {
         if (!submit) {
