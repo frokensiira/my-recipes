@@ -3,6 +3,7 @@ import useCreateUrlRecipe from "../hooks/useCreateUrlRecipe";
 import placeholder from "../assets/images/placeholder.png";
 import axios from "axios";
 import { storage } from "../firebase";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const CreateRecipeWithUrl = () => {
     const [submit, setSubmit] = useState(null);
@@ -39,24 +40,27 @@ const CreateRecipeWithUrl = () => {
         });
 
         if (e.target.id === "url") {
-            setLoading(true);
-            const url = e.target.value;
-            const urlEncoded = encodeURIComponent(url);
-            const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
-            const response = await axios.get(requestUrl);
 
-            console.log(response);
+            if (e.target.value.includes("http")) {
+                setLoading(true);
+                const url = e.target.value;
+                const urlEncoded = encodeURIComponent(url);
+                const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
+                const response = await axios.get(requestUrl);
 
-            if (!response.data.error) {
-                setRecipe({
-                    ...recipe,
-                    name: response.data.ogTitle,
-                    comment: response.data.ogDescription
-                        ? response.data.ogDescription
-                        : response.data.twitterDescription,
-                    photoUrl: response.data.ogImage.url,
-                    url: e.target.value,
-                });
+                if (!response.data.error) {
+                    setRecipe({
+                        ...recipe,
+                        name: response.data.ogTitle,
+                        comment: response.data.ogDescription
+                            ? response.data.ogDescription
+                            : response.data.twitterDescription,
+                        photoUrl: response.data.ogImage.url,
+                        url: e.target.value,
+                    });
+                    setLoading(false);
+                }
+            } else {
                 setLoading(false);
             }
         }
@@ -103,7 +107,12 @@ const CreateRecipeWithUrl = () => {
             <h1 className="page__title">Skapa recept</h1>
             <p className="page__text">Steg 2 av 2</p>
             <form className="recipe-form" onSubmit={handleSubmit}>
-                {loading && <p>Laddar...</p>}
+                {loading && 
+                
+                <div class="recipe-form--loading"><ClipLoader color="var(--green)"/></div>
+                
+                
+                }
 
                 <div className="recipe-form__content">
                     <div className="recipe-form__image">
@@ -116,7 +125,7 @@ const CreateRecipeWithUrl = () => {
                                     ? `${recipe.photoUrl}`
                                     : `${placeholder}`
                             }
-                            alt="placeholder-image"
+                            alt="placeholder"
                         />
                         {!photoUrl && !recipe.photoUrl && (
                             <div className="recipe-form__overlay"></div>
@@ -128,7 +137,7 @@ const CreateRecipeWithUrl = () => {
                     </div>
 
                     <div className="recipe-form__inputs">
-                        <label htmlFor="url" className="">
+                        <label htmlFor="url" className="form-label">
                             Länk*
                         </label>
                         <input
@@ -151,7 +160,7 @@ const CreateRecipeWithUrl = () => {
                             onChange={handleInput}
                         />
 
-                        <label htmlFor="comment" className="">
+                        <label htmlFor="comment" className="form-label">
                             Kommentar
                         </label>
                         <textarea
@@ -164,7 +173,7 @@ const CreateRecipeWithUrl = () => {
                             value={recipe.comment}
                         ></textarea>
 
-                        <label htmlFor="photo" className="">
+                        <label htmlFor="photo" className="form-label-file">
                             Bild
                         </label>
                         <input
