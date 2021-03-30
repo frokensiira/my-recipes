@@ -81,3 +81,8 @@ h4:not(:last-child),
 .h4:not(:last-child) {
     margin-bottom: 0.5rem;
 }
+
+button {
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: 1px;
+}

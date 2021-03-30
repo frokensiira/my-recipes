@@ -27,6 +27,7 @@
     justify-content: space-around;
     margin-right: 1rem;
     align-items: center;
+    text-transform: uppercase;
 }
 
 .navbar__nav-link {
@@ -44,7 +45,8 @@
 }
 
 .navbar__profile-button {
-    background-color: var(--light-pink);
+    /* background-color: var(--light-pink); */
+    background-color: transparent;
     border: none;
     display: flex;
     align-items: center;
@@ -89,6 +91,12 @@
     height: auto;
     margin-left: 0.3em;
 }
+
+.navbar__profile-icon {
+    cursor: pointer;
+}
+
+
 
 @media (max-width: 1024px) {
     .navbar__nav-links {

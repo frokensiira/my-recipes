@@ -80,7 +80,7 @@ const ShowSingleRecipe = () => {
                                     href={recipe.url}
                                     className="btn btn-primary"
                                     target="_blank"
-                                    rel="noreferrer"
+                                    rel="noopener noreferrer"
                                 >
                                     Länk till receptet
                                 </a>

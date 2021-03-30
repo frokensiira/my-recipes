@@ -46,7 +46,7 @@ const Navbar = () => {
                             className="navbar__profile-button"
                             aria-expanded="false"
                         >
-                            <FontAwesomeIcon icon={faUserCircle} />
+                            <FontAwesomeIcon icon={faUserCircle} className="navbar__profile-icon"/>
                             <FontAwesomeIcon icon={faSortDown} />
                         </button>
                         <ul className="navbar__dropdown">
