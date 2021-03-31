@@ -2,6 +2,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin-bottom: 2rem;
+    margin-left: var(--page-margin);
+    margin-right: var(--page-margin);
 }
 
 .banner__text-area {
@@ -40,7 +42,28 @@
     font-weight: 400;
 }
 
+.banner__image {
+    display: flex;
+    justify-content: center;
+}
+
 .banner__image svg {
     max-width: 30rem;
     transform: rotate(-15deg);
+}
+
+@media(max-width: 1155px) {
+    .banner {
+        grid-template-columns: 1fr; 
+    }
+
+    .banner__text-area {
+        padding-top: 2rem;
+    }
+}
+
+@media(max-width: 680px) {
+    .banner__image svg {
+        display: none;
+    }
 }
