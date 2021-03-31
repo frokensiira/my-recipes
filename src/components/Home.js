@@ -43,7 +43,7 @@ const Home = () => {
             )} */}
             <section className="banner">
                 <div className="banner__text-area">
-                    <h1 className="banner__heading">My Veggie Recipes</h1>
+                    <h1 className="banner__heading">Veggie Recipes</h1>
                     <p className="banner__text">
                         Skapa och inspireras av nya vegetariska recept! Se alla
                         recept i menyn eller skapa konto för att kunna lägga in

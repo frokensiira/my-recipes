@@ -42,8 +42,8 @@
 .navbar__nav-link {
     color: #000000;
     text-decoration: none;
-    letter-spacing: 1px;
-    font-weight: 700;
+    letter-spacing: 3px;
+    font-weight: 500;
     font-size: 0.8rem;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .navbar__profile-button {
-    /* background-color: var(--light-pink); */
+    background-color: var(--light-pink);
     background-color: transparent;
     border: none;
     display: flex;
@@ -104,8 +104,6 @@
 .navbar__profile-icon {
     cursor: pointer;
 }
-
-
 
 @media (max-width: 1024px) {
     .navbar__nav-links {

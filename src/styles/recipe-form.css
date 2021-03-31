@@ -1,3 +1,4 @@
+
 .recipe-form {
     margin: 1rem auto;
     max-width: 40rem;
@@ -63,7 +64,12 @@
     color: #fff;
 }
 
-.form-label {
+.recipe-form__label {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 0.2rem;
 }
 
 .recipe-form__inputs {
@@ -199,7 +205,6 @@
 
 }
 
-
 /* .recipe-form {
     margin: 1rem auto;
     max-width: 40rem;
@@ -226,13 +231,14 @@
 }
 
 .recipe-form__content {
-    display: flex;
-    justify-content: space-between;
     margin-bottom: 2rem;
 }
 
 .recipe-form__image {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .recipe-form__image img {
@@ -260,12 +266,15 @@
 
 .recipe-form__image-text {
     position: absolute;
-    top: 0;
     z-index: 2;
     color: #fff;
 }
 
-.form-label {
+.recipe-form__label {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 1px;
 }
 
 .recipe-form__inputs {
@@ -330,4 +339,74 @@
     border: none;
     font-size: 1rem;
     padding: 1em;
+}
+
+.recipe-form__field {
+    display: flex;
+    flex-direction: column;
+}
+
+@media(min-width: 821px) {
+    .recipe-form__content {
+        display: grid;
+        grid-template-areas: "img    link"
+                             "img      title"
+                             "img      comment"
+                             ".      checkbox"
+                             "button submit";
+        grid-template-rows: repeat(5, auto);
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 1rem;
+      }
+      
+      .recipe-form__image {
+        grid-area: img;
+      }
+      
+      .recipe-form__input-url {
+        grid-area: link;
+      }
+      
+      .recipe-form__input-title {
+        grid-area: title;
+      }
+
+      .recipe-form__input-comment {
+        grid-area: title;
+      }
+
+      .recipe-form__checkbox-wrapper {
+        grid-area: checkbox;
+      }
+
+      .recipe-form__submit-button {
+        grid-area: submit;
+      }
+      
+      .button__back {
+        grid-area: button;
+      }
+}
+
+@media(max-width: 820px) {
+    .recipe-form {
+        margin-left: var(--page-margin);
+        margin-right: var(--page-margin);
+        padding: var(--page-margin);
+    }
+
+    .recipe-form__content {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .recipe-form__image {
+        margin-bottom: 1rem;
+    }
+
+    .recipe-form__image img {
+        height: 70vw;
+    }
+
 } */
+

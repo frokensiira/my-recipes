@@ -3,8 +3,14 @@
 }
 
 .page__title:not(:last-child){
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    padding-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.page__title {
+    /* font-family: 'Playfair Display', serif; */
+    font-family: 'Lora', serif;
+    font-weight: 600;
 }
 
 .page__title,

@@ -1,5 +1,6 @@
 html {
     font-family: "Montserrat", sans-serif;
+    /* font-family: 'Lora', serif; */
     font-weight: 300;
     line-height: 1.5;
 }
@@ -83,6 +84,7 @@ h4:not(:last-child),
 }
 
 button {
-    font-family: "Montserrat", sans-serif;
+    /* font-family: "Montserrat", sans-serif; */
+    font-family: 'Lora', serif;
     letter-spacing: 1px;
 }

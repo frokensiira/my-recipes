@@ -15,8 +15,14 @@
 
 .banner__heading {
     font-weight: 800;
-    font-size: 2.5rem;
-    line-height: 3rem;
+    /* font-family: 'Playfair Display', serif; */
+    font-family: 'Lora', serif;
+    font-size: 5rem;
+    line-height: 5rem;
+}
+
+.banner__text {
+    font-size: 0.9rem;
 }
 
 .banner__text:not(:last-child) {
@@ -25,9 +31,10 @@
 
 .banner__button {
     padding: 0.7rem 2rem;
-    background-color: #000;
+    background-color: var(--blue);
     color: #fff;
     font-size: 0.9rem;
+    border: none;
 }
 
 .banner__button:hover {
@@ -37,7 +44,7 @@
 .banner__link {
     color: #fff;
     text-decoration: none;
-    font-family: "Poppins", sans-serif;
+    /* font-family: "Poppins", sans-serif; */
     letter-spacing: 1px;
     font-weight: 400;
 }

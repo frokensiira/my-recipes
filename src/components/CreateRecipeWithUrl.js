@@ -130,8 +130,8 @@ const CreateRecipeWithUrl = () => {
 
                 <div className="recipe-form__content">
                     <div className="recipe-form__field">
-                    <label htmlFor="url" className="form-label">
-                        Länk*
+                    <label htmlFor="url" className="recipe-form__label">
+                        Länk *
                     </label>
                     <input
                         type="url"
@@ -162,8 +162,8 @@ const CreateRecipeWithUrl = () => {
                     </div>
 
                     <div className="recipe-form__field">
-                    <label htmlFor="name" className="form-label">
-                        Receptnamn*
+                    <label htmlFor="name" className="recipe-form__label">
+                        Receptnamn *
                     </label>
                     <input
                         type="text"
@@ -176,7 +176,7 @@ const CreateRecipeWithUrl = () => {
                     </div>
 
                     <div className="recipe-form__field">
-                    <label htmlFor="comment" className="form-label">
+                    <label htmlFor="comment" className="recipe-form__label">
                         Kommentar
                     </label>
                     <textarea
