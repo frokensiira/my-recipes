@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { faSortDown } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { ReactComponent as Logo } from "../assets/logo.svg";
 
 const Navbar = () => {
     const { currentUser } = useAuth();
@@ -13,7 +14,8 @@ const Navbar = () => {
         <nav className="navbar">
             <div>
                 <Link to={`/`} className="navbar__logo">
-                    My Veggie Recipes
+                    <Logo/>
+                    piece of veg
                 </Link>
             </div>
 

@@ -31,7 +31,7 @@ const Home = () => {
 
     return (
         <>
-            {loading ? (
+            {/* {loading ? (
                 <p>loading...</p>
             ) : currentUser ? (
                 <p>
@@ -40,7 +40,7 @@ const Home = () => {
                 </p>
             ) : (
                 ""
-            )}
+            )} */}
             <section className="banner">
                 <div className="banner__text-area">
                     <h1 className="banner__heading">My Veggie Recipes</h1>

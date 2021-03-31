@@ -238,7 +238,7 @@ const CreateRecipeWithUrl = () => {
                         Skapa recept
                     </button>
                 </div>
-                <button type="submit" className="button">
+                <button className="button">
                     <FontAwesomeIcon
                         className="button__back"
                         icon={faChevronLeft}
