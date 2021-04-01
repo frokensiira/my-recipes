@@ -161,6 +161,29 @@ const CreateRecipeWithUrl = () => {
                         </p>
                     </div>
 
+                    <div {...getRootProps()} className="recipe-form__dropzone">
+                        <input {...getInputProps()} />
+                        <div className="recipe-form__dropzone-text">
+                            <FontAwesomeIcon
+                                className="recipe-form__upload-icon"
+                                icon={faCloudUploadAlt}
+                            />
+                            {isDragActive ? (
+                                isDragAccept ? (
+                                    <p>Släpp bilden här</p>
+                                ) : (
+                                    <p>
+                                        Ledsen, fel filtyp, testa jpg eller png{" "}
+                                    </p>
+                                )
+                            ) : recipe.photoUrl === "" ? (
+                                <p>Ladda upp bild</p>
+                            ) : (
+                                <p>Byt bild</p>
+                            )}
+                        </div>
+                    </div>
+
                     <div className="recipe-form__field">
                         <label htmlFor="name" className="recipe-form__label">
                             Receptnamn *
@@ -184,41 +207,19 @@ const CreateRecipeWithUrl = () => {
                             className="recipe-form__textarea"
                             id="comment"
                             rows="5"
-                            cols="40"
                             onChange={handleInput}
                             value={recipe.comment}
                         ></textarea>
                     </div>
 
-                    <div {...getRootProps()} className="recipe-form__dropzone">
-                        <input {...getInputProps()} />
-                        <div className="recipe-form__dropzone-text">
-                            <FontAwesomeIcon
-                                className="recipe-form__upload-icon"
-                                icon={faCloudUploadAlt}
-                            />
-                            {isDragActive ? (
-                                isDragAccept ? (
-                                    <p>Släpp bilden här</p>
-                                ) : (
-                                    <p>Ledsen, fel filtyp, testa jpg eller png </p>
-                                )
-                            ) : recipe.photoUrl === "" ? (
-                                <p>Ladda upp bild</p>
-                            ) : (
-                                <p>Byt bild</p>
-                            )}
-                        </div>
-                    </div>
-
                     <div className="recipe-form__checkbox-wrapper">
                         <label className="recipe-form__switch">
-                        <input
-                            type="checkbox"
-                            name="Veganskt"
-                            onChange={handleCheckbox}
-                            className="recipe-form__checkbox"
-                        />
+                            <input
+                                type="checkbox"
+                                name="Veganskt"
+                                onChange={handleCheckbox}
+                                className="recipe-form__checkbox"
+                            />
                             <span className="recipe-form__slider"></span>
                         </label>
                         <label className="recipe-form__label">Veganskt</label>
