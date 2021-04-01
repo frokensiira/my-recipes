@@ -8,6 +8,15 @@
     --green: #84b292;
     --light-yellow: #f7ea89;
     --yellow: #fedf81;
-    --blue: #33319f;
+    --blue: #2B2A87;
     --page-margin: 5vw;
+}
+
+.original {
+    color: #33319F;
+}
+
+
+.alternative {
+    color:#201F63;
 }

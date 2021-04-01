@@ -1,12 +1,17 @@
 .button {
-    padding: 0.5rem;
-    max-width: 6rem;
-    display: inline;
-    border: none;
-    background-color: #000;
-    color: #fff;
-    font-size: 0.8rem;
     background-color: var(--blue);
+    border: none;
+    border-radius: 0.3rem;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    display: inline;
+    padding: 0.7rem 2rem;
+}
+
+.button:hover {
+    /* background-color: #201F63; */
+    background-color: #161545;
+    
 }
 
 .button__back {

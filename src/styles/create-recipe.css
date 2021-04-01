@@ -6,13 +6,10 @@
     align-items: center;
 }
 
-.create-recipe__button {
+.create-recipe__button.button {
     padding: 1rem;
     width: 100%;
     display: block;
-    cursor: pointer;
-    background-color: #000;
-    color: #fff;
     font-size: 1.2rem;
 }
 

@@ -190,7 +190,7 @@ const CreateRecipeWithUrl = () => {
                     ></textarea>
                     </div>
 
-                    {/* <div {...getRootProps()}>
+                    <div {...getRootProps()}>
                         <input {...getInputProps()} />
 
                         {isDragActive ? (
@@ -220,7 +220,7 @@ const CreateRecipeWithUrl = () => {
                                 Byt bild
                             </p>
                         )}
-                    </div> */}
+                    </div>
 
                     <div className="recipe-form__checkbox-wrapper">
                         <input
@@ -233,18 +233,11 @@ const CreateRecipeWithUrl = () => {
                     </div>
                     <button
                         type="submit"
-                        className="recipe-form__submit-button"
+                        className="button recipe-form__submit-button"
                     >
                         Skapa recept
                     </button>
                 </div>
-                <button className="button">
-                    <FontAwesomeIcon
-                        className="button__back"
-                        icon={faChevronLeft}
-                    />
-                    Bakåt
-                </button>
             </form>
         </>
     );

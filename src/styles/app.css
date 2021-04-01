@@ -35,5 +35,8 @@ h2 {
 
 button {
     cursor: pointer;
-    border-radius: 0.3rem;
+}
+
+a {
+    cursor: pointer;
 }

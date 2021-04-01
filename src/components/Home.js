@@ -49,7 +49,7 @@ const Home = () => {
                         recept i menyn eller skapa konto för att kunna lägga in
                         dina favoritrecept eller spara andras.
                     </p>
-                    <button className="banner__button">
+                    <button className="button">
                         <Link className="banner__link" to={`/signup`}>
                             Skapa konto
                         </Link>
