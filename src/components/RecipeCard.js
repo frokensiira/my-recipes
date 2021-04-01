@@ -6,11 +6,12 @@ const RecipeCard = ({ recipe }) => {
     return (
         <Link to={`/my-recipes/${recipe.id}`} className="card__link">
             <div className="card">
+            {recipe.vegan && <p className="card__flag">Veganskt</p>}
                 {recipe.photoUrl ? (
                     <img
                         src={recipe.photoUrl}
                         className="card__image"
-                        alt={recipe.name}
+                        role="presentation"
                     />
                 ) : (
                     <img
@@ -25,7 +26,7 @@ const RecipeCard = ({ recipe }) => {
                     <h1 className="card__title">{recipe.name}</h1>
                     <p className="card__text">{recipe.comment}</p>
 
-                    {recipe.vegan && <p className="card__flag">Veganskt</p>}
+                    
                 </div>
             </div>
         </Link>
