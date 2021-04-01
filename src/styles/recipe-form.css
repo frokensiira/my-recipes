@@ -97,9 +97,12 @@
 }
 
 .recipe-form__upload-icon {
-    margin-right: 1rem;
     font-size: 1.5rem;
-    color: var(--green);
+    color: var(--blue);
+}
+
+.recipe-form__dropzone {
+    margin-bottom: 1rem;
 }
 
 .recipe-form__dropzone-text {
@@ -107,10 +110,9 @@
     font-size: 0.7rem;
     padding: 1rem 2rem;
     background-color: rgb(238, 238, 238);
-    border: 3px dashed var(--green);
+    border: 3px dashed var(--blue);
     border-radius: 0.3rem;
     text-align: center;
-    margin-bottom: 1rem;
 }
 
 .recipe-form__checkbox-wrapper {
@@ -119,6 +121,10 @@
 
 .recipe-form__checkbox {
     margin-right: 0.5rem;
+}
+
+.recipe-form__slider {
+    
 }
 
 .recipe-form__label {
@@ -136,6 +142,7 @@
             "img    link"
             "img      title"
             "img      comment"
+            ".      dropzone"
             ".      checkbox"
             "button submit";
         grid-template-rows: repeat(5, auto);
@@ -161,6 +168,10 @@
 
     .recipe-form__checkbox-wrapper {
         grid-area: checkbox;
+    }
+
+    .recipe-form__dropzone {
+        grid-area: dropzone;
     }
 
     .recipe-form__submit-button {

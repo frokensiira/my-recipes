@@ -130,16 +130,16 @@ const CreateRecipeWithUrl = () => {
 
                 <div className="recipe-form__content">
                     <div className="recipe-form__field">
-                    <label htmlFor="url" className="recipe-form__label">
-                        Länk *
-                    </label>
-                    <input
-                        type="url"
-                        className="recipe-form__input recipe-form__input-url"
-                        id="url"
-                        required
-                        onChange={handleInput}
-                    />
+                        <label htmlFor="url" className="recipe-form__label">
+                            Länk *
+                        </label>
+                        <input
+                            type="url"
+                            className="recipe-form__input recipe-form__input-url"
+                            id="url"
+                            required
+                            onChange={handleInput}
+                        />
                     </div>
                     <div className="recipe-form__image">
                         <img
@@ -162,64 +162,53 @@ const CreateRecipeWithUrl = () => {
                     </div>
 
                     <div className="recipe-form__field">
-                    <label htmlFor="name" className="recipe-form__label">
-                        Receptnamn *
-                    </label>
-                    <input
-                        type="text"
-                        className="recipe-form__input"
-                        id="name"
-                        required
-                        value={recipe.name}
-                        onChange={handleInput}
-                    />
+                        <label htmlFor="name" className="recipe-form__label">
+                            Receptnamn *
+                        </label>
+                        <input
+                            type="text"
+                            className="recipe-form__input"
+                            id="name"
+                            required
+                            value={recipe.name}
+                            onChange={handleInput}
+                        />
                     </div>
 
                     <div className="recipe-form__field">
-                    <label htmlFor="comment" className="recipe-form__label">
-                        Kommentar
-                    </label>
-                    <textarea
-                        name="comment"
-                        className="recipe-form__textarea"
-                        id="comment"
-                        rows="5"
-                        cols="40"
-                        onChange={handleInput}
-                        value={recipe.comment}
-                    ></textarea>
+                        <label htmlFor="comment" className="recipe-form__label">
+                            Kommentar
+                        </label>
+                        <textarea
+                            name="comment"
+                            className="recipe-form__textarea"
+                            id="comment"
+                            rows="5"
+                            cols="40"
+                            onChange={handleInput}
+                            value={recipe.comment}
+                        ></textarea>
                     </div>
 
-                    <div {...getRootProps()}>
+                    <div {...getRootProps()} className="recipe-form__dropzone">
                         <input {...getInputProps()} />
-
-                        {isDragActive ? (
-                            isDragAccept ? (
-                                <p>Just drop it already</p>
+                        <div className="recipe-form__dropzone-text">
+                            <FontAwesomeIcon
+                                className="recipe-form__upload-icon"
+                                icon={faCloudUploadAlt}
+                            />
+                            {isDragActive ? (
+                                isDragAccept ? (
+                                    <p>Släpp bilden här</p>
+                                ) : (
+                                    <p>Ledsen, fel filtyp, testa jpg eller png </p>
+                                )
+                            ) : recipe.photoUrl === "" ? (
+                                <p>Ladda upp bild</p>
                             ) : (
-                                <p className="recipe-form__dropzone-text">
-                                    Sorry, not the right file type
-                                </p>
-                            )
-                        ) : recipe.photoUrl === "" ? (
-                            <p className="recipe-form__dropzone-text">
-                                {" "}
-                                <FontAwesomeIcon
-                                    className="recipe-form__upload-icon"
-                                    icon={faCloudUploadAlt}
-                                />
-                                Ladda upp bild
-                            </p>
-                        ) : (
-                            <p className="recipe-form__dropzone-text">
-                                {" "}
-                                <FontAwesomeIcon
-                                    className="recipe-form__upload-icon"
-                                    icon={faCloudUploadAlt}
-                                />
-                                Byt bild
-                            </p>
-                        )}
+                                <p>Byt bild</p>
+                            )}
+                        </div>
                     </div>
 
                     <div className="recipe-form__checkbox-wrapper">
@@ -244,4 +233,3 @@ const CreateRecipeWithUrl = () => {
 };
 
 export default CreateRecipeWithUrl;
-
