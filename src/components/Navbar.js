@@ -15,7 +15,7 @@ const Navbar = () => {
             <div>
                 <Link to={`/`} className="navbar__logo">
                     <Logo/>
-                    piece of veg
+                    my veggie recipes
                 </Link>
             </div>
 
