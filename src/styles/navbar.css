@@ -10,6 +10,11 @@
     align-items: center;
     position: relative;
     z-index: 5;
+    margin-bottom: 1rem;
+}
+
+.navbar__nav {
+    display: flex;
 }
 
 .navbar__logo {
@@ -38,6 +43,7 @@
     display: flex;
     justify-content: space-around;
     margin-right: var(--page-margin);
+    margin-top: 4.4rem;
     align-items: center;
     text-transform: uppercase;
 }   
@@ -57,18 +63,24 @@
     padding-left: 1rem;
 }
 
+.navbar__nav-item-dropdown {
+    position: relative;
+}
 .navbar__profile-button {
     background-color: var(--light-pink);
     background-color: transparent;
     border: none;
     display: flex;
     align-items: center;
-}
-
-.navbar__profile-button[aria-expanden] {
+    position: absolute;
+    top: -1.1rem;
 }
 
 .navbar__dropdown {
+    position: absolute;
+    left: -1.5rem;
+    top: 3rem;
+    margin-right: var(--page-margin);
 }
 
 .navbar__nav-item a {
@@ -94,24 +106,36 @@
     width: 100%;
 }
 
-.navbar__profile-button .svg-inline--fa.fa-w-16 {
-    width: 2em;
-    height: auto;
-}
-
-.navbar__profile-button .svg-inline--fa.fa-w-10 {
-    width: 1em;
-    height: auto;
-    margin-left: 0.3em;
-}
-
 .navbar__profile-icon {
     cursor: pointer;
+
+    height: 1.5rem;
+
 }
 
 @media (max-width: 1024px) {
     .navbar__nav-links {
         width: 50%;
+    }
+}
+
+@media (min-width: 801px) {
+    .navbar__nav-item--mobile {
+        display: none;
+    }
+}
+
+@media (max-width: 800px) {
+    .navbar__nav-item--mobile {
+        display: block;
+    }
+
+    .navbar__logo {
+        margin: 0 auto;
+    }
+
+    .navbar__nav {
+        display: none;
     }
 }
 

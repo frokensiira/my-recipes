@@ -9,6 +9,7 @@
         width: 2.5rem;
         background-color: var(--blue);
         border-radius: 50%;
+        z-index: 99;
     }
     
     .add-recipe__plus-wrapper {
