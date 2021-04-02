@@ -46,11 +46,12 @@ const Home = () => {
                 <div className="banner__text-area">
                     <h1 className="banner__heading">My Veggie Recipes</h1>
                     <div className="banner__image banner__image--mobile">
-                    <Banner />
-                </div>
+                        <Banner />
+                    </div>
                     <p className="banner__text">
-                        Skapa och inspireras av nya vegetariska recept! Skapa konto för att kunna lägga in
-                        dina favoritrecept eller spara andras.
+                        Skapa och inspireras av nya vegetariska recept! Skapa
+                        konto för att kunna lägga in dina favoritrecept eller
+                        spara andras.
                     </p>
                     <button className="button">
                         <Link className="banner__link" to={`/signup`}>
@@ -63,14 +64,26 @@ const Home = () => {
                 </div>
             </section>
             <main className="page">
-                <h1 className="page__title">Senast tillagda recepten<Broccoli className="icon"/></h1>
+                <h1 className="page__title">
+                    Senast tillagda recepten
+                    <Broccoli className="icon" />
+                </h1>
                 <div className="cards">
                     {recipes.length !== 0 &&
                         recipes.map((recipe) => (
                             <RecipeCard recipe={recipe} key={recipe.id} />
                         ))}
                 </div>
-                <div className="add-recipe"></div>
+                <Link
+                    to={`/my-recipes/create-recipe`}
+                >
+                    <div className="add-recipe">
+                        <div className="add-recipe__plus-wrapper">
+                            <div className="add-recipe__plus-bar add-recipe__plus-bar--horizontal"></div>
+                            <div className="add-recipe__plus-bar add-recipe__plus-bar--vertical"></div>
+                        </div>
+                    </div>
+                </Link>
             </main>
         </>
     );

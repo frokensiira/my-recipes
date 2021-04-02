@@ -13,8 +13,6 @@ const useRecipe = (recipeId) => {
             .doc(recipeId)
             .onSnapshot((doc) => {
                 setLoading(true);
-
-                console.log("recipe", doc.data());
                 setLoading(false);
                 setRecipe(doc.data());
 
