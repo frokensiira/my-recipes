@@ -17,6 +17,11 @@
     font-weight: 800;
     font-size: 5rem;
     line-height: 5rem;
+    
+}
+
+.banner__heading:not(:last-child) {
+    margin-bottom: 2rem;
 }
 
 .banner__text {

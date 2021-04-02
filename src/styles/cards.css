@@ -10,8 +10,6 @@
 .card {
     background-color: #fff;
     overflow: hidden;
-    /* box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1); */
-    /* box-shadow: 0.25rem 0.25rem 0.75rem rgba(0, 0, 0, 0.9); */
     box-shadow: 0 7px 30px -10px rgba(150,170,180,0.5);
     border-radius: 0.3rem;
     position: relative;
@@ -21,8 +19,7 @@
 
 .card:hover {
     transform: scale(1.02);
-    /* box-shadow: 0.25rem 0.25rem 0.75rem rgba(0, 0, 0, 0.6); */
-    box-shadow: 0 7px 30px -10px rgba(150,170,180,0.5);
+    box-shadow: 0 7px 30px -10px rgba(150,170,180,0.3);
 }
 
 .card__flag {

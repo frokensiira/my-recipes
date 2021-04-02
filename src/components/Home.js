@@ -4,6 +4,7 @@ import { db } from "../firebase";
 import { Link } from "react-router-dom";
 import RecipeCard from "./RecipeCard";
 import { ReactComponent as Banner } from "../assets/banner.svg";
+import { ReactComponent as Broccoli } from "../assets/broccoli.svg";
 
 const Home = () => {
     const { currentUser, loading } = useAuth();
@@ -45,8 +46,7 @@ const Home = () => {
                 <div className="banner__text-area">
                     <h1 className="banner__heading">Veggie Recipes</h1>
                     <p className="banner__text">
-                        Skapa och inspireras av nya vegetariska recept! Se alla
-                        recept i menyn eller skapa konto för att kunna lägga in
+                        Skapa och inspireras av nya vegetariska recept! Skapa konto för att kunna lägga in
                         dina favoritrecept eller spara andras.
                     </p>
                     <button className="button">
@@ -60,7 +60,7 @@ const Home = () => {
                 </div>
             </section>
             <main className="page">
-                <h1 className="page__title">Senast tillagda recepten</h1>
+                <h1 className="page__title">Senast tillagda recepten<Broccoli className="icon"/></h1>
                 <div className="cards">
                     {recipes.length !== 0 &&
                         recipes.map((recipe) => (
