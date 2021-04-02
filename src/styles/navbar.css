@@ -8,7 +8,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-height: 8vh;
+    position: relative;
+    z-index: 5;
 }
 
 .navbar__logo {
@@ -18,11 +19,13 @@
     font-size: 0.8rem;
     font-weight: 700;
     text-decoration: none;
-    margin-left: 2rem;
+    margin-left: var(--page-margin);
+    margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
     padding-top: 0.5rem;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .navbar__logo svg {
@@ -34,7 +37,7 @@
 .navbar__nav-items {
     display: flex;
     justify-content: space-around;
-    margin-right: 1rem;
+    margin-right: var(--page-margin);
     align-items: center;
     text-transform: uppercase;
 }   
@@ -45,6 +48,7 @@
     letter-spacing: 3px;
     font-weight: 500;
     font-size: 0.8rem;
+    white-space: nowrap;
 }
 
 .navbar__nav-item {
@@ -108,5 +112,14 @@
 @media (max-width: 1024px) {
     .navbar__nav-links {
         width: 50%;
+    }
+}
+
+@media (max-width: 500px) {
+    .navbar__logo {
+        font-size: 0.5rem;
+    }
+    .navbar__logotext {
+        display: none;
     }
 }

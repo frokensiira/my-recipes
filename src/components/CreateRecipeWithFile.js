@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import useCreateFileRecipe from "../hooks/useCreateFileRecipe";
+import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
 
 const CreateRecipeWithFile = () => {
     const [recipe, setRecipe] = useState(null);
@@ -59,7 +60,7 @@ const CreateRecipeWithFile = () => {
 
     return (
         <div>
-            <h1 className="page__title">Skapa recept</h1>
+            <h1 className="page__title">Skapa recept <Artichoke className="icon"/></h1>
             <p className="page__text">Steg 2 av 2</p>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -91,6 +92,7 @@ const CreateRecipeWithFile = () => {
                         className=""
                         id="comment"
                         onChange={handleInput}
+                        maxLength="5"
                     ></textarea>
                 </div>
 

@@ -44,7 +44,10 @@ const Home = () => {
             )} */}
             <section className="banner">
                 <div className="banner__text-area">
-                    <h1 className="banner__heading">Veggie Recipes</h1>
+                    <h1 className="banner__heading">My Veggie Recipes</h1>
+                    <div className="banner__image banner__image--mobile">
+                    <Banner />
+                </div>
                     <p className="banner__text">
                         Skapa och inspireras av nya vegetariska recept! Skapa konto för att kunna lägga in
                         dina favoritrecept eller spara andras.
@@ -55,7 +58,7 @@ const Home = () => {
                         </Link>
                     </button>
                 </div>
-                <div className="banner__image">
+                <div className="banner__image banner__image--desktop">
                     <Banner />
                 </div>
             </section>
@@ -67,6 +70,7 @@ const Home = () => {
                             <RecipeCard recipe={recipe} key={recipe.id} />
                         ))}
                 </div>
+                <div className="add-recipe"></div>
             </main>
         </>
     );

@@ -5,6 +5,8 @@ import axios from "axios";
 import { storage } from "../firebase";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useDropzone } from "react-dropzone";
+import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
+import { ReactComponent as AddImage } from "../assets/plus.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCloudUploadAlt,
@@ -119,7 +121,7 @@ const CreateRecipeWithUrl = () => {
 
     return (
         <>
-            <h1 className="page__title">Skapa recept</h1>
+            <h1 className="page__title">Skapa recept<Artichoke className="icon"/></h1>
             <p className="page__text">Steg 2 av 2</p>
             <form className="recipe-form" onSubmit={handleSubmit}>
                 {loading && (
@@ -159,6 +161,7 @@ const CreateRecipeWithUrl = () => {
                         <p className="recipe-form__image-text">
                             Bild på recept
                         </p>
+                        <AddImage className="recipe-form__icon-plus"/>
                     </div>
 
                     <div {...getRootProps()} className="recipe-form__dropzone">
@@ -206,7 +209,8 @@ const CreateRecipeWithUrl = () => {
                             name="comment"
                             className="recipe-form__textarea"
                             id="comment"
-                            rows="5"
+                            rows="4"
+                            maxLength="300"
                             onChange={handleInput}
                             value={recipe.comment}
                         ></textarea>

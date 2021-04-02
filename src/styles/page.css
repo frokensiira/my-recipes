@@ -1,5 +1,6 @@
 .page {
     background-color: #fff;
+    position: relative;
 }
 
 .page__title:not(:last-child){

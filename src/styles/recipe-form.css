@@ -96,6 +96,8 @@
 
 .recipe-form__textarea {
     margin-bottom: 1rem;
+    font-family: "Poppins", sans-serif;
+    padding: 0.5rem;
 }
 
 .recipe-form__upload-icon {
@@ -111,6 +113,13 @@
     border: 3px dashed var(--blue);
     border-radius: 0.3rem;
     text-align: center;
+}
+
+.recipe-form__icon-plus {
+    position: absolute;
+    z-index: 2;
+    fill: #fff;
+    height: 4rem;
 }
 
 .recipe-form__checkbox-wrapper {

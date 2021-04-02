@@ -15,16 +15,11 @@ const Navbar = () => {
             <div>
                 <Link to={`/`} className="navbar__logo">
                     <Logo/>
-                    my veggie recipes
+                    <p className="navbar__logotext">my veggie recipes</p>
                 </Link>
             </div>
 
             <ul className={`navbar__nav-items`}>
-                <li className="navbar__nav-item">
-                    <NavLink to={`/`} className="navbar__nav-link">
-                        Alla recept
-                    </NavLink>
-                </li>
 
                 {currentUser ? (
                     <>
