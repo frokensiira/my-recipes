@@ -10,6 +10,24 @@
 
 .page__title {
     font-weight: 600;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.page__title::before,
+.page__title::after {
+    content: '';
+    border-top: 1px solid;
+    margin: 0 1rem 0 0;
+    flex: 1 0 1rem;
+}
+
+.page__title::after {
+    margin: 0 0 0 1rem;
 }
 
 .page__title,
@@ -17,4 +35,20 @@
     text-align: center;
 }
 
+@media(min-width: 2309px) {
+    .page__title {
+        width: calc(100% - 2*(4 * var(--page-margin)));
+    }
+}
 
+@media(max-width: 2308px) {
+    .page__title {
+        width: calc(100% - 2*(3 * var(--page-margin)));
+    }
+}
+
+@media(max-width: 890px) {
+    .page__title {
+        width: var(100%-2*(--page-margin));
+    }
+}
