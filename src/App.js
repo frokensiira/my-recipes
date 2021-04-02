@@ -12,6 +12,7 @@ import Home from "../src/components/Home";
 import Login from "../src/components/Login";
 import Logout from "../src/components/Logout";
 import MyRecipes from "./components/MyRecipes";
+import AllRecipes from "./components/AllRecipes";
 import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import ShowSingleRecipe from "./components/ShowSingleRecipe";
@@ -29,6 +30,10 @@ function App() {
                     <Routes>
                         <Route path="/">
                             <Home />
+                        </Route>
+
+                        <Route path="/all-recipes">
+                            <AllRecipes />
                         </Route>
 
                         <Route path="/signup">

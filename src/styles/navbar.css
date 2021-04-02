@@ -108,9 +108,7 @@
 
 .navbar__profile-icon {
     cursor: pointer;
-
     height: 1.5rem;
-
 }
 
 @media (max-width: 1024px) {
@@ -130,9 +128,9 @@
         display: block;
     }
 
-    .navbar__logo {
-        margin: 0 auto;
-    }
+    .navbar {
+        justify-content: space-between;
+    } 
 
     .navbar__nav {
         display: none;

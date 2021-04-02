@@ -21,6 +21,14 @@ const Navbar = () => {
             <ul className={`navbar__nav-items`}>
                 {currentUser ? (
                     <>
+                    <li className="navbar__nav-item">
+                            <NavLink
+                                to={`/all-recipes`}
+                                className="navbar__nav-link"
+                            >
+                                Alla recept
+                            </NavLink>
+                    </li>
                     <div className="navbar__nav">
                         <li className="navbar__nav-item">
                             <NavLink
