@@ -59,13 +59,14 @@
 
 .navbar__nav-item {
     list-style: none;
-    padding-right: 1rem;
-    padding-left: 1rem;
+    padding-right: 1vw;
+    padding-left: 1vw;
 }
 
 .navbar__nav-item-dropdown {
     position: relative;
 }
+
 .navbar__profile-button {
     background-color: var(--light-pink);
     background-color: transparent;
@@ -78,9 +79,12 @@
 
 .navbar__dropdown {
     position: absolute;
-    left: -1.5rem;
-    top: 3rem;
-    margin-right: var(--page-margin);
+    top: 1rem;
+    background-color: var(--light-yellow);
+}
+
+.navbar__dropdown li {
+    padding: 0.5rem 1rem;
 }
 
 .navbar__nav-item a {
@@ -121,6 +125,10 @@
     .navbar__nav-item--mobile {
         display: none;
     }
+
+    .navbar__dropdown {
+        left: -5.3rem;
+    }
 }
 
 @media (max-width: 800px) {
@@ -134,6 +142,10 @@
 
     .navbar__nav {
         display: none;
+    }
+
+    .navbar__dropdown {
+        left: -7.5rem;
     }
 }
 

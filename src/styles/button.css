@@ -1,7 +1,7 @@
 .button {
     background-color: var(--blue);
     border: none;
-    border-radius: 0.3rem;
+    border-radius: var(--border-radius);
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     color: #fff;
     display: inline;
@@ -12,9 +12,4 @@
     /* background-color: #201F63; */
     background-color: #161545;
     
-}
-
-.button__back {
-    margin-right: 0.8em;
-    background-color: var(--blue);
 }

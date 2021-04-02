@@ -5,7 +5,7 @@
     background-color: rgba(255, 255, 255, 0.815);
     display: flex;
     flex-direction: column;
-    border-radius: 0.3rem;
+    border-radius: var(--border-radius);
     position: relative;
     box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
 }
@@ -91,7 +91,7 @@
 .recipe-form__input,
 .recipe-form__textarea {
     border: 1px solid rgb(211, 209, 209);
-    border-radius: 0.3rem;
+    border-radius: var(--border-radius);
 }
 
 .recipe-form__textarea {
@@ -111,7 +111,7 @@
     padding: 0.5rem 2rem;
     background-color: rgb(238, 238, 238);
     border: 3px dashed var(--blue);
-    border-radius: 0.3rem;
+    border-radius: var(--border-radius);
     text-align: center;
 }
 
@@ -221,10 +221,6 @@
 
     .recipe-form__submit-button {
         grid-area: submit;
-    }
-
-    .button__back {
-        grid-area: button;
     }
 }
 
