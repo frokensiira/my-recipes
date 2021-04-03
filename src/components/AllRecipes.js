@@ -31,6 +31,10 @@ const AllRecipes = () => {
             <h1 className="page__title">
                 Recept <Broccoli className="icon" />
             </h1>
+            <ul className="filter">
+                <li className="filter__item">Alla</li>
+                <li className="filter__item">Veganska</li>
+            </ul>
             <div className="cards">
                 {recipes.length !== 0 &&
                     recipes.map((recipe) => (
