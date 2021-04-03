@@ -35,9 +35,13 @@
     align-self: end;
 }
 
-.recipe__file-button {
-    padding: ;
+.recipe__delete-button,
+.recipe__edit-button {
+    text-transform: none;
 }
 
-.recipe__file::after {
+.recipe__delete-icon,
+.recipe__edit-icon {
+    height: 1.5rem;
+    display: inline-block;
 }

@@ -17,7 +17,7 @@ const Home = () => {
             ) : currentUser ? (
                 <p>
                     You are signed in as{" "}
-                    <strong>{currentUser && currentUser.displayName}</strong>
+                    <strong>{currentUser && `${currentUser.displayName} ${currentUser.email}`}</strong>
                 </p>
             ) : (
                 ""

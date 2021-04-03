@@ -5,6 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { ReactComponent as Heart } from "../assets/heart.svg";
 import { ReactComponent as HeartFilled } from "../assets/heart-filled.svg";
 
+
 const RecipeCard = ({ recipe }) => {
     const { currentUser } = useAuth();
     const [like, setLike] = useState(false);
@@ -38,13 +39,21 @@ const RecipeCard = ({ recipe }) => {
                 <p className="card__text">{recipe.comment}</p>
 
                 <div className="card__footer">
-                    {currentUser && currentUser.uid !== recipe.owner && like ? (
-                        <HeartFilled
-                            onClick={handleLike}
-                            className="card__heart"
-                        />
+                    <p>{recipe.ownerUsername}</p>
+                    {currentUser && currentUser.uid !== recipe.owner ? (
+                        like ? (
+                            <HeartFilled
+                                onClick={handleLike}
+                                className="card__heart"
+                            />
+                        ) : (
+                            <Heart
+                                onClick={handleLike}
+                                className="card__heart"
+                            />
+                        )
                     ) : (
-                        <Heart onClick={handleLike} className="card__heart" />
+                        ""
                     )}
                 </div>
             </div>

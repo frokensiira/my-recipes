@@ -3,12 +3,27 @@ import foodPlaceholder from "../assets/images/food_placeholder.png";
 import { useParams } from "react-router-dom";
 import useRecipe from "../hooks/useRecipe";
 import { SRLWrapper } from "simple-react-lightbox";
+import { ReactComponent as Delete } from "../assets/trash.svg";
+import { ReactComponent as Edit } from "../assets/edit.svg";
+import { useAuth } from "../contexts/AuthContext";
+import { db } from "../firebase";
 
 const ShowSingleRecipe = () => {
     const { recipeId } = useParams();
     const { recipe, loading } = useRecipe(recipeId);
+    const { currentUser } = useAuth();
 
-    console.log("recipe", recipe);
+    const handleDelete = () => {
+        console.log('recipe.path', recipe);
+        
+        // db.collection('recipes').doc(recipeId).delete().then(() => {
+
+        // })
+    };
+
+    const handleEdit = () => {
+
+    }
 
     return (
         <>
@@ -85,6 +100,25 @@ const ShowSingleRecipe = () => {
                                     Länk till receptet
                                 </a>
                             </div>
+                        )}
+
+                        {currentUser && currentUser.uid == recipe.owner ? (
+                            <div>
+                                <button className="recipe__delete-button" onClick={handleDelete}>
+                                    <Delete
+                                        className="recipe__delete-icon"
+                                    />
+                                    Radera recept
+                                </button>
+                                <button className="recipe__edit-button" onClick={handleEdit}>
+                                    <Edit
+                                        className="recipe__edit-icon"
+                                    />
+                                    Redigera recept
+                                </button>
+                            </div>
+                        ) : (
+                            ""
                         )}
                     </div>
                 </div>

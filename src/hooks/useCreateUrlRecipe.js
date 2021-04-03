@@ -9,13 +9,18 @@ const useCreateUrlRecipe = (recipe, photoUrl, fullPath, vegan, submit) => {
     const { currentUser } = useAuth();
     const navigate = useNavigate();    
 
+    console.log('recipe.photoUrl', recipe.photoUrl);
+    console.log('photoUrl', photoUrl);
+    console.log('fullPath', fullPath);
+    
+
     useEffect(() => {
         if (!submit) {
             return;
         }
 
         if (photoUrl && fullPath) {
-            //add uploaded photo to database
+            //if user uploaded own image, add uploaded photo to database
             db.collection("recipes")
                 .add({
                     owner: currentUser.uid,
@@ -34,10 +39,11 @@ const useCreateUrlRecipe = (recipe, photoUrl, fullPath, vegan, submit) => {
                     console.log("something went wrong", err);
                 });
         } else {
-            //add uploaded recipe to database
+            //if user chose the image from the url, add uploaded recipe to database
             db.collection("recipes")
                 .add({
                     owner: currentUser.uid,
+                    ownerUsername: currentUser.displayName,
                     name: recipe.name,
                     url: recipe.url,
                     comment: recipe.comment,
