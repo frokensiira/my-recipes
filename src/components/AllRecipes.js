@@ -4,37 +4,11 @@ import { db } from "../firebase";
 import AddRecipeButton from "./AddRecipeButton";
 import { ReactComponent as Broccoli } from "../assets/broccoli.svg";
 import Filter from "./Filter";
+import useAllRecipes from "../hooks/useAllRecipes";
 
 const AllRecipes = () => {
-    const [recipes, setRecipes] = useState([]);
     const [vegan, setVegan] = useState(false);
-
-    const getRecipes = async () => {
-        const myRecipes = [];
-        let snapshot;
-
-        if (vegan) {
-            snapshot = await db
-                .collection("recipes")
-                .where("vegan", "==", true)
-                .get();
-        } else {
-            snapshot = await db.collection("recipes").get();
-        }
-
-        snapshot.forEach((doc) => {
-            myRecipes.push({
-                id: doc.id,
-                ...doc.data(),
-            });
-        });
-
-        setRecipes(myRecipes);
-    };
-
-    useEffect(() => {
-        getRecipes();
-    }, [vegan]);
+    const { recipes } = useAllRecipes(vegan);
 
     const handleFilterSearch = (e) => {
         if (e.target.id === "vegan") {

@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { useAuth } from "../contexts/AuthContext";
 
-const useRecipes = (vegan) => {
+const useAllRecipes = (vegan) => {
     const [loading, setLoading] = useState(true);
-    const [recipes, setRecipes] = useState([]);
-    const { currentUser } = useAuth();
-    console.log('vegan', vegan);
-    
+    const [recipes, setRecipes] = useState([]); 
 
     useEffect(() => {
         
-        let query = db.collection("recipes").where("owner", "==", currentUser.uid);
+        let query = db.collection("recipes")
         if(vegan) {
             query = query.where("vegan", "==", true)
         }        
@@ -35,9 +31,9 @@ const useRecipes = (vegan) => {
             });
 
         return unsubscribe;
-    }, [currentUser.uid, vegan]);
+    }, [vegan]);
 
     return { recipes, loading };
 };
 
-export default useRecipes;
+export default useAllRecipes;
