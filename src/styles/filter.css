@@ -17,6 +17,10 @@
     font-size: 0.8rem;
 }
 
+.filter__item--active {
+    border-bottom: 1px solid;
+}
+
 @media(min-width: 2309px) {
     .filter {
         margin-left: calc(4 * var(--page-margin));
