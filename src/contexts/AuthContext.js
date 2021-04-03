@@ -11,17 +11,23 @@ const AuthContextProvider = (props) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const signup = (email, password) => {
+    const signup = (email, password, username) => {
         return auth.createUserWithEmailAndPassword(email, password);
     };
 
+    const update = (username) => {
+        var user = auth.currentUser;
+
+        return user.updateProfile({
+            displayName: username,
+        });
+    };
+
     const login = (email, password) => {
-        console.log("logging in");
         return auth.signInWithEmailAndPassword(email, password);
     };
 
     const logout = () => {
-        console.log("logging out");
         return auth.signOut();
     };
 
@@ -39,6 +45,7 @@ const AuthContextProvider = (props) => {
         currentUser,
         loading,
         signup,
+        update,
         login,
         logout,
     };

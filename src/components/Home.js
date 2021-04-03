@@ -8,20 +8,20 @@ import { ReactComponent as Banner } from "../assets/banner.svg";
 
 
 const Home = () => {
-    const { currentUser, loading } = useAuth();
+    const { currentUser, loading } = useAuth();  
 
     return (
         <>
-            {/* {loading ? (
+            {loading ? (
                 <p>loading...</p>
             ) : currentUser ? (
                 <p>
                     You are signed in as{" "}
-                    <strong>{currentUser && currentUser.email}</strong>
+                    <strong>{currentUser && currentUser.displayName}</strong>
                 </p>
             ) : (
                 ""
-            )} */}
+            )}
             <section className="banner">
                 <div className="banner__text-area">
                     <h1 className="banner__heading">My Veggie Recipes</h1>

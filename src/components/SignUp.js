@@ -6,12 +6,13 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 
 const SignUp = () => {
+    const usernameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const { signup } = useAuth();
+    const { signup, update } = useAuth();
 
     const navigate = useNavigate();
 
@@ -29,12 +30,16 @@ const SignUp = () => {
             //try to sign up the user
             setLoading(true);
             await signup(emailRef.current.value, passwordRef.current.value);
+            await update(usernameRef.current.value);
             navigate("/");
         } catch (error) {
             setError(error.message);
             setLoading(false);
         }
     };
+
+    console.log('error', error);
+    
 
     return (
         <>
@@ -45,6 +50,19 @@ const SignUp = () => {
 
                     <form onSubmit={handleSubmit}>
                         <div className="form__inputs">
+                            <div className="form__input">
+                                <FontAwesomeIcon
+                                    icon={faUser}
+                                    className="form__icon"
+                                />
+                                <input
+                                    className=""
+                                    type="text"
+                                    ref={usernameRef}
+                                    placeholder="Användarnamn"
+                                    required
+                                />
+                            </div>
                             <div className="form__input">
                                 <FontAwesomeIcon
                                     icon={faUser}
