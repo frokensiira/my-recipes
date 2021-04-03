@@ -36,10 +36,7 @@ const SignUp = () => {
             setError(error.message);
             setLoading(false);
         }
-    };
-
-    console.log('error', error);
-    
+    };   
 
     return (
         <>

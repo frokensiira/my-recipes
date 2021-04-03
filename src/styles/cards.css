@@ -5,20 +5,24 @@
     gap: 1.5rem;
     margin-left: var(--page-margin);
     margin-right: var(--page-margin);
+    padding-bottom: 3rem;
 }
 
 .card {
+    
+    display: flex;
+    justify-content: center;
+}
+
+.card__wrapper {
     background-color: #fff;
     overflow: hidden;
     box-shadow: 0 7px 30px -10px rgba(150,170,180,0.5);
     border-radius: var(--border-radius);
     position: relative;
-
-    transition: 0.5s ease;
 }
 
-.card:hover {
-    transform: scale(1.02);
+.card__wrapper:hover {
     box-shadow: 0 7px 30px -10px rgba(150,170,180,0.3);
 }
 
@@ -35,6 +39,10 @@
     
 }
 
+.card__link {
+    text-decoration: none;
+}
+
 .card__image {
     display: block;
     width: 100%;
@@ -42,30 +50,41 @@
     object-fit: cover;
 }
 
-.card__content {
-    padding: 1.5rem;
-}
-
 .card__title {
     color: #000000;
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.3rem;
-    margin-bottom: 1rem;
+    padding-top: 1rem;
+    padding-right: var(--page-margin);
+    padding-left: var(--page-margin);
     text-align: center;
+    
 }
 
 .card__text {
     font-size: 0.8rem;
     line-height: 1.3;
     color: #3d3d3d;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-right: calc(var(--page-margin) / 2);
+    padding-left: calc(var(--page-margin) / 2);
     margin-bottom: 2.5rem;
 }
 
-.card__link {
-    text-decoration: none;
+.card__footer {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+}
+
+.card__heart,
+.card__heart--filled {
+    height: 1.5rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    fill: var(--light-red);
 }
 
 @media(min-width: 2309px) {

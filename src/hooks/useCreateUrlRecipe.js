@@ -19,6 +19,7 @@ const useCreateUrlRecipe = (recipe, photoUrl, fullPath, vegan, submit) => {
             db.collection("recipes")
                 .add({
                     owner: currentUser.uid,
+                    ownerUsername: currentUser.displayName,
                     name: recipe.name,
                     url: recipe.url,
                     comment: recipe.comment,
