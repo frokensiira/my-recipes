@@ -9,13 +9,12 @@
 
 .filter__item {
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 500;
-    font-size: 0.8rem;
-    white-space: nowrap;
     list-style-type: none;
     margin-right: 1rem;
     cursor: pointer;
+    letter-spacing: 1px;
+    font-weight: 500;
+    font-size: 0.8rem;
 }
 
 @media(min-width: 2309px) {
