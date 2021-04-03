@@ -3,6 +3,7 @@ import RecipeCard from "./RecipeCard";
 import { db } from "../firebase";
 import AddRecipeButton from "./AddRecipeButton";
 import { ReactComponent as Broccoli } from "../assets/broccoli.svg";
+import Filter from "./Filter";
 
 const AllRecipes = () => {
     const [recipes, setRecipes] = useState([]);
@@ -10,13 +11,13 @@ const AllRecipes = () => {
 
     const getRecipes = async () => {
         const myRecipes = [];
-        let snapshot;    
+        let snapshot;
 
-        if(vegan) {
+        if (vegan) {
             snapshot = await db
-            .collection("recipes")
-            .where("vegan", "==", true)
-            .get();
+                .collection("recipes")
+                .where("vegan", "==", true)
+                .get();
         } else {
             snapshot = await db.collection("recipes").get();
         }
@@ -48,18 +49,7 @@ const AllRecipes = () => {
             <h1 className="page__title">
                 Recept <Broccoli className="icon" />
             </h1>
-            <ul className="filter">
-                <li className={`filter__item ${!vegan ?  'filter__item--active' : ''}`} onClick={handleFilterSearch}>
-                    Alla
-                </li>
-                <li
-                    className={`filter__item ${vegan ?  'filter__item--active' : ''}`}
-                    id="vegan"
-                    onClick={handleFilterSearch}
-                >
-                    Veganska
-                </li>
-            </ul>
+            <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
             <div className="cards">
                 {recipes.length !== 0 &&
                     recipes.map((recipe) => (

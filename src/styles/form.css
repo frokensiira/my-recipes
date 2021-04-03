@@ -1,5 +1,6 @@
 .form {
-    background-color: #91b39b46;
+    /* background-color: #91b39b46; */
+    background-color: var(--blue);
     padding: 3rem;
     border-radius: var(--border-radius);
 }
