@@ -17,6 +17,7 @@ import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import ShowSingleRecipe from "./components/ShowSingleRecipe";
 import SignUp from "./components/SignUp";
+import EditRecipeWithUrl from "./components/EditRecipeWithUrl";
 
 function App() {
     return (
@@ -63,6 +64,10 @@ function App() {
 
                             <Route path="/create-recipe/url">
                                 <CreateRecipeWithUrl />
+                            </Route>
+
+                            <Route path="/edit-recipe/url/:recipeId">
+                                <EditRecipeWithUrl />
                             </Route>
 
                             <Route path="/create-recipe/file">

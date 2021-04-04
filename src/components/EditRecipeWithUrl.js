@@ -1,51 +1,58 @@
-import React, { useState, useCallback } from "react";
-import useCreateUrlRecipe from "../hooks/useCreateUrlRecipe";
+import React, { useState, useCallback, useEffect } from "react";
 import placeholder from "../assets/images/placeholder.png";
 import axios from "axios";
 import { storage } from "../firebase";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useDropzone } from "react-dropzone";
-import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
+import { ReactComponent as Radish } from "../assets/radish.svg";
 import { ReactComponent as AddImage } from "../assets/plus.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useParams } from "react-router-dom";
+import useRecipe from "../hooks/useRecipe";
+import { db } from "../firebase";
+import { useNavigate } from "react-router-dom";
 import {
     faCloudUploadAlt,
-    faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
-const CreateRecipeWithUrl = () => {
-    const [submit, setSubmit] = useState(null);
-    const [recipe, setRecipe] = useState({
-        name: "",
-        comment: "",
-        photoUrl: "",
-        url: "",
-        vegan: false,
-    });
-    const [photoUrl, setPhotoUrl] = useState(null);
-    const [fullPath, setFullPath] = useState(null);
-    const [loading, setLoading] = useState(false);
+const EditRecipeWithUrl = () => {
 
-    useCreateUrlRecipe(recipe, photoUrl, fullPath, submit);
+    const { recipeId } = useParams();
+    const { recipe } = useRecipe(recipeId);
+    const [newRecipe, setNewRecipe] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate(); 
+
+    useEffect(() => { 
+        if(recipe.length !== 0) {
+            setNewRecipe(recipe);
+        }
+    }, [recipe])
 
     const handleCheckbox = (e) => {
-        setRecipe({
-            ...recipe,
+        setNewRecipe(prevstate => ({
+            ...prevstate,
             vegan: e.target.checked,
-        });
+        }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSaveChanges = async (e) => {
         e.preventDefault();
 
-        setSubmit(true);
+        try {
+            const res = await db.collection('recipes').doc(recipeId).set(newRecipe);
+            navigate("/my-recipes/");
+        } catch(error) {
+            console.log('error', error);
+        }
     };
 
-    const handleInput = async (e) => {
-        setRecipe({
-            ...recipe,
+    const handleInput = async (e) => {       
+        
+        setNewRecipe(prevstate => ({
+            ...prevstate,
             [e.target.id]: e.target.value,
-        });
+        }));
 
         if (e.target.id === "url") {
             if (e.target.value.includes("http")) {
@@ -56,7 +63,7 @@ const CreateRecipeWithUrl = () => {
                 const response = await axios.get(requestUrl);
 
                 if (!response.data.error) {
-                    setRecipe({
+                    setNewRecipe({
                         ...recipe,
                         name: response.data.ogTitle
                             ? response.data.ogTitle
@@ -94,15 +101,13 @@ const CreateRecipeWithUrl = () => {
     const onDrop = useCallback((acceptedFile) => {
         if (acceptedFile.length === 0) {
             return;
-        }
+        }        
 
         //get root reference
         const storageRef = storage.ref();
 
         //create a reference based on the photos name
-        const fileRef = storageRef.child(
-            `photos/${acceptedFile[0].name}${uuidv4()}`
-        );
+        const fileRef = storageRef.child(`photos/${acceptedFile[0].name}${uuidv4()}`);
 
         // //upload photo to fileRef
         fileRef
@@ -110,8 +115,11 @@ const CreateRecipeWithUrl = () => {
             .then((snapshot) => {
                 //retrieve url to uploaded photo
                 snapshot.ref.getDownloadURL().then((url) => {
-                    setFullPath(snapshot.ref.fullPath);
-                    setPhotoUrl(url);
+                    setNewRecipe(prevState => ({
+                        ...prevState,
+                        photoUrl: url,
+                        fullPath: snapshot.ref.fullPath
+                    }));
                 });
             })
             .catch((err) => {
@@ -132,19 +140,17 @@ const CreateRecipeWithUrl = () => {
 
     return (
         <>
-            <h1 className="page__title">
-                Skapa recept
-                <Artichoke className="icon" />
-            </h1>
-            <p className="page__text">Steg 2 av 2</p>
-            <form className="recipe-form" onSubmit={handleSubmit}>
+            <h1 className="page__title">Redigera recept<Radish className="icon"/></h1>
+            <form className="recipe-form" onSubmit={handleSaveChanges}>
                 {loading && (
                     <div className="recipe-form--loading">
                         <ClipLoader color="var(--green)" />
                     </div>
                 )}
 
-                <div className="recipe-form__content">
+                {
+                    newRecipe &&
+                    <div className="recipe-form__content">
                     <div className="recipe-form__field">
                         <label htmlFor="url" className="recipe-form__label">
                             Länk *
@@ -154,28 +160,27 @@ const CreateRecipeWithUrl = () => {
                             className="recipe-form__input recipe-form__input-url"
                             id="url"
                             required
+                            value={newRecipe.url}
                             onChange={handleInput}
                         />
                     </div>
                     <div className="recipe-form__image">
                         <img
                             src={
-                                photoUrl
-                                    ? `${photoUrl}`
-                                    : recipe.photoUrl
-                                    ? `${recipe.photoUrl}`
+                                newRecipe.photoUrl
+                                    ? `${newRecipe.photoUrl}`
                                     : `${placeholder}`
                             }
                             alt="placeholder"
                         />
-                        {!photoUrl && !recipe.photoUrl && (
+                        {!newRecipe.photoUrl && (
                             <div className="recipe-form__overlay"></div>
                         )}
 
                         <p className="recipe-form__image-text">
                             Bild på recept
                         </p>
-                        <AddImage className="recipe-form__icon-plus" />
+                        <AddImage className="recipe-form__icon-plus"/>
                     </div>
 
                     <div {...getRootProps()} className="recipe-form__dropzone">
@@ -190,10 +195,10 @@ const CreateRecipeWithUrl = () => {
                                     <p>Släpp bilden här</p>
                                 ) : (
                                     <p>
-                                        Ledsen, fel filtyp, testa jpg eller png{" "}
+                                        Ledsen, fel filtyp, testa jpg eller png
                                     </p>
                                 )
-                            ) : recipe.photoUrl === "" ? (
+                            ) : newRecipe.photoUrl === "" ? (
                                 <p>Ladda upp bild</p>
                             ) : (
                                 <p>Byt bild</p>
@@ -210,7 +215,7 @@ const CreateRecipeWithUrl = () => {
                             className="recipe-form__input"
                             id="name"
                             required
-                            value={recipe.name}
+                            value={newRecipe.name}
                             onChange={handleInput}
                         />
                     </div>
@@ -226,7 +231,7 @@ const CreateRecipeWithUrl = () => {
                             rows="4"
                             maxLength="300"
                             onChange={handleInput}
-                            value={recipe.comment}
+                            value={newRecipe.comment}
                         ></textarea>
                     </div>
 
@@ -237,6 +242,7 @@ const CreateRecipeWithUrl = () => {
                                 name="Veganskt"
                                 onChange={handleCheckbox}
                                 className="recipe-form__checkbox"
+                                checked={newRecipe.vegan}
                             />
                             <span className="recipe-form__slider"></span>
                         </label>
@@ -249,9 +255,12 @@ const CreateRecipeWithUrl = () => {
                         Skapa recept
                     </button>
                 </div>
+                }
+
+                
             </form>
         </>
     );
 };
 
-export default CreateRecipeWithUrl;
+export default EditRecipeWithUrl;
