@@ -9,9 +9,9 @@ const useCreateUrlRecipe = (recipe, photoUrl, fullPath, vegan, submit) => {
     const { currentUser } = useAuth();
     const navigate = useNavigate();    
 
-    console.log('recipe.photoUrl', recipe.photoUrl);
-    console.log('photoUrl', photoUrl);
-    console.log('fullPath', fullPath);
+    // console.log('recipe.photoUrl', recipe.photoUrl);
+    // console.log('photoUrl', photoUrl);
+    // console.log('fullPath', fullPath);
     
 
     useEffect(() => {

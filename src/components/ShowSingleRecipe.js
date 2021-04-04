@@ -14,11 +14,17 @@ const ShowSingleRecipe = () => {
     const { currentUser } = useAuth();
 
     const handleDelete = () => {
-        console.log('recipe.path', recipe);
+        console.log('recipe.path', recipe.path);
         
         // db.collection('recipes').doc(recipeId).delete().then(() => {
 
         // })
+
+        //check if the photo exist in storage
+        if(recipe.path) {
+            console.log('exist in storage');
+            
+        }
     };
 
     const handleEdit = () => {

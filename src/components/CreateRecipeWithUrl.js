@@ -79,17 +79,24 @@ const CreateRecipeWithUrl = () => {
         }
     };
 
+    function uuidv4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+        });
+      }
+
     // Dropzone
     const onDrop = useCallback((acceptedFile) => {
         if (acceptedFile.length === 0) {
             return;
-        }
+        }        
 
         //get root reference
         const storageRef = storage.ref();
 
         //create a reference based on the photos name
-        const fileRef = storageRef.child(`photos/${acceptedFile[0].name}`);
+        const fileRef = storageRef.child(`photos/${acceptedFile[0].name}${uuidv4()}`);
 
         // //upload photo to fileRef
         fileRef
