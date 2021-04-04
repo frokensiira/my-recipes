@@ -22,11 +22,9 @@ const CreateRecipeWithUrl = () => {
         url: "",
         vegan: false,
     });
-    const [photoUrl, setPhotoUrl] = useState(null);
-    const [fullPath, setFullPath] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    useCreateUrlRecipe(recipe, photoUrl, fullPath, submit);
+    useCreateUrlRecipe(recipe, submit);
 
     const handleCheckbox = (e) => {
         setRecipe({
@@ -110,8 +108,11 @@ const CreateRecipeWithUrl = () => {
             .then((snapshot) => {
                 //retrieve url to uploaded photo
                 snapshot.ref.getDownloadURL().then((url) => {
-                    setFullPath(snapshot.ref.fullPath);
-                    setPhotoUrl(url);
+                    setRecipe(prevState => ({
+                        ...prevState,
+                        photoUrl: url,
+                        fullPath: snapshot.ref.fullPath
+                    }));
                 });
             })
             .catch((err) => {
@@ -160,15 +161,13 @@ const CreateRecipeWithUrl = () => {
                     <div className="recipe-form__image">
                         <img
                             src={
-                                photoUrl
-                                    ? `${photoUrl}`
-                                    : recipe.photoUrl
+                                recipe.photoUrl
                                     ? `${recipe.photoUrl}`
                                     : `${placeholder}`
                             }
                             alt="placeholder"
                         />
-                        {!photoUrl && !recipe.photoUrl && (
+                        {!recipe.photoUrl && (
                             <div className="recipe-form__overlay"></div>
                         )}
 

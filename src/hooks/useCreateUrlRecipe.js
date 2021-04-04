@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const useCreateUrlRecipe = (recipe, photoUrl, fullPath, submit) => {
+const useCreateUrlRecipe = (recipe, submit) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const { currentUser } = useAuth();
@@ -14,7 +14,7 @@ const useCreateUrlRecipe = (recipe, photoUrl, fullPath, submit) => {
             return;
         }
 
-        if (photoUrl && fullPath) {
+        if (recipe.photoUrl && recipe.fullPath) {
             //if user uploaded own image, add uploaded photo to database
             db.collection("recipes")
                 .add({
@@ -23,8 +23,8 @@ const useCreateUrlRecipe = (recipe, photoUrl, fullPath, submit) => {
                     name: recipe.name,
                     url: recipe.url,
                     comment: recipe.comment,
-                    path: fullPath,
-                    photoUrl: photoUrl,
+                    path: recipe.fullPath,
+                    photoUrl: recipe.photoUrl,
                     vegan: recipe.vegan,
                 })
                 .then(() => {

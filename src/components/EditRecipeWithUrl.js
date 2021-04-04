@@ -252,7 +252,7 @@ const EditRecipeWithUrl = () => {
                         type="submit"
                         className="button recipe-form__submit-button"
                     >
-                        Skapa recept
+                        Spara recept
                     </button>
                 </div>
                 }
