@@ -55,8 +55,6 @@ const CreateRecipeWithUrl = () => {
                 const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
                 const response = await axios.get(requestUrl);
 
-                console.log("response", response);
-
                 if (!response.data.error) {
                     setRecipe({
                         ...recipe,

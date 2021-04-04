@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { ReactComponent as Heart } from "../assets/heart.svg";
 import { ReactComponent as HeartFilled } from "../assets/heart-filled.svg";
-
+import profilePlaceholder from "../assets/profile-placeholder.svg";
 
 const RecipeCard = ({ recipe }) => {
     const { currentUser } = useAuth();
@@ -39,18 +39,25 @@ const RecipeCard = ({ recipe }) => {
                 <p className="card__text">{recipe.comment}</p>
 
                 <div className="card__footer">
-                    <p>{recipe.ownerUsername}</p>
+                    <div className="card__footer-owner">
+                        <img
+                            className="card__profile-image"
+                            src={profilePlaceholder}
+                        />
+                        <p className="card__footer-name">
+                            {recipe.ownerUsername}
+                        </p>
+                    </div>
+
                     {currentUser && currentUser.uid !== recipe.owner ? (
                         like ? (
-                            <HeartFilled
-                                onClick={handleLike}
-                                className="card__heart"
-                            />
+                            <div className="card__heart--filled">
+                                <HeartFilled onClick={handleLike} />
+                            </div>
                         ) : (
-                            <Heart
-                                onClick={handleLike}
-                                className="card__heart"
-                            />
+                            <div className="card__heart">
+                                <Heart onClick={handleLike} />
+                            </div>
                         )
                     ) : (
                         ""

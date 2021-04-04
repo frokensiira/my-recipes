@@ -9,7 +9,6 @@
 }
 
 .card {
-    
     display: flex;
     justify-content: center;
 }
@@ -70,21 +69,54 @@
     padding-bottom: 1rem;
     padding-right: calc(var(--page-margin) / 2);
     padding-left: calc(var(--page-margin) / 2);
-    margin-bottom: 2.5rem;
+    
+}
+
+.card__text:not(:last-child) {
+    margin-bottom: 4rem;
 }
 
 .card__footer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+.card__profile-image {
+    width: 2rem;
+    height: auto;
+    border-radius: 50%;
+    margin: 0.2rem auto;
+}
+
+.card__footer-name {
+    font-size: 0.8rem;
+    margin: 0 auto;
+}
+.card__footer-owner {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    grid-column: 2/3;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
 }
 
 .card__heart,
 .card__heart--filled {
+    display: flex;
+    align-items: center;
+    grid-column: 3/4;
+}
+
+.card__heart svg,
+.card__heart--filled svg {
     height: 1.5rem;
-    margin-bottom: 1rem;
-    margin-right: 1rem;
+    margin:0 auto;
     cursor: pointer;
     fill: var(--light-red);
+    display: block;
 }
 
 @media(min-width: 2309px) {
