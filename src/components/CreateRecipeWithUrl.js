@@ -15,24 +15,24 @@ import {
 
 const CreateRecipeWithUrl = () => {
     const [submit, setSubmit] = useState(null);
-    const [vegan, setVegan] = useState(false);
     const [recipe, setRecipe] = useState({
         name: "",
         comment: "",
         photoUrl: "",
         url: "",
+        vegan: false,
     });
     const [photoUrl, setPhotoUrl] = useState(null);
     const [fullPath, setFullPath] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    useCreateUrlRecipe(recipe, photoUrl, fullPath, vegan, submit);
+    useCreateUrlRecipe(recipe, photoUrl, fullPath, submit);
 
-    const handleCheckbox = (e) => {
-        setVegan(false);
-        if (e.target.checked === true) {
-            setVegan(true);
-        }
+    const handleCheckbox = (e) => {        
+        setRecipe({
+            ...recipe,
+            vegan: e.target.checked,
+        });
     };
 
     const handleSubmit = (e) => {
@@ -79,24 +79,30 @@ const CreateRecipeWithUrl = () => {
         }
     };
 
-    function uuidv4() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-          var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-          return v.toString(16);
-        });
-      }
+    const uuidv4 = () => {
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+            /[xy]/g,
+            function (c) {
+                var r = (Math.random() * 16) | 0,
+                    v = c == "x" ? r : (r & 0x3) | 0x8;
+                return v.toString(16);
+            }
+        );
+    };
 
     // Dropzone
     const onDrop = useCallback((acceptedFile) => {
         if (acceptedFile.length === 0) {
             return;
-        }        
+        }
 
         //get root reference
         const storageRef = storage.ref();
 
         //create a reference based on the photos name
-        const fileRef = storageRef.child(`photos/${acceptedFile[0].name}${uuidv4()}`);
+        const fileRef = storageRef.child(
+            `photos/${acceptedFile[0].name}${uuidv4()}`
+        );
 
         // //upload photo to fileRef
         fileRef
@@ -126,7 +132,10 @@ const CreateRecipeWithUrl = () => {
 
     return (
         <>
-            <h1 className="page__title">Skapa recept<Artichoke className="icon"/></h1>
+            <h1 className="page__title">
+                Skapa recept
+                <Artichoke className="icon" />
+            </h1>
             <p className="page__text">Steg 2 av 2</p>
             <form className="recipe-form" onSubmit={handleSubmit}>
                 {loading && (
@@ -166,7 +175,7 @@ const CreateRecipeWithUrl = () => {
                         <p className="recipe-form__image-text">
                             Bild på recept
                         </p>
-                        <AddImage className="recipe-form__icon-plus"/>
+                        <AddImage className="recipe-form__icon-plus" />
                     </div>
 
                     <div {...getRootProps()} className="recipe-form__dropzone">

@@ -3,16 +3,11 @@ import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const useCreateUrlRecipe = (recipe, photoUrl, fullPath, vegan, submit) => {
+const useCreateUrlRecipe = (recipe, photoUrl, fullPath, submit) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const { currentUser } = useAuth();
-    const navigate = useNavigate();    
-
-    // console.log('recipe.photoUrl', recipe.photoUrl);
-    // console.log('photoUrl', photoUrl);
-    // console.log('fullPath', fullPath);
-    
+    const navigate = useNavigate();        
 
     useEffect(() => {
         if (!submit) {
@@ -30,7 +25,7 @@ const useCreateUrlRecipe = (recipe, photoUrl, fullPath, vegan, submit) => {
                     comment: recipe.comment,
                     path: fullPath,
                     photoUrl: photoUrl,
-                    vegan: vegan,
+                    vegan: recipe.vegan,
                 })
                 .then(() => {
                     navigate("/my-recipes/");
@@ -48,7 +43,7 @@ const useCreateUrlRecipe = (recipe, photoUrl, fullPath, vegan, submit) => {
                     url: recipe.url,
                     comment: recipe.comment,
                     photoUrl: recipe.photoUrl,
-                    vegan: vegan,
+                    vegan: recipe.vegan,
                 })
                 .then(() => {
                     navigate("/my-recipes/");
