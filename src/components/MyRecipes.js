@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RecipeCard from "./RecipeCard";
 import useMyRecipes from "../hooks/useMyRecipes";
 import { ReactComponent as Cabbage } from "../assets/cabbage.svg";
@@ -7,7 +7,9 @@ import Filter from "./Filter";
 
 const MyRecipes = () => {
     const [vegan, setVegan] = useState(false);
-    const { recipes } = useMyRecipes(vegan);
+    const { recipes, likedRecipes } = useMyRecipes(vegan);
+    const [allRecipes, setAllRecipes] = useState(null);
+    console.log("recipes", recipes);
 
     const handleFilterSearch = (e) => {
         if (e.target.id === "vegan") {
@@ -17,6 +19,13 @@ const MyRecipes = () => {
         }
     };
 
+    useEffect(() => {
+        if (recipes && likedRecipes) {
+            console.log("all recipes", recipes.concat(likedRecipes));
+            setAllRecipes(recipes.concat(likedRecipes));
+        }
+    }, [recipes, likedRecipes]);
+
     return (
         <main>
             <h1 className="page__title">
@@ -24,8 +33,8 @@ const MyRecipes = () => {
             </h1>
             <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
             <div className="cards">
-                {recipes.length !== 0 ? (
-                    recipes.map((recipe) => (
+                {allRecipes && allRecipes.length !== 0 ? (
+                    allRecipes.map((recipe) => (
                         <RecipeCard recipe={recipe} key={recipe.id} />
                     ))
                 ) : vegan ? (

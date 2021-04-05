@@ -1,3 +1,9 @@
+
+@media(min-width: 801px) {
+    .add-recipe {
+        display: none;
+    }
+}
 @media(max-width: 800px) {
     .add-recipe {
         position: fixed;
