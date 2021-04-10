@@ -7,7 +7,8 @@ import Filter from "./Filter";
 
 const MyRecipes = () => {
     const [vegan, setVegan] = useState(false);
-    const { recipes, likedRecipes } = useMyRecipes(vegan);
+    const [disLiked, setDisLiked] = useState(false);
+    const { recipes, likedRecipes } = useMyRecipes(vegan, disLiked);
     const [allRecipes, setAllRecipes] = useState(null);
 
     const handleFilterSearch = (e) => {
@@ -24,6 +25,10 @@ const MyRecipes = () => {
         }
     }, [recipes, likedRecipes]);
 
+    const handleDislike = () => {
+        setDisLiked(true);
+    }
+
     return (
         <main>
             <h1 className="page__title">
@@ -33,7 +38,7 @@ const MyRecipes = () => {
             <div className="cards">
                 {allRecipes && allRecipes.length !== 0 ? (
                     allRecipes.map((recipe) => (
-                        <RecipeCard recipe={recipe} key={recipe.id} />
+                        <RecipeCard recipe={recipe} key={recipe.id} handleDislike={handleDislike}/>
                     ))
                 ) : vegan ? (
                     <p>Du har inga veganska recept än...</p>

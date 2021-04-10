@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 
-const useMyRecipes = (vegan) => {
+const useMyRecipes = (vegan, disLiked) => {
     const [loading, setLoading] = useState(true);
     const [recipes, setRecipes] = useState([]);
     const [likedRecipes, setLikedRecipes] = useState([]);
@@ -20,7 +20,7 @@ const useMyRecipes = (vegan) => {
                     db.collection("recipes")
                         .doc(doc.data().recipeId)
                         .get()
-                        .then((doc) => {
+                        .then((doc) => {                            
                             if (!doc.data().vegan && vegan) {
                                 return;
                             } else {
@@ -61,7 +61,7 @@ const useMyRecipes = (vegan) => {
         });
 
         return unsubscribe;
-    }, [currentUser.uid, vegan]);
+    }, [currentUser.uid, vegan, disLiked]);
 
     return { recipes, likedRecipes, loading };
 };

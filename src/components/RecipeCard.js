@@ -7,11 +7,11 @@ import { ReactComponent as HeartFilled } from "../assets/heart-filled.svg";
 import profilePlaceholder from "../assets/profile-placeholder.svg";
 import { db } from "../firebase";
 
-const RecipeCard = ({ recipe }) => {
+const RecipeCard = ({ recipe, handleDislike }) => {
     const { currentUser } = useAuth();
     const initialRender = useRef(true);
     const [likes, setLikes] = useState(null);
-    const [like, setLike] = useState(false);
+    const [like, setLike] = useState(false);    
 
     const handleLike = (e) => {
         setLike((prevState) => !prevState);
@@ -75,6 +75,7 @@ const RecipeCard = ({ recipe }) => {
                         .delete()
                         .then(() => {
                             getLikesForRecipe();
+                            handleDislike();
                         })
                         .catch((err) => {
                             console.log(
@@ -132,6 +133,7 @@ const RecipeCard = ({ recipe }) => {
                     });
             } else if (like === false) {
                 console.log("want to delete recipe from favourites");
+                
                 deleteLikeFromRecipe();
             }
         }
