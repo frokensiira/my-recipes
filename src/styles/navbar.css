@@ -115,6 +115,15 @@
     height: 1.5rem;
 }
 
+.navbar__displayname {
+    text-transform: none;
+    position: absolute;
+    top: 1.5rem;
+    font-weight: 300;
+    font-size: 0.7rem;
+    left: 0.3rem;
+}
+
 @media (max-width: 1024px) {
     .navbar__nav-links {
         width: 50%;

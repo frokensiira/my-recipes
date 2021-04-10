@@ -12,88 +12,84 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-                <Link to={`/`} className="navbar__logo">
-                    <Logo />
-                    <p className="navbar__logotext">my veggie recipes</p>
-                </Link>
-
-                {currentUser ? (
-                <p>
-                    You are signed in as{" "}
-                    <strong>{currentUser && `${currentUser.displayName} ${currentUser.email}`}</strong>
-                </p>
-            ) : (
-                ""
-            )}
+            <Link to={`/`} className="navbar__logo">
+                <Logo />
+                <p className="navbar__logotext">my veggie recipes</p>
+            </Link>
 
             <ul className={`navbar__nav-items`}>
                 {currentUser ? (
                     <>
-                    <li className="navbar__nav-item">
+                        <li className="navbar__nav-item">
                             <NavLink
                                 to={`/all-recipes`}
                                 className="navbar__nav-link"
                             >
                                 Alla recept
                             </NavLink>
-                    </li>
-                    <div className="navbar__nav">
-                        <li className="navbar__nav-item">
-                            <NavLink
-                                to={`/my-recipes`}
-                                className="navbar__nav-link"
-                            >
-                                Mina recept
-                            </NavLink>
                         </li>
-                        <li className="navbar__nav-item">
-                            <NavLink
-                                to={`/my-recipes/create-recipe`}
-                                className="navbar__nav-link"
-                            >
-                                Skapa recept
-                            </NavLink>
-                        </li>
+                        <div className="navbar__nav">
+                            <li className="navbar__nav-item">
+                                <NavLink
+                                    to={`/my-recipes`}
+                                    className="navbar__nav-link"
+                                >
+                                    Mina recept
+                                </NavLink>
+                            </li>
+                            <li className="navbar__nav-item">
+                                <NavLink
+                                    to={`/my-recipes/create-recipe`}
+                                    className="navbar__nav-link"
+                                >
+                                    Skapa recept
+                                </NavLink>
+                            </li>
                         </div>
                         <li className="navbar__nav-item navbar__nav-item-dropdown">
                             <button
                                 className="navbar__profile-button"
                                 aria-expanded="false"
-                                onClick={() => setShowDropdown(prevState => !prevState)}
-                                >
-                                <User className="navbar__profile-icon"/>
+                                onClick={() =>
+                                    setShowDropdown((prevState) => !prevState)
+                                }
+                            >
+                                <User className="navbar__profile-icon" />
+                                {currentUser && (
+                                <p>
+                                    <strong className="navbar__displayname">{currentUser.displayName} </strong>
+                                </p>
+                            )}
                             </button>
-                            {
-                                showDropdown &&
-
-                                <ul className="navbar__dropdown">
-                                <li className="navbar__nav-item navbar__nav-item--mobile">
-                                    <NavLink
-                                        to={`/my-recipes`}
-                                        className="navbar__nav-link"
-                                    >
-                                        Mina recept
-                                    </NavLink>
-                                </li>
-                                <li className="navbar__nav-item navbar__nav-item--mobile">
-                                    <NavLink
-                                        to={`/my-recipes/create-recipe`}
-                                        className="navbar__nav-link"
-                                    >
-                                        Skapa recept
-                                    </NavLink>
-                                </li>
-                                <li className="navbar__nav-item">
-                                    <NavLink
-                                        to={`/logout`}
-                                        className="navbar__nav-link"
-                                    >
-                                        Logga ut
-                                    </NavLink>
-                                </li>
-                            </ul>
-                            }
                             
+                            {showDropdown && (
+                                <ul className="navbar__dropdown">
+                                    <li className="navbar__nav-item navbar__nav-item--mobile">
+                                        <NavLink
+                                            to={`/my-recipes`}
+                                            className="navbar__nav-link"
+                                        >
+                                            Mina recept
+                                        </NavLink>
+                                    </li>
+                                    <li className="navbar__nav-item navbar__nav-item--mobile">
+                                        <NavLink
+                                            to={`/my-recipes/create-recipe`}
+                                            className="navbar__nav-link"
+                                        >
+                                            Skapa recept
+                                        </NavLink>
+                                    </li>
+                                    <li className="navbar__nav-item">
+                                        <NavLink
+                                            to={`/logout`}
+                                            className="navbar__nav-link"
+                                        >
+                                            Logga ut
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            )}
                         </li>
                     </>
                 ) : (

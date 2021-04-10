@@ -5,11 +5,14 @@ import useRecipe from "../hooks/useRecipe";
 import { SRLWrapper } from "simple-react-lightbox";
 import { ReactComponent as Delete } from "../assets/trash.svg";
 import { ReactComponent as Edit } from "../assets/edit.svg";
+import { ReactComponent as Vegan } from "../assets/vegan.svg";
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import { storage } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 const ShowSingleRecipe = () => {
     const { recipeId } = useParams();
@@ -35,8 +38,6 @@ const ShowSingleRecipe = () => {
                 navigate("/my-recipes/");
             });
     };
-
-    const handleEdit = () => {};
 
     return (
         <>
@@ -76,16 +77,37 @@ const ShowSingleRecipe = () => {
                         )}
 
                         <div className="recipe__content">
-                            <div>
-                                <h1>{recipe.name}</h1>
+                            <h1 className="recipe__heading">{recipe.name}</h1>
 
-                                {recipe.comment && (
-                                    <p className="recipe__text">
-                                        {recipe.comment}
+                            {recipe.comment && (
+                                <p className="recipe__text">{recipe.comment}</p>
+                            )}
+                            {recipe.vegan && (
+                                <>
+                                    <Vegan className="recipe__vegan" />
+                                    <p className="recipe__vegan-text">
+                                        Veganskt
                                     </p>
-                                )}
-                                {recipe.vegan && <p>Veganskt</p>}
-                            </div>
+                                </>
+                            )}
+
+                            {recipe.url && (
+                
+                                <a
+                                    href={recipe.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="recipe__link"
+                                >
+                                    Länk till receptet
+                                    <FontAwesomeIcon
+                                className="recipe__link-icon"
+                                icon={faChevronRight}
+                            />
+                                </a>
+                                
+
+                            )}
 
                             {recipe.recipeUrl && (
                                 <div className="recipe__file">
@@ -105,20 +127,7 @@ const ShowSingleRecipe = () => {
                                 </div>
                             )}
 
-                            {recipe.url && (
-                                <div className="recipe__link">
-                                    <a
-                                        href={recipe.url}
-                                        className="btn btn-primary"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        Länk till receptet
-                                    </a>
-                                </div>
-                            )}
-
-                            {currentUser && currentUser.uid == recipe.owner ? (
+                            {currentUser && currentUser.uid === recipe.owner ? (
                                 <div>
                                     <button
                                         className="recipe__delete-button"
@@ -130,7 +139,6 @@ const ShowSingleRecipe = () => {
                                     <Link
                                         to={`/my-recipes/edit-recipe/url/${recipeId}`}
                                         className="recipe__edit-link"
-                                        onClick={handleEdit}
                                     >
                                         <Edit className="recipe__edit-icon" />
                                         Redigera recept
