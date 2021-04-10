@@ -6,7 +6,7 @@ const useMyRecipes = (vegan) => {
     const [loading, setLoading] = useState(true);
     const [recipes, setRecipes] = useState([]);
     const [likedRecipes, setLikedRecipes] = useState([]);
-    const { currentUser } = useAuth();   
+    const { currentUser } = useAuth();
 
     useEffect(() => {
         setLikedRecipes([]);
@@ -17,27 +17,19 @@ const useMyRecipes = (vegan) => {
             .then((querySnapshot) => {
                 const favouriteRecipes = [];
                 querySnapshot.forEach((doc) => {
-                    db
-                        .collection("recipes")
+                    db.collection("recipes")
                         .doc(doc.data().recipeId)
                         .get()
-                        .then((doc) => {                            
-                            if(!doc.data().vegan && vegan) {
-                                console.log('not the same');
-                                
+                        .then((doc) => {
+                            if (!doc.data().vegan && vegan) {
                                 return;
                             } else {
-                                console.log('its vegan');
-                                
                                 favouriteRecipes.push({
                                     id: doc.id,
                                     ...doc.data(),
                                 });
                                 setLikedRecipes(favouriteRecipes);
                             }
-                            
-                            console.log('favouritRecipes', favouriteRecipes);
-                            
                         });
                 });
             })

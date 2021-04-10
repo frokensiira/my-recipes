@@ -10,8 +10,6 @@ const MyRecipes = () => {
     const { recipes, likedRecipes } = useMyRecipes(vegan);
     const [allRecipes, setAllRecipes] = useState(null);
 
-    console.log("liked recipes", likedRecipes);
-
     const handleFilterSearch = (e) => {
         if (e.target.id === "vegan") {
             setVegan(true);
@@ -25,8 +23,6 @@ const MyRecipes = () => {
             setAllRecipes(recipes.concat(likedRecipes));
         }
     }, [recipes, likedRecipes]);
-
-    console.log("all recipes", allRecipes);
 
     return (
         <main>

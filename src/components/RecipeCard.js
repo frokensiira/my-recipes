@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import foodPlaceholder from "../assets//images/food_placeholder.png";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -9,11 +9,41 @@ import { db } from "../firebase";
 
 const RecipeCard = ({ recipe }) => {
     const { currentUser } = useAuth();
+    const initialRender = useRef(true);
     const [likes, setLikes] = useState(null);
     const [like, setLike] = useState(false);
 
     const handleLike = (e) => {
         setLike((prevState) => !prevState);
+    };
+
+    const getLikesForRecipe = () => {
+        const unsubscribe = db
+            .collection("likes")
+            .where("recipeId", "==", recipe.id)
+            .onSnapshot((snapshot) => {
+                const snapshotLikes = [];
+                snapshot.forEach((doc) => {
+                    snapshotLikes.push({
+                        id: doc.id,
+                        ...doc.data(),
+                    });
+                });
+                setLikes(snapshotLikes);
+
+                if (
+                    currentUser &&
+                    currentUser.uid !== recipe.creator &&
+                    snapshotLikes.length !== 0
+                ) {
+                    snapshotLikes.forEach((like) => {
+                        if (like.liker === currentUser.uid) {
+                            setLike(true);
+                        }
+                    });
+                }
+            });
+        return unsubscribe;
     };
 
     const addLikeToRecipe = (docRef) => {
@@ -31,60 +61,79 @@ const RecipeCard = ({ recipe }) => {
             });
     };
 
-    const getLikesForRecipe = () => {
-        const unsubscribe = db.collection("likes").where('recipeId', '==', recipe.id).onSnapshot((snapshot) => {
-            const snapshotLikes = [];
-            snapshot.forEach((doc) => {
-                snapshotLikes.push({
-                    id: doc.id,
-                    ...doc.data(),
+    const deleteLikeFromRecipe = () => {
+        //find document with the recipe like
+        db.collection("likes")
+            .where("recipeId", "==", recipe.id)
+            .where("liker", "==", currentUser.uid)
+            .get()
+            .then((query) => {
+                query.forEach((doc) => {
+                    //delete recipe from database
+                    db.collection("likes")
+                        .doc(doc.id)
+                        .delete()
+                        .then(() => {
+                            getLikesForRecipe();
+                        })
+                        .catch((err) => {
+                            console.log(
+                                "could not remove like from recipe",
+                                err
+                            );
+                        });
                 });
+            })
+            .catch((err) => {
+                console.log("could not remove like from recipe", err);
             });
-            setLikes(snapshotLikes);
-            console.log('snapshotLikes', snapshotLikes);
-            
-        });
-        return unsubscribe;
     };
-
-    const deleteLikeFromRecipe = () => {};
 
     useEffect(() => {
         getLikesForRecipe();
+
+        return () => {
+            setLikes(false);
+        };
     }, []);
 
     useEffect(() => {
-        if (like) {
-            const docRef = db
-                .collection("likes")
-                .where("recipeId", "==", recipe.id);
-
-            //check if like exist already
-            docRef
-                .get()
-                .then((querySnapshot) => {
-                    console.log("querysnapshot", querySnapshot);
-                    const like = [];
-                     querySnapshot.forEach((doc) => {
-                        if(doc.data().liker === currentUser.uid) {
-                            like.push({
-                                id: doc.id,
-                            });
-                        } ;
-                    });
-
-                    if (like.length !== 0) {
-                        console.log("already liked recipe");
-                        return;
-                    } else {
-                        addLikeToRecipe();
-                    }
-                })
-                .catch((err) => {
-                    console.log("err", err);
-                });
+        if (initialRender.current) {
+            initialRender.current = false;
         } else {
-            console.log("want to delete recipe from favourites");
+            if (like) {
+                const docRef = db
+                    .collection("likes")
+                    .where("recipeId", "==", recipe.id);
+
+                //check if like exist already
+                docRef
+                    .get()
+                    .then((querySnapshot) => {
+                        const like = [];
+                        querySnapshot.forEach((doc) => {
+                            if (doc.data().liker === currentUser.uid) {
+                                like.push({
+                                    id: doc.id,
+                                    ...doc.data(),
+                                });
+                            }
+                        });
+
+                        if (like.length !== 0) {
+                            console.log("already liked recipe");
+                            return;
+                        } else {
+                            addLikeToRecipe();
+                        }
+                    })
+                    .catch((err) => {
+                        console.log("err", err);
+                    });
+            } else if (like === false) {
+                console.log("want to delete recipe from favourites");
+                deleteLikeFromRecipe();
+            }
         }
     }, [like]);
 
@@ -129,27 +178,14 @@ const RecipeCard = ({ recipe }) => {
                         </p>
                     </div>
 
-                    {currentUser && currentUser.uid !== recipe.creator ? (
-                        likes && likes.length !== 0 ? (
-                            likes.map((like, index) => {
-                                if (like.liker === currentUser.uid) {
-                                    return (
-                                        <div
-                                            key={index}
-                                            className="card__heart"
-                                        >
-                                            <HeartFilled onClick={handleLike} />
-                                        </div>
-                                    );
-                                }
-                            })
-                        ) : (
-                            <div className="card__heart">
-                                <Heart onClick={handleLike} />
-                            </div>
-                        )
+                    {like ? (
+                        <div className="card__heart">
+                            <HeartFilled onClick={handleLike} />
+                        </div>
                     ) : (
-                        ""
+                        <div className="card__heart">
+                            <Heart onClick={handleLike} />
+                        </div>
                     )}
                 </div>
             </div>
