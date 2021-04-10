@@ -17,47 +17,33 @@ const RecipeCard = ({ recipe }) => {
     };
 
     const addLikeToRecipe = (docRef) => {
-        // add likes to recipe subcollection
-        docRef
-            .collection("likes")
+        db.collection("likes")
             .add({
                 liker: currentUser.uid,
+                recipeId: recipe.id,
             })
             .then(() => {
-                console.log("like added to db");
+                console.log("Added to seperate likes collection");
                 getLikesForRecipe();
             })
             .catch((err) => {
-                console.log("something went wrong", err);
+                console.log("err", err);
             });
-
-        // add likes to seperate collection
-        db.collection('likes').add({
-            liker: currentUser.uid,
-            recipeId: recipe.id,
-        }).then(() => {
-            console.log('Added to seperate likes collection');
-            
-        }).catch((err) => {
-            console.log('err', err);
-        })
     };
 
     const getLikesForRecipe = () => {
-        const unsubscribe = db
-            .collection("recipes")
-            .doc(recipe.id)
-            .collection("likes")
-            .onSnapshot((snapshot) => {
-                const snapshotLikes = [];
-                snapshot.forEach((doc) => {
-                    snapshotLikes.push({
-                        id: doc.id,
-                        ...doc.data(),
-                    });
+        const unsubscribe = db.collection("likes").where('recipeId', '==', recipe.id).onSnapshot((snapshot) => {
+            const snapshotLikes = [];
+            snapshot.forEach((doc) => {
+                snapshotLikes.push({
+                    id: doc.id,
+                    ...doc.data(),
                 });
-                setLikes(snapshotLikes);
             });
+            setLikes(snapshotLikes);
+            console.log('snapshotLikes', snapshotLikes);
+            
+        });
         return unsubscribe;
     };
 
@@ -69,50 +55,34 @@ const RecipeCard = ({ recipe }) => {
 
     useEffect(() => {
         if (like) {
-            const docRef = db.collection("recipes").doc(recipe.id);
+            const docRef = db
+                .collection("likes")
+                .where("recipeId", "==", recipe.id);
 
-            //check if subcollection exist
-            docRef.get().then((doc) => {
-                if (doc.exists) {
-                    console.log("document exist");
+            //check if like exist already
+            docRef
+                .get()
+                .then((querySnapshot) => {
+                    console.log("querysnapshot", querySnapshot);
+                    const like = [];
+                     querySnapshot.forEach((doc) => {
+                        if(doc.data().liker === currentUser.uid) {
+                            like.push({
+                                id: doc.id,
+                            });
+                        } ;
+                    });
 
-                    docRef
-                        .collection("likes")
-                        .get()
-                        .then((sub) => {
-                            if (sub.docs.length > 0) {
-                                console.log("subcollection exist");
-
-                                const unsubscribe = docRef
-                                    .collection("likes")
-                                    .onSnapshot((snapshot) => {
-                                        const snapshotLikes = [];
-
-                                        snapshot.forEach((doc) => {
-                                            if (
-                                                doc.data().liker ===
-                                                currentUser.uid
-                                            ) {
-                                                console.log(
-                                                    "liker already exist"
-                                                );
-
-                                                return;
-                                            } else {
-                                                console.log("want to add like");
-                                                addLikeToRecipe(docRef);
-                                            }
-                                        });
-                                        setLikes(snapshotLikes);
-                                    });
-
-                                return unsubscribe;
-                            } else {
-                                addLikeToRecipe(docRef);
-                            }
-                        });
-                }
-            });
+                    if (like.length !== 0) {
+                        console.log("already liked recipe");
+                        return;
+                    } else {
+                        addLikeToRecipe();
+                    }
+                })
+                .catch((err) => {
+                    console.log("err", err);
+                });
         } else {
             console.log("want to delete recipe from favourites");
         }
@@ -143,10 +113,12 @@ const RecipeCard = ({ recipe }) => {
                 <p className="card__text">{recipe.comment}</p>
 
                 <div className="card__footer">
-                    {
-                        likes && <div className="card__likes"><p>{likes.length} gillar</p></div>
-                    }
-                    
+                    {likes && (
+                        <div className="card__likes">
+                            <p>{likes.length} gillar</p>
+                        </div>
+                    )}
+
                     <div className="card__footer-owner">
                         <img
                             className="card__profile-image"
