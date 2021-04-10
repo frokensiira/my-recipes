@@ -76,6 +76,13 @@
     margin-bottom: 4rem;
 }
 
+.card__likes {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 0.9rem;
+}
+
 .card__footer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

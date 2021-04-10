@@ -6,9 +6,10 @@ const useMyRecipes = (vegan) => {
     const [loading, setLoading] = useState(true);
     const [recipes, setRecipes] = useState([]);
     const [likedRecipes, setLikedRecipes] = useState([]);
-    const { currentUser } = useAuth();
+    const { currentUser } = useAuth();   
 
     useEffect(() => {
+        setLikedRecipes([]);
         //get a list of all the recipes that the user likes
         db.collection("likes")
             .where("liker", "==", currentUser.uid)
@@ -16,17 +17,27 @@ const useMyRecipes = (vegan) => {
             .then((querySnapshot) => {
                 const favouriteRecipes = [];
                 querySnapshot.forEach((doc) => {
-                    db.collection("recipes")
+                    db
+                        .collection("recipes")
                         .doc(doc.data().recipeId)
                         .get()
-                        .then((doc) => {
-                            console.log("doc", doc.data());
-                            favouriteRecipes.push({
-                                id: doc.id,
-                                ...doc.data(),
-                            });
-
-                            setLikedRecipes(favouriteRecipes);
+                        .then((doc) => {                            
+                            if(!doc.data().vegan && vegan) {
+                                console.log('not the same');
+                                
+                                return;
+                            } else {
+                                console.log('its vegan');
+                                
+                                favouriteRecipes.push({
+                                    id: doc.id,
+                                    ...doc.data(),
+                                });
+                                setLikedRecipes(favouriteRecipes);
+                            }
+                            
+                            console.log('favouritRecipes', favouriteRecipes);
+                            
                         });
                 });
             })

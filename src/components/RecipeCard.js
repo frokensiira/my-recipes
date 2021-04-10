@@ -34,13 +34,12 @@ const RecipeCard = ({ recipe }) => {
         // add likes to seperate collection
         db.collection('likes').add({
             liker: currentUser.uid,
-            recipeId: recipe.id
+            recipeId: recipe.id,
         }).then(() => {
             console.log('Added to seperate likes collection');
             
         }).catch((err) => {
             console.log('err', err);
-            
         })
     };
 
@@ -115,7 +114,7 @@ const RecipeCard = ({ recipe }) => {
                 }
             });
         } else {
-            //console.log("want to delete recipe from favourites");
+            console.log("want to delete recipe from favourites");
         }
     }, [like]);
 
@@ -145,7 +144,7 @@ const RecipeCard = ({ recipe }) => {
 
                 <div className="card__footer">
                     {
-                        likes && <div>{likes.length} likes</div>
+                        likes && <div className="card__likes"><p>{likes.length} gillar</p></div>
                     }
                     
                     <div className="card__footer-owner">

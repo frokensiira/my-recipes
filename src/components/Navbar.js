@@ -17,6 +17,14 @@ const Navbar = () => {
                     <p className="navbar__logotext">my veggie recipes</p>
                 </Link>
 
+                {currentUser ? (
+                <p>
+                    You are signed in as{" "}
+                    <strong>{currentUser && `${currentUser.displayName} ${currentUser.email}`}</strong>
+                </p>
+            ) : (
+                ""
+            )}
 
             <ul className={`navbar__nav-items`}>
                 {currentUser ? (
