@@ -20,11 +20,11 @@ const ShowSingleRecipe = () => {
     const { recipeId } = useParams();
     const { recipe, loading } = useRecipe(recipeId);
     const { currentUser } = useAuth();
-    const [likes, setLikes] = useState(null);
+    const [likes, setLikes] = useState([]);
     const [like, setLike] = useState(false);
     const initialRender = useRef(true);
     const navigate = useNavigate();
-
+    
     const handleLike = (e) => {
         setLike((prevState) => !prevState);
     };
@@ -66,7 +66,6 @@ const ShowSingleRecipe = () => {
     };
 
     const addLikeToRecipe = (docRef) => {
-        
         db.collection("likes")
             .add({
                 liker: currentUser.uid,
@@ -283,26 +282,23 @@ const ShowSingleRecipe = () => {
                                 )}
                             </div>
 
-                            <div className="recipe__footer">
-                                {likes && (
+                            {currentUser && currentUser.uid !== recipe.owner && (
+                                <div className="recipe__footer">
                                     <div className="card__likes">
                                         <p>{likes.length} gillar</p>
                                     </div>
-                                )}
 
-                                <div className="recipe__footer-owner">
-                                    <img
-                                        className="recipe__profile-image"
-                                        src={profilePlaceholder}
-                                    />
-                                    <p className="recipe__footer-name">
-                                        {recipe.creatorUsername}
-                                    </p>
-                                </div>
+                                    <div className="recipe__footer-owner">
+                                        <img
+                                            className="recipe__profile-image"
+                                            src={profilePlaceholder}
+                                        />
+                                        <p className="recipe__footer-name">
+                                            {recipe.creatorUsername}
+                                        </p>
+                                    </div>
 
-                                {currentUser &&
-                                currentUser.uid !== recipe.creator ? (
-                                    like ? (
+                                    {like ? (
                                         <div className="card__heart">
                                             <HeartFilled onClick={handleLike} />
                                         </div>
@@ -310,11 +306,9 @@ const ShowSingleRecipe = () => {
                                         <div className="card__heart">
                                             <Heart onClick={handleLike} />
                                         </div>
-                                    )
-                                ) : (
-                                    ""
-                                )}
-                            </div>
+                                    )}
+                                </div>
+                            )}
 
                             {currentUser && currentUser.uid === recipe.owner ? (
                                 <div className="recipe__buttons">

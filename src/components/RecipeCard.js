@@ -10,7 +10,7 @@ import { db } from "../firebase";
 const RecipeCard = ({ recipe, handleDislike }) => {
     const { currentUser } = useAuth();
     const initialRender = useRef(true);
-    const [likes, setLikes] = useState(null);
+    const [likes, setLikes] = useState([]);
     const [like, setLike] = useState(false);
 
     const handleLike = (e) => {
@@ -186,11 +186,11 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                 <p className="card__text">{recipe.comment}</p>
 
                 <div className="card__footer">
-                    {likes && (
+                    
                         <div className="card__likes">
                             <p>{likes.length} gillar</p>
                         </div>
-                    )}
+                
 
                     <div className="card__footer-owner">
                         <img
