@@ -11,7 +11,7 @@ const RecipeCard = ({ recipe, handleDislike }) => {
     const { currentUser } = useAuth();
     const initialRender = useRef(true);
     const [likes, setLikes] = useState(null);
-    const [like, setLike] = useState(false);    
+    const [like, setLike] = useState(false);
 
     const handleLike = (e) => {
         setLike((prevState) => !prevState);
@@ -133,7 +133,7 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                     });
             } else if (like === false) {
                 console.log("want to delete recipe from favourites");
-                
+
                 deleteLikeFromRecipe();
             }
         }
@@ -180,14 +180,18 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                         </p>
                     </div>
 
-                    {like ? (
-                        <div className="card__heart">
-                            <HeartFilled onClick={handleLike} />
-                        </div>
+                    {currentUser && currentUser.uid !== recipe.creator ? (
+                        like ? (
+                            <div className="card__heart">
+                                <HeartFilled onClick={handleLike} />
+                            </div>
+                        ) : (
+                            <div className="card__heart">
+                                <Heart onClick={handleLike} />
+                            </div>
+                        )
                     ) : (
-                        <div className="card__heart">
-                            <Heart onClick={handleLike} />
-                        </div>
+                        ""
                     )}
                 </div>
             </div>
