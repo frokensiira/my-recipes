@@ -143,8 +143,8 @@ const CreateRecipeWithFile = () => {
                 <p className="page__text"> Steg 2 av 2</p>
             </div>
             <form onSubmit={handleSubmit} className="recipe-form">
-                <div className="recipe-form__content">
-                <div {...getRootProps()} className="recipe-form__dropzone">
+                <div className="recipe-form__content--file">
+                <div {...getRootProps()} className="recipe-form__dropzone--file">
                         <input {...getInputProps()} />
                         <div className="recipe-form__dropzone-text">
                             <FontAwesomeIcon
@@ -160,33 +160,34 @@ const CreateRecipeWithFile = () => {
                                     </p>
                                 )
                             ) : recipe.photoUrl === "" ? (
-                                <p>Ladda upp bild</p>
+                                <p>Ladda upp recept</p>
                             ) : (
                                 <p>Byt bild</p>
                             )}
                         </div>
                     </div>
 
-                    <div className="recipe-form__image">
-                        <img
-                            src={
-                                recipe.photoUrl
-                                    ? `${recipe.photoUrl}`
-                                    : `${placeholder}`
-                            }
-                            alt="placeholder"
-                        />
-                        {!recipe.photoUrl && (
-                            <div className="recipe-form__overlay"></div>
-                        )}
+                    <div {...getRootProps()} className="recipe-form__dropzone">
+                        <input {...getInputProps()} />
+                        <div className="recipe-form__image">
+                            <img
+                                src={
+                                    recipe.photoUrl
+                                        ? `${recipe.photoUrl}`
+                                        : `${placeholder}`
+                                }
+                                alt="placeholder"
+                            />
+                            {!recipe.photoUrl && (
+                                <div className="recipe-form__overlay"></div>
+                            )}
 
-                        <p className="recipe-form__image-text">
-                            Bild på recept
-                        </p>
-                        <AddImage className="recipe-form__icon-plus" />
+                            <p className="recipe-form__image-text">
+                                Lägg till bild
+                            </p>
+                            <AddImage className="recipe-form__icon-plus" />
+                        </div>
                     </div>
-
-                    
 
                     <div className="recipe-form__field">
                         <label htmlFor="name" className="recipe-form__label">

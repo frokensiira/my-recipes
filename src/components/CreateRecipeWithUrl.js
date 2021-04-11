@@ -184,7 +184,7 @@ const CreateRecipeWithUrl = () => {
                             )}
 
                             <p className="recipe-form__image-text">
-                                Bild på recept
+                                Lägg till bild
                             </p>
                             <AddImage className="recipe-form__icon-plus" />
                         </div>

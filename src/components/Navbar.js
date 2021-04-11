@@ -56,12 +56,12 @@ const Navbar = () => {
                             >
                                 <User className="navbar__profile-icon" />
                                 {currentUser && (
-                                <p>
-                                    <strong className="navbar__displayname">{currentUser.displayName} </strong>
-                                </p>
-                            )}
+                                    <p className="navbar__displayname">
+                                        {currentUser.displayName}
+                                    </p>
+                                )}
                             </button>
-                            
+
                             {showDropdown && (
                                 <ul className="navbar__dropdown">
                                     <li className="navbar__nav-item navbar__nav-item--mobile">
