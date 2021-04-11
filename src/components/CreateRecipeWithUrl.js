@@ -28,6 +28,8 @@ const CreateRecipeWithUrl = () => {
     useCreateUrlRecipe(recipe, submit);
 
     const handleCheckbox = (e) => {
+        console.log('cliked', e.target.checked);
+        
         setRecipe({
             ...recipe,
             vegan: e.target.checked,
@@ -221,16 +223,15 @@ const CreateRecipeWithUrl = () => {
 
                     <div className="recipe-form__checkbox-wrapper">
                         <label className="recipe-form__switch">
-                            <label className="recipe-form__label recipe-form__checkbox-label">
-                                <input
-                                    type="checkbox"
-                                    name="Veganskt"
-                                    onChange={handleCheckbox}
-                                    className="recipe-form__checkbox"
-                                />
-                                <span className="recipe-form__slider"></span>
-                                Veganskt
-                            </label>
+                        <label className="recipe-form__label recipe-form__checkbox-label" >
+                            <input
+                                type="checkbox"
+                                name="Veganskt"
+                                onChange={handleCheckbox}
+                                className="recipe-form__checkbox"
+                            />
+                            <span className="recipe-form__slider"></span>
+                        Veganskt</label>
                         </label>
                     </div>
                     <button
