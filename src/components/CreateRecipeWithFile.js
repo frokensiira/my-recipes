@@ -144,7 +144,10 @@ const CreateRecipeWithFile = () => {
             </div>
             <form onSubmit={handleSubmit} className="recipe-form">
                 <div className="recipe-form__content--file">
-                <div {...getRootProps()} className="recipe-form__dropzone--file">
+                    <div
+                        {...getRootProps()}
+                        className="recipe-form__dropzone--file"
+                    >
                         <input {...getInputProps()} />
                         <div className="recipe-form__dropzone-text">
                             <FontAwesomeIcon
@@ -232,15 +235,17 @@ const CreateRecipeWithFile = () => {
 
                     <div className="recipe-form__checkbox-wrapper">
                         <label className="recipe-form__switch">
-                            <input
-                                type="checkbox"
-                                name="Veganskt"
-                                onChange={handleCheckbox}
-                                className="recipe-form__checkbox"
-                            />
-                            <span className="recipe-form__slider"></span>
+                            <label className="recipe-form__label recipe-form__checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="Veganskt"
+                                    onChange={handleCheckbox}
+                                    className="recipe-form__checkbox"
+                                />
+                                <span className="recipe-form__slider"></span>
+                                Veganskt
+                            </label>
                         </label>
-                        <label className="recipe-form__label">Veganskt</label>
                     </div>
                     <button
                         type="submit"

@@ -11,26 +11,23 @@ import { useParams } from "react-router-dom";
 import useRecipe from "../hooks/useRecipe";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import {
-    faCloudUploadAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
 
 const EditRecipeWithUrl = () => {
-
     const { recipeId } = useParams();
     const { recipe } = useRecipe(recipeId);
     const [newRecipe, setNewRecipe] = useState(null);
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
-    useEffect(() => { 
-        if(recipe.length !== 0) {
+    useEffect(() => {
+        if (recipe.length !== 0) {
             setNewRecipe(recipe);
         }
-    }, [recipe])
+    }, [recipe]);
 
     const handleCheckbox = (e) => {
-        setNewRecipe(prevstate => ({
+        setNewRecipe((prevstate) => ({
             ...prevstate,
             vegan: e.target.checked,
         }));
@@ -40,16 +37,18 @@ const EditRecipeWithUrl = () => {
         e.preventDefault();
 
         try {
-            const res = await db.collection('recipes').doc(recipeId).set(newRecipe);
+            const res = await db
+                .collection("recipes")
+                .doc(recipeId)
+                .set(newRecipe);
             navigate("/my-recipes/");
-        } catch(error) {
-            console.log('error', error);
+        } catch (error) {
+            console.log("error", error);
         }
     };
 
-    const handleInput = async (e) => {       
-        
-        setNewRecipe(prevstate => ({
+    const handleInput = async (e) => {
+        setNewRecipe((prevstate) => ({
             ...prevstate,
             [e.target.id]: e.target.value,
         }));
@@ -101,13 +100,15 @@ const EditRecipeWithUrl = () => {
     const onDrop = useCallback((acceptedFile) => {
         if (acceptedFile.length === 0) {
             return;
-        }        
+        }
 
         //get root reference
         const storageRef = storage.ref();
 
         //create a reference based on the photos name
-        const fileRef = storageRef.child(`photos/${acceptedFile[0].name}${uuidv4()}`);
+        const fileRef = storageRef.child(
+            `photos/${acceptedFile[0].name}${uuidv4()}`
+        );
 
         // //upload photo to fileRef
         fileRef
@@ -115,10 +116,10 @@ const EditRecipeWithUrl = () => {
             .then((snapshot) => {
                 //retrieve url to uploaded photo
                 snapshot.ref.getDownloadURL().then((url) => {
-                    setNewRecipe(prevState => ({
+                    setNewRecipe((prevState) => ({
                         ...prevState,
                         photoUrl: url,
-                        fullPath: snapshot.ref.fullPath
+                        fullPath: snapshot.ref.fullPath,
                     }));
                 });
             })
@@ -140,7 +141,10 @@ const EditRecipeWithUrl = () => {
 
     return (
         <>
-            <h1 className="page__title">Redigera recept<Radish className="icon"/></h1>
+            <h1 className="page__title">
+                Redigera recept
+                <Radish className="icon" />
+            </h1>
             <form className="recipe-form" onSubmit={handleSaveChanges}>
                 {loading && (
                     <div className="recipe-form--loading">
@@ -148,116 +152,124 @@ const EditRecipeWithUrl = () => {
                     </div>
                 )}
 
-                {
-                    newRecipe &&
+                {newRecipe && (
                     <div className="recipe-form__content">
-                    <div className="recipe-form__field">
-                        <label htmlFor="url" className="recipe-form__label">
-                            Länk *
-                        </label>
-                        <input
-                            type="url"
-                            className="recipe-form__input recipe-form__input-url"
-                            id="url"
-                            required
-                            value={newRecipe.url}
-                            onChange={handleInput}
-                        />
-                    </div>
-                    <div className="recipe-form__image">
-                        <img
-                            src={
-                                newRecipe.photoUrl
-                                    ? `${newRecipe.photoUrl}`
-                                    : `${placeholder}`
-                            }
-                            alt="placeholder"
-                        />
-                        {!newRecipe.photoUrl && (
-                            <div className="recipe-form__overlay"></div>
-                        )}
-
-                        <p className="recipe-form__image-text">
-                            Bild på recept
-                        </p>
-                        <AddImage className="recipe-form__icon-plus"/>
-                    </div>
-
-                    <div {...getRootProps()} className="recipe-form__dropzone">
-                        <input {...getInputProps()} />
-                        <div className="recipe-form__dropzone-text">
-                            <FontAwesomeIcon
-                                className="recipe-form__upload-icon"
-                                icon={faCloudUploadAlt}
-                            />
-                            {isDragActive ? (
-                                isDragAccept ? (
-                                    <p>Släpp bilden här</p>
-                                ) : (
-                                    <p>
-                                        Ledsen, fel filtyp, testa jpg eller png
-                                    </p>
-                                )
-                            ) : newRecipe.photoUrl === "" ? (
-                                <p>Ladda upp bild</p>
-                            ) : (
-                                <p>Byt bild</p>
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="recipe-form__field">
-                        <label htmlFor="name" className="recipe-form__label">
-                            Receptnamn *
-                        </label>
-                        <input
-                            type="text"
-                            className="recipe-form__input"
-                            id="name"
-                            required
-                            value={newRecipe.name}
-                            onChange={handleInput}
-                        />
-                    </div>
-
-                    <div className="recipe-form__field">
-                        <label htmlFor="comment" className="recipe-form__label">
-                            Kommentar
-                        </label>
-                        <textarea
-                            name="comment"
-                            className="recipe-form__textarea"
-                            id="comment"
-                            rows="4"
-                            maxLength="300"
-                            onChange={handleInput}
-                            value={newRecipe.comment}
-                        ></textarea>
-                    </div>
-
-                    <div className="recipe-form__checkbox-wrapper">
-                        <label className="recipe-form__switch">
+                        <div className="recipe-form__field">
+                            <label htmlFor="url" className="recipe-form__label">
+                                Länk *
+                            </label>
                             <input
-                                type="checkbox"
-                                name="Veganskt"
-                                onChange={handleCheckbox}
-                                className="recipe-form__checkbox"
-                                checked={newRecipe.vegan}
+                                type="url"
+                                className="recipe-form__input recipe-form__input-url"
+                                id="url"
+                                required
+                                value={newRecipe.url}
+                                onChange={handleInput}
                             />
-                            <span className="recipe-form__slider"></span>
-                        </label>
-                        <label className="recipe-form__label">Veganskt</label>
-                    </div>
-                    <button
-                        type="submit"
-                        className="button recipe-form__submit-button"
-                    >
-                        Spara recept
-                    </button>
-                </div>
-                }
+                        </div>
+                        <div className="recipe-form__image">
+                            <img
+                                src={
+                                    newRecipe.photoUrl
+                                        ? `${newRecipe.photoUrl}`
+                                        : `${placeholder}`
+                                }
+                                alt="placeholder"
+                            />
+                            {!newRecipe.photoUrl && (
+                                <div className="recipe-form__overlay"></div>
+                            )}
 
-                
+                            <p className="recipe-form__image-text">
+                                Bild på recept
+                            </p>
+                            <AddImage className="recipe-form__icon-plus" />
+                        </div>
+
+                        <div
+                            {...getRootProps()}
+                            className="recipe-form__dropzone"
+                        >
+                            <input {...getInputProps()} />
+                            <div className="recipe-form__dropzone-text">
+                                <FontAwesomeIcon
+                                    className="recipe-form__upload-icon"
+                                    icon={faCloudUploadAlt}
+                                />
+                                {isDragActive ? (
+                                    isDragAccept ? (
+                                        <p>Släpp bilden här</p>
+                                    ) : (
+                                        <p>
+                                            Ledsen, fel filtyp, testa jpg eller
+                                            png
+                                        </p>
+                                    )
+                                ) : newRecipe.photoUrl === "" ? (
+                                    <p>Ladda upp bild</p>
+                                ) : (
+                                    <p>Byt bild</p>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="recipe-form__field">
+                            <label
+                                htmlFor="name"
+                                className="recipe-form__label"
+                            >
+                                Receptnamn *
+                            </label>
+                            <input
+                                type="text"
+                                className="recipe-form__input"
+                                id="name"
+                                required
+                                value={newRecipe.name}
+                                onChange={handleInput}
+                            />
+                        </div>
+
+                        <div className="recipe-form__field">
+                            <label
+                                htmlFor="comment"
+                                className="recipe-form__label"
+                            >
+                                Kommentar
+                            </label>
+                            <textarea
+                                name="comment"
+                                className="recipe-form__textarea"
+                                id="comment"
+                                rows="4"
+                                maxLength="300"
+                                onChange={handleInput}
+                                value={newRecipe.comment}
+                            ></textarea>
+                        </div>
+
+                        <div className="recipe-form__checkbox-wrapper">
+                            <label className="recipe-form__switch">
+                                <label className="recipe-form__label recipe-form__checkbox-label">
+                                    <input
+                                        type="checkbox"
+                                        name="Veganskt"
+                                        onChange={handleCheckbox}
+                                        className="recipe-form__checkbox"
+                                    />
+                                    <span className="recipe-form__slider"></span>
+                                    Veganskt
+                                </label>
+                            </label>
+                        </div>
+                        <button
+                            type="submit"
+                            className="button recipe-form__submit-button"
+                        >
+                            Spara recept
+                        </button>
+                    </div>
+                )}
             </form>
         </>
     );

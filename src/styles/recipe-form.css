@@ -67,6 +67,11 @@
     font-weight: 500;
     letter-spacing: 1px;
     margin-bottom: 0.2rem;
+    cursor: pointer;
+}
+
+.recipe-form__checkbox-label {
+    margin-left: 3rem;
 }
 
 .recipe-form__inputs {

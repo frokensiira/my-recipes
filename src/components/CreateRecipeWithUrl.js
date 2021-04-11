@@ -221,15 +221,17 @@ const CreateRecipeWithUrl = () => {
 
                     <div className="recipe-form__checkbox-wrapper">
                         <label className="recipe-form__switch">
-                            <input
-                                type="checkbox"
-                                name="Veganskt"
-                                onChange={handleCheckbox}
-                                className="recipe-form__checkbox"
-                            />
-                            <span className="recipe-form__slider"></span>
+                            <label className="recipe-form__label recipe-form__checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="Veganskt"
+                                    onChange={handleCheckbox}
+                                    className="recipe-form__checkbox"
+                                />
+                                <span className="recipe-form__slider"></span>
+                                Veganskt
+                            </label>
                         </label>
-                        <label className="recipe-form__label">Veganskt</label>
                     </div>
                     <button
                         type="submit"
