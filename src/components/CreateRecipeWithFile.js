@@ -17,19 +17,19 @@ const CreateRecipeWithFile = () => {
         name: "",
         comment: "",
         photoUrl: "",
-        url: "",
+        fullPathPhoto: "",
+        fileUrl: "",
+        fullPathFile: "",
         vegan: false,
     });
-    const [photo, setPhoto] = useState(null);
-    const [file, setFile] = useState(null);
     const [vegan, setVegan] = useState(false);
     const [submit, setSubmit] = useState(null);
-    //useCreateFileRecipe(recipe, photo, file, vegan, submit);
+    useCreateFileRecipe(recipe, vegan, submit);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!file) {
+        if (!recipe.fileUrl) {
             return;
         }
 
@@ -37,40 +37,16 @@ const CreateRecipeWithFile = () => {
     };
 
     const handleInput = (e) => {
-        setRecipe({
-            ...recipe,
+        setRecipe(prevState => ({
+            ...prevState,
             [e.target.id]: e.target.value,
-        });
+        }));
     };
 
     const handleCheckbox = (e) => {
         setVegan(false);
         if (e.target.checked === true) {
             setVegan(true);
-        }
-    };
-
-    const handleFileChange = (e) => {
-        const allowedFileTypes = ["image/jpeg", "image/png"];
-        const selectedFile = e.target.files[0];
-
-        //if there is a photo and the type is ok, add it to state
-        if (selectedFile) {
-            if (allowedFileTypes.includes(selectedFile.type)) {
-                setFile(e.target.files[0]);
-            }
-        }
-    };
-
-    const handlePhotoChange = (e) => {
-        const allowedPhotoTypes = ["image/jpeg", "image/png"];
-        const selectedPhoto = e.target.files[0];
-
-        //if there is a photo and the type is ok, add it to state
-        if (selectedPhoto) {
-            if (allowedPhotoTypes.includes(selectedPhoto.type)) {
-                setPhoto(e.target.files[0]);
-            }
         }
     };
 
@@ -85,6 +61,40 @@ const CreateRecipeWithFile = () => {
         );
     };
 
+    const handlePhotoChange = (e) => {
+        const allowedPhotoTypes = ["image/jpeg", "image/png"];
+        const selectedPhoto = e.target.files[0];
+
+        //if there is a photo and the type is ok, add it to state
+        if (selectedPhoto) {
+            if (allowedPhotoTypes.includes(selectedPhoto.type)) {
+                console.log('selectedPhoto', selectedPhoto);
+                
+                //get root reference
+                const storageRef = storage.ref();
+
+                const photoRef = storageRef.child(`photos/${selectedPhoto.name}${uuidv4()}`);
+
+                //upload photo to photoRef
+                photoRef
+                    .put(selectedPhoto)
+                    .then((snapshot) => {
+                        //retrieve url to uploaded photo
+                        snapshot.ref.getDownloadURL().then((url) => {
+                            setRecipe(prevState => ({
+                                ...prevState,
+                                photoUrl: url,
+                                fullPathPhoto: snapshot.ref.fullPath
+                            }));
+                        });
+                    })
+                    .catch((err) => {
+                        console.log("problem uploading photo", err);
+                    });
+            }
+        }
+    };
+
     // Dropzone
     const onDrop = useCallback((acceptedFile) => {
         if (acceptedFile.length === 0) {
@@ -94,21 +104,21 @@ const CreateRecipeWithFile = () => {
         //get root reference
         const storageRef = storage.ref();
 
-        //create a reference based on the photos name
+        //create a reference based on the files name
         const fileRef = storageRef.child(
-            `photos/${acceptedFile[0].name}${uuidv4()}`
+            `files/${acceptedFile[0].name}${uuidv4()}`
         );
 
-        // //upload photo to fileRef
+        //upload file to fileRef
         fileRef
             .put(acceptedFile[0])
             .then((snapshot) => {
-                //retrieve url to uploaded photo
+                //retrieve url to uploaded file
                 snapshot.ref.getDownloadURL().then((url) => {
                     setRecipe((prevState) => ({
                         ...prevState,
-                        photoUrl: url,
-                        fullPath: snapshot.ref.fullPath,
+                        fileUrl: url,
+                        fullPathFile: snapshot.ref.fullPath,
                     }));
                 });
             })
@@ -170,8 +180,15 @@ const CreateRecipeWithFile = () => {
                         </div>
                     </div>
 
-                    <div {...getRootProps()} className="recipe-form__dropzone">
-                        <input {...getInputProps()} />
+                    <label
+                        className="recipe-form__image-upload"
+                        htmlFor="photo"
+                    >
+                        <input
+                            type="file"
+                            id="photo"
+                            onChange={handlePhotoChange}
+                        />
                         <div className="recipe-form__image">
                             <img
                                 src={
@@ -190,7 +207,7 @@ const CreateRecipeWithFile = () => {
                             </p>
                             <AddImage className="recipe-form__icon-plus" />
                         </div>
-                    </div>
+                    </label>
 
                     <div className="recipe-form__field">
                         <label htmlFor="name" className="recipe-form__label">
@@ -220,18 +237,6 @@ const CreateRecipeWithFile = () => {
                             value={recipe.comment}
                         ></textarea>
                     </div>
-
-                    {/* <div className="">
-                        <label htmlFor="photo" className="">
-                            Bild
-                        </label>
-                        <input
-                            type="file"
-                            className=""
-                            id="photo"
-                            onChange={handlePhotoChange}
-                        />
-                    </div> */}
 
                     <div className="recipe-form__checkbox-wrapper">
                         <label className="recipe-form__switch">

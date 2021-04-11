@@ -27,9 +27,7 @@ const CreateRecipeWithUrl = () => {
 
     useCreateUrlRecipe(recipe, submit);
 
-    const handleCheckbox = (e) => {
-        console.log('cliked', e.target.checked);
-        
+    const handleCheckbox = (e) => {        
         setRecipe({
             ...recipe,
             vegan: e.target.checked,
@@ -101,12 +99,12 @@ const CreateRecipeWithUrl = () => {
         const storageRef = storage.ref();
 
         //create a reference based on the photos name
-        const fileRef = storageRef.child(
+        const photoRef = storageRef.child(
             `photos/${acceptedFile[0].name}${uuidv4()}`
         );
 
-        // //upload photo to fileRef
-        fileRef
+        //upload photo to photoRef
+        photoRef
             .put(acceptedFile[0])
             .then((snapshot) => {
                 //retrieve url to uploaded photo
