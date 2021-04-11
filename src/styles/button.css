@@ -11,5 +11,12 @@
 .button:hover {
     /* background-color: #201F63; */
     background-color: #161545;
-    
+}
+
+@media(max-width: 821px) {
+    .button {
+        font-size: 0.8rem;
+        max-width: 15rem;
+        margin: 0 auto;
+    }
 }
