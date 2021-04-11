@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { useAuth } from "../contexts/AuthContext";
 
 const useRecipe = (recipeId) => {
     const [loading, setLoading] = useState(true);
     const [recipe, setRecipe] = useState([]);
-    const { currentUser } = useAuth();
 
     useEffect(() => {
         const unsubscribe = db

@@ -18,35 +18,43 @@ const RecipeCard = ({ recipe, handleDislike }) => {
     };
 
     const getLikesForRecipe = () => {
-        const unsubscribe = db
-            .collection("likes")
-            .where("recipeId", "==", recipe.id)
-            .onSnapshot((snapshot) => {
-                const snapshotLikes = [];
-                snapshot.forEach((doc) => {
-                    snapshotLikes.push({
-                        id: doc.id,
-                        ...doc.data(),
-                    });
-                });
-                setLikes(snapshotLikes);
+        //check if collection likes exist
+        db.collection("likes")
+            .get()
+            .then((data) => {
+                if (data.size > 0) {
+                    const unsubscribe = db
+                        .collection("likes")
+                        .where("recipeId", "==", recipe.id)
+                        .onSnapshot((snapshot) => {
+                            const snapshotLikes = [];
+                            snapshot.forEach((doc) => {
+                                snapshotLikes.push({
+                                    id: doc.id,
+                                    ...doc.data(),
+                                });
+                            });
+                            setLikes(snapshotLikes);
 
-                if (
-                    currentUser &&
-                    currentUser.uid !== recipe.creator &&
-                    snapshotLikes.length !== 0
-                ) {
-                    snapshotLikes.forEach((like) => {
-                        if (like.liker === currentUser.uid) {
-                            setLike(true);
-                        }
-                    });
+                            if (
+                                currentUser &&
+                                currentUser.uid !== recipe.creator &&
+                                snapshotLikes.length !== 0
+                            ) {
+                                snapshotLikes.forEach((like) => {
+                                    if (like.liker === currentUser.uid) {
+                                        setLike(true);
+                                    }
+                                });
+                            }
+                        });
+                    return unsubscribe;
                 }
             });
-        return unsubscribe;
     };
 
     const addLikeToRecipe = (docRef) => {
+        
         db.collection("likes")
             .add({
                 liker: currentUser.uid,
@@ -103,33 +111,47 @@ const RecipeCard = ({ recipe, handleDislike }) => {
             initialRender.current = false;
         } else {
             if (like) {
-                const docRef = db
-                    .collection("likes")
-                    .where("recipeId", "==", recipe.id);
-
-                //check if like exist already
-                docRef
+                //check if collection likes exist
+                db.collection("likes")
                     .get()
-                    .then((querySnapshot) => {
-                        const like = [];
-                        querySnapshot.forEach((doc) => {
-                            if (doc.data().liker === currentUser.uid) {
-                                like.push({
-                                    id: doc.id,
-                                    ...doc.data(),
-                                });
-                            }
-                        });
+                    .then((data) => {
+                        if (data.size > 0) {
+                            const docRef = db
+                                .collection("likes")
+                                .where("recipeId", "==", recipe.id);
 
-                        if (like.length !== 0) {
-                            console.log("already liked recipe");
-                            return;
+                            //check if like exist already
+                            docRef
+                                .get()
+                                .then((querySnapshot) => {
+                                    const like = [];
+                                    querySnapshot.forEach((doc) => {
+                                        if (
+                                            doc.data().liker === currentUser.uid
+                                        ) {
+                                            like.push({
+                                                id: doc.id,
+                                                ...doc.data(),
+                                            });
+                                        }
+                                    });
+
+                                    if (like.length !== 0) {
+                                        console.log("already liked recipe");
+                                        return;
+                                    } else {
+                                        addLikeToRecipe();
+                                    }
+                                })
+                                .catch((err) => {
+                                    console.log("err", err);
+                                });
                         } else {
                             addLikeToRecipe();
                         }
                     })
                     .catch((err) => {
-                        console.log("err", err);
+                        console.log("error", err);
                     });
             } else if (like === false) {
                 console.log("want to delete recipe from favourites");
@@ -148,7 +170,7 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                         <img
                             src={recipe.photoUrl}
                             className="card__image"
-                            role="presentation"
+                            alt="presentation"
                         />
                     ) : (
                         <img
@@ -174,6 +196,7 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                         <img
                             className="card__profile-image"
                             src={profilePlaceholder}
+                            alt="presentation"
                         />
                         <p className="card__footer-name">
                             {recipe.creatorUsername}

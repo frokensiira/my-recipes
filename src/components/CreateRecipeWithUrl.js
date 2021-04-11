@@ -9,7 +9,6 @@ import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
 import { ReactComponent as AddImage } from "../assets/plus.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faCloudUploadAlt,
     faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
