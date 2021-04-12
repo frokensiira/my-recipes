@@ -55,7 +55,7 @@
 
 .recipe__link {
     text-decoration: none;
-    background-color: var(--blue);
+    background-color: var(--secondary);
     color: #fff;
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius);

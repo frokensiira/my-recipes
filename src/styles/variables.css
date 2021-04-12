@@ -9,9 +9,13 @@
     --light-yellow: #f7ea89;
     --yellow: #fedf81;
     --blue: #2B2A87;
+    --dark-green: #09484C;
 
     --page-margin: 5vw;
     --border-radius: 0.3rem;
+
+    --primary: var(--light-pink);
+    --secondary: var(--dark-green);
 }
 
 .original {

@@ -160,7 +160,7 @@ const CreateRecipeWithUrl = () => {
                         </label>
                         <input
                             type="url"
-                            className="recipe-form__input recipe-form__input-url"
+                            className="form__input recipe-form__input-url"
                             id="url"
                             required
                             onChange={handleInput}
@@ -195,7 +195,7 @@ const CreateRecipeWithUrl = () => {
                         </label>
                         <input
                             type="text"
-                            className="recipe-form__input"
+                            className="form__input"
                             id="name"
                             required
                             value={recipe.name}
@@ -209,7 +209,7 @@ const CreateRecipeWithUrl = () => {
                         </label>
                         <textarea
                             name="comment"
-                            className="recipe-form__textarea"
+                            className="form__textarea"
                             id="comment"
                             rows="4"
                             maxLength="300"

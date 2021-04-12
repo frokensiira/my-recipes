@@ -47,26 +47,26 @@ const SignUp = () => {
 
                     <form onSubmit={handleSubmit}>
                         <div className="form__inputs">
-                            <div className="form__input">
+                            <div className="form__input-wrapper">
                                 <FontAwesomeIcon
                                     icon={faUser}
                                     className="form__icon"
                                 />
                                 <input
-                                    className=""
+                                    className="form__input"
                                     type="text"
                                     ref={usernameRef}
                                     placeholder="Användarnamn"
                                     required
                                 />
                             </div>
-                            <div className="form__input">
+                            <div className="form__input-wrapper">
                                 <FontAwesomeIcon
                                     icon={faUser}
                                     className="form__icon"
                                 />
                                 <input
-                                    className=""
+                                    className="form__input"
                                     type="email"
                                     ref={emailRef}
                                     placeholder="Email"
@@ -74,13 +74,13 @@ const SignUp = () => {
                                 />
                             </div>
 
-                            <div className="form__input">
+                            <div className="form__input-wrapper">
                                 <FontAwesomeIcon
                                     icon={faLock}
                                     className="form__icon"
                                 />
                                 <input
-                                    className=""
+                                    className="form__input"
                                     type="password"
                                     ref={passwordRef}
                                     placeholder="Lösenord"
@@ -88,13 +88,13 @@ const SignUp = () => {
                                 />
                             </div>
 
-                            <div className="form__input">
+                            <div className="form__input-wrapper">
                                 <FontAwesomeIcon
                                     icon={faLock}
                                     className="form__icon"
                                 />
                                 <input
-                                    className=""
+                                    className="form__input"
                                     type="password"
                                     ref={passwordConfirmRef}
                                     placeholder="Bekräfta lösenord"
@@ -103,7 +103,7 @@ const SignUp = () => {
                             </div>
                         </div>
                         <div className="form__button">
-                            <button disabled={loading} className="form__button">
+                            <button disabled={loading} className="button">
                                 Skapa konto
                             </button>
                         </div>

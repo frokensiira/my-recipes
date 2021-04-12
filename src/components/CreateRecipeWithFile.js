@@ -215,7 +215,7 @@ const CreateRecipeWithFile = () => {
                         </label>
                         <input
                             type="text"
-                            className="recipe-form__input"
+                            className="form__input"
                             id="name"
                             required
                             value={recipe.name}
@@ -229,7 +229,7 @@ const CreateRecipeWithFile = () => {
                         </label>
                         <textarea
                             name="comment"
-                            className="recipe-form__textarea"
+                            className="form__textarea"
                             id="comment"
                             rows="4"
                             maxLength="300"

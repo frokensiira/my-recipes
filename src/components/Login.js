@@ -34,7 +34,7 @@ const Login = () => {
                     {error && <div variant="danger">{error}</div>}
 
                     <form onSubmit={handleSubmit}>
-                        <div className="form__input">
+                        <div className="form__input-wrapper">
                             <FontAwesomeIcon
                                 icon={faUser}
                                 className="form__icon"
@@ -44,10 +44,11 @@ const Login = () => {
                                 ref={emailRef}
                                 placeholder="Email"
                                 required
+                                className="form__input"
                             />
                         </div>
 
-                        <div className="form__input">
+                        <div className="form__input-wrapper">
                             <FontAwesomeIcon
                                 icon={faLock}
                                 className="form__icon"
@@ -57,6 +58,7 @@ const Login = () => {
                                 ref={passwordRef}
                                 required
                                 placeholder="Lösenord"
+                                className="form__input"
                             />
                         </div>
 
@@ -64,7 +66,7 @@ const Login = () => {
                             <button
                                 disabled={loading}
                                 type="submit"
-                                className=""
+                                className="button"
                             >
                                 Logga in
                             </button>
