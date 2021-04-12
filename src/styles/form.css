@@ -1,7 +1,9 @@
 .form {
     background-color: rgb(255, 255, 255);
-    padding: 3rem;
     border-radius: var(--border-radius);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: var(--page-margin);
 }
 
 .form form {
@@ -16,6 +18,7 @@
 
 .form__inputs {
     margin-bottom: 1.5rem;
+    margin-left: 2rem;
 }
 
 .form__input-wrapper {
@@ -33,6 +36,8 @@
 .form__textarea {
     border: 1px solid rgb(211, 209, 209);
     border-radius: var(--border-radius);
+    font-family: "Poppins", sans-serif;
+    background-color: #fff;
 }
 
 .form__textarea {
@@ -45,6 +50,40 @@
     border: 1px solid #aaa;
 }
 
+.form__input-account {
+    
+}
+
+.form__image-wrapper, 
+.form form {
+    padding: 4rem 2.5rem;
+}
+
+.form__image-wrapper {
+    background-color: #E7F0EF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form__image-wrapper h1{
+    color: var(--secondary);
+    /* color: #57908D; */
+}
+
+.form__image-wrapper p{
+    font-size: 0.8rem;
+}
+
+.form__image {
+    max-height: 10rem;
+    height: 100%;
+    width: auto;
+    background-color: #E7F0EF;
+    transform: rotate(-15deg);
+}
+
 .form__icon {
     margin-right: 0.5rem;
 }
@@ -52,8 +91,15 @@
 .form__button {
     display: flex;
     justify-content: center;
+    margin-bottom: 1rem;
 }
 
 .form__text {
     font-size: 0.7rem;
+    display: flex;
+    justify-content: center;
+}
+
+.form__link {
+    color: var(--secondary);
 }

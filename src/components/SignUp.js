@@ -2,8 +2,8 @@ import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import avocado from "../assets/images/avocado.png";
 
 const SignUp = () => {
     const usernameRef = useRef();
@@ -36,7 +36,7 @@ const SignUp = () => {
             setError(error.message);
             setLoading(false);
         }
-    };   
+    };
 
     return (
         <>
@@ -45,7 +45,14 @@ const SignUp = () => {
                 <div className="form">
                     {error && <div className="">{error}</div>}
 
+                    <div className="form__image-wrapper">
+                    <h1>Inspirera och inspireras av de smarrigaste vegorecepten!</h1>
+                        <p>Så fort du har registrerat dig kan du lägga in dina favoritrecept och spara andras favvisar till din egen samling.</p>
+                        <img src={avocado} className="form__image" />
+                    </div>
+
                     <form onSubmit={handleSubmit}>
+                        
                         <div className="form__inputs">
                             <div className="form__input-wrapper">
                                 <FontAwesomeIcon
@@ -53,7 +60,7 @@ const SignUp = () => {
                                     className="form__icon"
                                 />
                                 <input
-                                    className="form__input"
+                                    className="form__input form__input-account"
                                     type="text"
                                     ref={usernameRef}
                                     placeholder="Användarnamn"
@@ -66,7 +73,7 @@ const SignUp = () => {
                                     className="form__icon"
                                 />
                                 <input
-                                    className="form__input"
+                                    className="form__input form__input-account"
                                     type="email"
                                     ref={emailRef}
                                     placeholder="Email"
@@ -80,7 +87,7 @@ const SignUp = () => {
                                     className="form__icon"
                                 />
                                 <input
-                                    className="form__input"
+                                    className="form__input form__input-account"
                                     type="password"
                                     ref={passwordRef}
                                     placeholder="Lösenord"
@@ -94,7 +101,7 @@ const SignUp = () => {
                                     className="form__icon"
                                 />
                                 <input
-                                    className="form__input"
+                                    className="form__input form__input-account"
                                     type="password"
                                     ref={passwordConfirmRef}
                                     placeholder="Bekräfta lösenord"
@@ -107,12 +114,10 @@ const SignUp = () => {
                                 Skapa konto
                             </button>
                         </div>
+                        <div className="form__text">
+                            <p>Har du redan ett konto? <Link to="/login" className="form__link">Logga in</Link></p>
+                        </div>
                     </form>
-
-                    <div className="form__text">
-                        Har du redan ett konto?{" "}
-                        <Link to="/login">Logga in</Link>
-                    </div>
                 </div>
             </div>
         </>
