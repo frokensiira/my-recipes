@@ -3,32 +3,28 @@
     border-radius: var(--border-radius);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    margin: var(--page-margin);
-}
-
-.form form {
-    margin-bottom: 1rem;
+    margin: 0 var(--page-margin);
+    max-width: 50rem;
 }
 
 .form__wrapper {
     display: flex;
     justify-content: center;
-    margin-top: 3rem;
 }
 
 .form__inputs {
     margin-bottom: 1.5rem;
-    margin-left: 2rem;
 }
 
-.form__input-wrapper {
+.form__label {
     margin-bottom: 0.8rem;
     width: 100%;
+    position: relative;
 }
-
 
 .form__input {
     padding: 0.5rem;
+    padding-left: 2rem;
     margin-bottom: 1rem;
 }
 
@@ -51,41 +47,50 @@
 }
 
 .form__input-account {
-    
+    width: 100%;
 }
 
-.form__image-wrapper, 
+.form__image-wrapper,
 .form form {
-    padding: 4rem 2.5rem;
+    padding: 4rem 3rem;
 }
 
 .form__image-wrapper {
-    background-color: #E7F0EF;
+    background-color: #e7f0ef;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.form__image-wrapper h1{
+.form__heading:not(:last-child) {
     color: var(--secondary);
-    /* color: #57908D; */
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
 }
 
-.form__image-wrapper p{
+.form__text:not(:last-child) {
     font-size: 0.8rem;
+    color: #57908d;
+    line-height: 1.2rem;
+    margin-bottom: 3rem;
 }
 
 .form__image {
     max-height: 10rem;
     height: 100%;
     width: auto;
-    background-color: #E7F0EF;
+    background-color: #e7f0ef;
     transform: rotate(-15deg);
 }
 
-.form__icon {
-    margin-right: 0.5rem;
+.form__label > .form__icon {
+    position: absolute;
+    top:15%;
+    left: 0.5rem;
+    height: 1rem;
+    width: 1rem;
 }
 
 .form__button {
@@ -102,4 +107,21 @@
 
 .form__link {
     color: var(--secondary);
+}
+
+@media(max-width: 900px) {
+    .form {
+        grid-template-columns: 1fr;
+        max-width: 30rem;
+    }
+}
+
+@media(max-width: 600px) {
+    .form__image-wrapper {
+        display: none;
+    }
+
+    .form form {
+        padding: 2rem var(--page-margin);
+    }
 }

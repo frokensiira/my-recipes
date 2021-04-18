@@ -97,7 +97,7 @@ const Navbar = () => {
                         <NavLink to={`/login`} className="navbar__nav-link">
                             <FontAwesomeIcon
                                 icon={faUser}
-                                className="form__icon"
+                                className="navbar__icon"
                             />
                             Logga in
                         </NavLink>

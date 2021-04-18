@@ -122,6 +122,10 @@
     font-size: 0.7rem;
 }
 
+.navbar__icon {
+    margin-right: 0.3rem;
+}
+
 @media (max-width: 1024px) {
     .navbar__nav-links {
         width: 50%;
