@@ -16,7 +16,7 @@
     margin-bottom: 1.5rem;
 }
 
-.form__label {
+.form__input-wrapper {
     margin-bottom: 0.8rem;
     width: 100%;
     position: relative;
@@ -85,9 +85,9 @@
     transform: rotate(-15deg);
 }
 
-.form__label > .form__icon {
+.form__input-wrapper > .form__icon {
     position: absolute;
-    top:15%;
+    top: 15%;
     left: 0.5rem;
     height: 1rem;
     width: 1rem;
@@ -109,14 +109,14 @@
     color: var(--secondary);
 }
 
-@media(max-width: 900px) {
+@media (max-width: 900px) {
     .form {
         grid-template-columns: 1fr;
         max-width: 30rem;
     }
 }
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
     .form__image-wrapper {
         display: none;
     }

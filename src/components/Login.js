@@ -4,6 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import avocado from "../assets/images/avocado.png";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -33,33 +34,46 @@ const Login = () => {
                 <div className="form">
                     {error && <div variant="danger">{error}</div>}
 
-                    <form onSubmit={handleSubmit}>
-                        <div className="form__input-wrapper">
-                            <FontAwesomeIcon
-                                icon={faUser}
-                                className="form__icon"
-                            />
-                            <input
-                                type="email"
-                                ref={emailRef}
-                                placeholder="Email"
-                                required
-                                className="form__input"
-                            />
-                        </div>
+                    <div className="form__image-wrapper">
+                        <h1 className="form__heading">Välkommen tillbaka!</h1>
+                        <p className="form__text">
+                            Logga in och se alla nya recept som dykt upp sen
+                            sist och glöm inte att lägga in dina senaste
+                            favoriter.
+                        </p>
+                        <img src={avocado} className="form__image" />
+                    </div>
 
-                        <div className="form__input-wrapper">
-                            <FontAwesomeIcon
-                                icon={faLock}
-                                className="form__icon"
-                            />
-                            <input
-                                type="password"
-                                ref={passwordRef}
-                                required
-                                placeholder="Lösenord"
-                                className="form__input"
-                            />
+                    <form onSubmit={handleSubmit}>
+                        <h2 className="form__heading">Logga in!</h2>
+                        <div className="form__inputs">
+                            <div className="form__input-wrapper">
+                                <FontAwesomeIcon
+                                    icon={faUser}
+                                    className="form__icon"
+                                />
+                                <input
+                                    type="email"
+                                    ref={emailRef}
+                                    placeholder="Email"
+                                    required
+                                    className="form__input form__input-account"
+                                />
+                            </div>
+
+                            <div className="form__input-wrapper">
+                                <FontAwesomeIcon
+                                    icon={faLock}
+                                    className="form__icon"
+                                />
+                                <input
+                                    type="password"
+                                    ref={passwordRef}
+                                    required
+                                    placeholder="Lösenord"
+                                    className="form__input form__input-account"
+                                />
+                            </div>
                         </div>
 
                         <div className="form__button">
@@ -71,11 +85,12 @@ const Login = () => {
                                 Logga in
                             </button>
                         </div>
+
+                        <p className="form__text">
+                            Har du inget ett konto? {"  "}
+                            <Link to="/signup">Skapa konto</Link>
+                        </p>
                     </form>
-                    <p className="form__text">
-                        Har du inget ett konto?{" "}
-                        <Link to="/signup">Skapa konto</Link>
-                    </p>
                 </div>
             </div>
         </>
