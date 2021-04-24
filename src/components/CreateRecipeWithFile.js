@@ -14,6 +14,7 @@ import { useDropzone } from "react-dropzone";
 
 const CreateRecipeWithFile = () => {
     const [photo, setPhoto] = useState(null);
+    const [file, setFile] = useState(null);
     const [recipe, setRecipe] = useState({
         name: "",
         comment: "",
@@ -79,7 +80,6 @@ const CreateRecipeWithFile = () => {
                     }));
 
                     setPhoto({
-                        photoUrl: url,
                         fullPath: snapshot.ref.fullPath,
                     })
                     setLoading(false);
@@ -112,7 +112,7 @@ const CreateRecipeWithFile = () => {
                 setLoading(true);
 
                 //if the user changed photo, delete the old one from storage
-                if(photo) {
+                if(photo) {                    
                     deletePhotoFromStorage(selectedPhoto);
                 } else {
                     addPhotoToStorage(selectedPhoto);
@@ -121,23 +121,15 @@ const CreateRecipeWithFile = () => {
         }
     };
 
-    // Dropzone
-    const onDrop = useCallback((acceptedFile) => {
-        if (acceptedFile.length === 0) {
-            return;
-        }
-
-        //get root reference
-        const storageRef = storage.ref();
-
+    const addFileToStorage = (selectedFile) => {
         //create a reference based on the files name
-        const fileRef = storageRef.child(
-            `files/${acceptedFile[0].name}${uuidv4()}`
+        const fileRef = storage.ref().child(
+            `files/${selectedFile.name}${uuidv4()}`
         );
 
         //upload file to fileRef
         fileRef
-            .put(acceptedFile[0])
+            .put(selectedFile)
             .then((snapshot) => {
                 //retrieve url to uploaded file
                 snapshot.ref.getDownloadURL().then((url) => {
@@ -146,12 +138,41 @@ const CreateRecipeWithFile = () => {
                         fileUrl: url,
                         fullPathFile: snapshot.ref.fullPath,
                     }));
+                    //save the file in a state to see if the user changes file in the future                    
+                    setFile({fullPath: snapshot.ref.fullPath});
                 });
             })
             .catch((err) => {
                 console.log("something went wrong", err);
             });
-    }, []);
+    }
+
+    const deleteFileFromStorage = (selectedFile) => {
+        storage.ref().child(file.fullPath).delete().then(() => {            
+            // File deleted successfully
+            setFile(null);
+            //add the new one instead 
+            addFileToStorage(selectedFile);
+          }).catch((error) => {
+            console.log('could not delete photo', error);
+            setLoading(false);
+          });
+    }
+
+    // Dropzone
+    const onDrop = useCallback((acceptedFile) => {
+        if (acceptedFile.length === 0) {
+            return;
+        }
+        //check if a user already uploaded a file
+        if(file) {
+            //in that case delete it before uploading a new one
+            deleteFileFromStorage(acceptedFile[0]);
+        } else {
+            //otherwise add it to storage
+            addFileToStorage(acceptedFile[0])
+        }
+    }, [file]);
 
     const {
         getRootProps,

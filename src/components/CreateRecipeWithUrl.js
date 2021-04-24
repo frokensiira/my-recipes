@@ -104,7 +104,6 @@ const CreateRecipeWithUrl = () => {
                     }));
 
                     setPhoto({
-                        photoUrl: url,
                         fullPath: snapshot.ref.fullPath,
                     })
                     setLoading(false);
