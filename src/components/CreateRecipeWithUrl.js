@@ -4,13 +4,10 @@ import placeholder from "../assets/images/placeholder.png";
 import axios from "axios";
 import { storage } from "../firebase";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useDropzone } from "react-dropzone";
 import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
 import { ReactComponent as AddImage } from "../assets/plus.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faChevronLeft,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const CreateRecipeWithUrl = () => {
@@ -26,7 +23,7 @@ const CreateRecipeWithUrl = () => {
 
     useCreateUrlRecipe(recipe, submit);
 
-    const handleCheckbox = (e) => {        
+    const handleCheckbox = (e) => {
         setRecipe({
             ...recipe,
             vegan: e.target.checked,
@@ -35,7 +32,6 @@ const CreateRecipeWithUrl = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         setSubmit(true);
     };
 
@@ -88,48 +84,42 @@ const CreateRecipeWithUrl = () => {
         );
     };
 
-    // Dropzone
-    const onDrop = useCallback((acceptedFile) => {
-        if (acceptedFile.length === 0) {
-            return;
+    const handlePhotoChange = (e) => {
+        const allowedPhotoTypes = ["image/jpeg", "image/png"];
+        const selectedPhoto = e.target.files[0];
+
+        //if there is a photo and the type is ok, add it to state
+        if (selectedPhoto) {
+            if (allowedPhotoTypes.includes(selectedPhoto.type)) {
+                setLoading(true);
+
+                //get root reference
+                const storageRef = storage.ref();
+
+                const photoRef = storageRef.child(
+                    `photos/${selectedPhoto.name}${uuidv4()}`
+                );
+
+                //upload photo to photoRef
+                photoRef
+                    .put(selectedPhoto)
+                    .then((snapshot) => {
+                        //retrieve url to uploaded photo
+                        snapshot.ref.getDownloadURL().then((url) => {
+                            setRecipe((prevState) => ({
+                                ...prevState,
+                                photoUrl: url,
+                                fullPathPhoto: snapshot.ref.fullPath,
+                            }));
+                            setLoading(false);
+                        });
+                    })
+                    .catch((err) => {
+                        console.log("problem uploading photo", err);
+                    });
+            }
         }
-
-        //get root reference
-        const storageRef = storage.ref();
-
-        //create a reference based on the photos name
-        const photoRef = storageRef.child(
-            `photos/${acceptedFile[0].name}${uuidv4()}`
-        );
-
-        //upload photo to photoRef
-        photoRef
-            .put(acceptedFile[0])
-            .then((snapshot) => {
-                //retrieve url to uploaded photo
-                snapshot.ref.getDownloadURL().then((url) => {
-                    setRecipe((prevState) => ({
-                        ...prevState,
-                        photoUrl: url,
-                        fullPath: snapshot.ref.fullPath,
-                    }));
-                });
-            })
-            .catch((err) => {
-                console.log("something went wrong", err);
-            });
-    }, []);
-
-    const {
-        getRootProps,
-        getInputProps,
-        isDragActive,
-        isDragAccept,
-        isDragReject,
-    } = useDropzone({
-        accept: "image/jpeg, image/png",
-        onDrop,
-    });
+    };
 
     return (
         <>
@@ -167,8 +157,15 @@ const CreateRecipeWithUrl = () => {
                         />
                     </div>
 
-                    <div {...getRootProps()} className="recipe-form__dropzone">
-                        <input {...getInputProps()} />
+                    {/* <label
+                        className="recipe-form__image-upload"
+                        htmlFor="photo"
+                    >
+                        <input
+                            type="file"
+                            id="photo"
+                            onChange={handlePhotoChange}
+                        />
                         <div className="recipe-form__image">
                             <img
                                 src={
@@ -183,11 +180,47 @@ const CreateRecipeWithUrl = () => {
                             )}
 
                             <p className="recipe-form__image-text">
-                                Lägg till bild
+                                {
+                                    recipe.photoUrl ? 'Byt bild' : 'Lägg till bild'
+                                }
+                                
                             </p>
                             <AddImage className="recipe-form__icon-plus" />
                         </div>
-                    </div>
+                    </label> */}
+
+                    <label
+                        className="recipe-form__image-upload"
+                        htmlFor="photo"
+                    >
+                        <input
+                            type="file"
+                            id="photo"
+                            onChange={handlePhotoChange}
+                        />
+                        <div className="recipe-form__image">
+                            {recipe.photoUrl ? (
+                                <>
+                                    <img
+                                        src={recipe.photoUrl}
+                                        alt="presentation"
+                                    />
+                                    <p className="recipe-form__image-text">
+                                        Byt bild
+                                    </p>
+                                </>
+                            ) : (
+                                <>
+                                    <img src={placeholder} alt="placeholder" />
+                                    <div className="recipe-form__overlay"></div>
+                                    <p className="recipe-form__image-text">
+                                        Lägg till bild
+                                    </p>
+                                </>
+                            )}
+                            <AddImage className="recipe-form__icon-plus" />
+                        </div>
+                    </label>
 
                     <div className="recipe-form__field">
                         <label htmlFor="name" className="recipe-form__label">
@@ -220,15 +253,16 @@ const CreateRecipeWithUrl = () => {
 
                     <div className="recipe-form__checkbox-wrapper">
                         <label className="recipe-form__switch">
-                        <label className="recipe-form__label recipe-form__checkbox-label" >
-                            <input
-                                type="checkbox"
-                                name="Veganskt"
-                                onChange={handleCheckbox}
-                                className="recipe-form__checkbox"
-                            />
-                            <span className="recipe-form__slider"></span>
-                        Veganskt</label>
+                            <label className="recipe-form__label recipe-form__checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="Veganskt"
+                                    onChange={handleCheckbox}
+                                    className="recipe-form__checkbox"
+                                />
+                                <span className="recipe-form__slider"></span>
+                                Veganskt
+                            </label>
                         </label>
                     </div>
                     <button

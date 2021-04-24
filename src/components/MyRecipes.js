@@ -9,7 +9,7 @@ const MyRecipes = () => {
     const [vegan, setVegan] = useState(false);
     const [disLiked, setDisLiked] = useState(false);
     const { recipes, likedRecipes } = useMyRecipes(vegan, disLiked);
-    const [allRecipes, setAllRecipes] = useState(null);
+    const [allRecipes, setAllRecipes] = useState(null);    
 
     const handleFilterSearch = (e) => {
         if (e.target.id === "vegan") {

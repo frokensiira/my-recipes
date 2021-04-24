@@ -20,7 +20,10 @@ const useMyRecipes = (vegan, disLiked) => {
                     db.collection("recipes")
                         .doc(doc.data().recipeId)
                         .get()
-                        .then((doc) => {                            
+                        .then((doc) => {         
+                            console.log('doc.data()', doc.data());
+                            console.log('vegan', vegan);
+                                               
                             if (!doc.data().vegan && vegan) {
                                 return;
                             } else {

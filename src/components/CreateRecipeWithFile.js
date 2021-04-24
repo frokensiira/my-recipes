@@ -37,7 +37,7 @@ const CreateRecipeWithFile = () => {
     };
 
     const handleInput = (e) => {
-        setRecipe(prevState => ({
+        setRecipe((prevState) => ({
             ...prevState,
             [e.target.id]: e.target.value,
         }));
@@ -68,12 +68,14 @@ const CreateRecipeWithFile = () => {
         //if there is a photo and the type is ok, add it to state
         if (selectedPhoto) {
             if (allowedPhotoTypes.includes(selectedPhoto.type)) {
-                console.log('selectedPhoto', selectedPhoto);
-                
+                console.log("selectedPhoto", selectedPhoto);
+
                 //get root reference
                 const storageRef = storage.ref();
 
-                const photoRef = storageRef.child(`photos/${selectedPhoto.name}${uuidv4()}`);
+                const photoRef = storageRef.child(
+                    `photos/${selectedPhoto.name}${uuidv4()}`
+                );
 
                 //upload photo to photoRef
                 photoRef
@@ -81,10 +83,10 @@ const CreateRecipeWithFile = () => {
                     .then((snapshot) => {
                         //retrieve url to uploaded photo
                         snapshot.ref.getDownloadURL().then((url) => {
-                            setRecipe(prevState => ({
+                            setRecipe((prevState) => ({
                                 ...prevState,
                                 photoUrl: url,
-                                fullPathPhoto: snapshot.ref.fullPath
+                                fullPathPhoto: snapshot.ref.fullPath,
                             }));
                         });
                     })
