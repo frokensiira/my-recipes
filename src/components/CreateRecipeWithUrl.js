@@ -9,6 +9,7 @@ import { ReactComponent as AddImage } from "../assets/plus.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import StepCounter from './StepCounter';
 
 const CreateRecipeWithUrl = () => {
     const [submit, setSubmit] = useState(null);
@@ -156,15 +157,7 @@ const CreateRecipeWithUrl = () => {
                 Skapa recept
                 <Artichoke className="icon" />
             </h1>
-            <div className="page__text-wrapper">
-                <Link to={`/my-recipes/create-recipe`}>
-                    <FontAwesomeIcon
-                        className="page__text-icon"
-                        icon={faChevronLeft}
-                    />
-                </Link>
-                <p className="page__text"> Steg 2 av 2</p>
-            </div>
+            <StepCounter/>
             <form className="recipe-form" onSubmit={handleSubmit}>
                 {loading && (
                     <div className="recipe-form--loading">

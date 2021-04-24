@@ -6,12 +6,13 @@ import {
     faCloudUploadAlt,
     faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+
 import { ReactComponent as AddImage } from "../assets/plus.svg";
 import placeholder from "../assets/images/placeholder.png";
 import { storage } from "../firebase";
 import { useDropzone } from "react-dropzone";
 import ClipLoader from "react-spinners/ClipLoader";
+import StepCounter from "./StepCounter";
 
 const CreateRecipeWithFile = () => {
     const [photo, setPhoto] = useState(null);
@@ -208,15 +209,7 @@ const CreateRecipeWithFile = () => {
             <h1 className="page__title">
                 Skapa recept <Artichoke className="icon" />
             </h1>
-            <div className="page__text-wrapper">
-                <Link to={`/my-recipes/create-recipe`}>
-                    <FontAwesomeIcon
-                        className="page__text-icon"
-                        icon={faChevronLeft}
-                    />
-                </Link>
-                <p className="page__text"> Steg 2 av 2</p>
-            </div>
+            <StepCounter/>
             <form onSubmit={handleSubmit} className="recipe-form">
                 {loading && (
                     <div className="recipe-form--loading">
@@ -261,23 +254,30 @@ const CreateRecipeWithFile = () => {
                             onChange={handlePhotoChange}
                         />
                         <div className="recipe-form__image">
-                            <img
-                                src={
-                                    recipe.photoUrl
-                                        ? `${recipe.photoUrl}`
-                                        : `${placeholder}`
-                                }
-                                alt="placeholder"
-                            />
-                            {!recipe.photoUrl && (
-                                <div className="recipe-form__overlay"></div>
-                            )}
-
-                            <p className="recipe-form__image-text">
-                                Lägg till bild
-                            </p>
-                            <AddImage className="recipe-form__icon-plus" />
-                        </div>
+                                {recipe.photoUrl ? (
+                                    <>
+                                        <img
+                                            src={recipe.photoUrl}
+                                            alt="presentation"
+                                        />
+                                        <p className="recipe-form__image-text">
+                                            Byt bild
+                                        </p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <img
+                                            src={placeholder}
+                                            alt="placeholder"
+                                        />
+                                        <div className="recipe-form__overlay"></div>
+                                        <p className="recipe-form__image-text">
+                                            Lägg till bild
+                                        </p>
+                                    </>
+                                )}
+                                <AddImage className="recipe-form__icon-plus" />
+                            </div>
                     </label>
 
                     <div className="recipe-form__field">
