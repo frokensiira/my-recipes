@@ -1,29 +1,37 @@
 import React, { useState, useCallback, useEffect } from "react";
-import placeholder from "../assets/images/placeholder.png";
-import axios from "axios";
-import { storage } from "../firebase";
-import ClipLoader from "react-spinners/ClipLoader";
-import { useDropzone } from "react-dropzone";
-import { ReactComponent as Radish } from "../assets/radish.svg";
-import { ReactComponent as AddImage } from "../assets/plus.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
+import { ReactComponent as AddImage } from "../assets/plus.svg";
+import placeholder from "../assets/images/placeholder.png";
+import { storage } from "../firebase";
+import { useDropzone } from "react-dropzone";
 import { useParams } from "react-router-dom";
 import useRecipe from "../hooks/useRecipe";
-import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
+import { db } from "../firebase";
+import { ReactComponent as Radish } from "../assets/radish.svg";
+import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader";
 
-const EditRecipeWithUrl = () => {
+const EditRecipeWithFile = () => {
+    const [photo, setPhoto] = useState(null);
+    const [file, setFile] = useState(null);
     const { recipeId } = useParams();
     const { recipe } = useRecipe(recipeId);
     const [newRecipe, setNewRecipe] = useState(null);
-    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (recipe.length !== 0) {
             setNewRecipe(recipe);
+            setPhoto(recipe.fullPathPhoto);
+            setFile(recipe.fullPathFile);
         }
+
+        return () => {
+            setNewRecipe(null);
+        };
     }, [recipe]);
 
     const handleCheckbox = (e) => {
@@ -33,18 +41,18 @@ const EditRecipeWithUrl = () => {
         }));
     };
 
-    const handleSaveChanges = async (e) => {
+    const handleSaveChanges = (e) => {
         e.preventDefault();
 
-        try {
-            const res = await db
-                .collection("recipes")
-                .doc(recipeId)
-                .set(newRecipe);
-            navigate("/my-recipes/");
-        } catch (error) {
-            console.log("error", error);
-        }
+        db.collection("recipes")
+            .doc(recipeId)
+            .set(newRecipe)
+            .then(() => {
+                navigate("/my-recipes/");
+            })
+            .catch((err) => {
+                console.log("error", err);
+            });
     };
 
     const handleInput = async (e) => {
@@ -77,6 +85,10 @@ const EditRecipeWithUrl = () => {
                             : "",
                         url: e.target.value,
                     });
+                    //if user uploaded an image before, remove it from storage
+                    if (photo) {
+                        deletePhotoFromStorage();
+                    }
                     setLoading(false);
                 }
             } else {
@@ -90,43 +102,143 @@ const EditRecipeWithUrl = () => {
             /[xy]/g,
             function (c) {
                 var r = (Math.random() * 16) | 0,
-                    v = c == "x" ? r : (r & 0x3) | 0x8;
+                    v = c === "x" ? r : (r & 0x3) | 0x8;
                 return v.toString(16);
             }
         );
     };
 
-    // Dropzone
-    const onDrop = useCallback((acceptedFile) => {
-        if (acceptedFile.length === 0) {
-            return;
-        }
+    const addPhotoToStorage = (selectedPhoto) => {
+        const photoRef = storage
+            .ref()
+            .child(`photos/${selectedPhoto.name}${uuidv4()}`);
 
-        //get root reference
-        const storageRef = storage.ref();
-
-        //create a reference based on the photos name
-        const fileRef = storageRef.child(
-            `photos/${acceptedFile[0].name}${uuidv4()}`
-        );
-
-        // //upload photo to fileRef
-        fileRef
-            .put(acceptedFile[0])
+        //upload photo to photoRef
+        photoRef
+            .put(selectedPhoto)
             .then((snapshot) => {
                 //retrieve url to uploaded photo
                 snapshot.ref.getDownloadURL().then((url) => {
                     setNewRecipe((prevState) => ({
                         ...prevState,
                         photoUrl: url,
-                        fullPath: snapshot.ref.fullPath,
+                        fullPathPhoto: snapshot.ref.fullPath,
                     }));
+
+                    setPhoto({
+                        fullPath: snapshot.ref.fullPath,
+                    });
+                    setLoading(false);
                 });
             })
             .catch((err) => {
-                console.log("something went wrong", err);
+                console.log("problem uploading photo", err);
             });
-    }, []);
+    };
+
+    const deletePhotoFromStorage = (selectedPhoto) => {
+        let photoUpload = photo.fullPath ? photo.fullPath : photo;
+        storage
+            .ref()
+            .child(photoUpload)
+            .delete()
+            .then(() => {
+                // File deleted successfully
+                setPhoto(null);
+                //and add the new one instead if the user uploaded a new one manually
+                if (selectedPhoto) {
+                    addPhotoToStorage(selectedPhoto);
+                }
+            })
+            .catch((error) => {
+                console.log("could not delete photo", error);
+                setLoading(false);
+            });
+    };
+
+    const handlePhotoChange = (e) => {
+        const allowedPhotoTypes = ["image/jpeg", "image/png"];
+        const selectedPhoto = e.target.files[0];
+
+        //if there is a photo and the type is ok, proceed
+        if (selectedPhoto) {
+            if (allowedPhotoTypes.includes(selectedPhoto.type)) {
+                setLoading(true);
+                //if the user changed photo, delete the old one from storage
+                if (photo) {
+                    deletePhotoFromStorage(selectedPhoto);
+                } else {
+                    addPhotoToStorage(selectedPhoto);
+                }
+            }
+        }
+    };
+
+    const addFileToStorage = (selectedFile) => {
+        //create a reference based on the files name
+        const fileRef = storage
+            .ref()
+            .child(`files/${selectedFile.name}${uuidv4()}`);
+
+        //upload file to fileRef
+        fileRef
+            .put(selectedFile)
+            .then((snapshot) => {
+                //retrieve url to uploaded file
+                snapshot.ref.getDownloadURL().then((url) => {
+                    setNewRecipe((prevState) => ({
+                        ...prevState,
+                        fileName: selectedFile.name,
+                        fileUrl: url,
+                        fullPathFile: snapshot.ref.fullPath,
+                    }));
+                    //save the file in a state to see if the user changes file in the future
+                    setFile({ fullPath: snapshot.ref.fullPath });
+                });
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.log("something went wrong", err);
+                setLoading(false);
+            });
+    };
+
+    const deleteFileFromStorage = (selectedFile) => {
+        let fileUpload = file.fullPath ? file.fullPath : file;
+        storage
+            .ref()
+            .child(fileUpload)
+            .delete()
+            .then(() => {
+                // File deleted successfully
+                setFile(null);
+                //add the new one instead
+                addFileToStorage(selectedFile);
+            })
+            .catch((error) => {
+                console.log("could not delete photo", error);
+                setLoading(false);
+            });
+    };
+
+    // Dropzone
+    const onDrop = useCallback(
+        (acceptedFile) => {
+            if (acceptedFile.length === 0) {
+                return;
+            }
+            setLoading(true);
+            //check if a user already uploaded a file
+            if (file) {
+                //in that case delete it before uploading a new one
+                deleteFileFromStorage(acceptedFile[0]);
+            } else {
+                //otherwise add it to storage
+                addFileToStorage(acceptedFile[0]);
+            }
+        },
+        [file]
+    );
 
     const {
         getRootProps,
@@ -140,56 +252,22 @@ const EditRecipeWithUrl = () => {
     });
 
     return (
-        <>
-        <h1>File</h1>
+        <div>
             <h1 className="page__title">
-                Redigera recept
-                <Radish className="icon" />
+                Redigera recept <Radish className="icon" />
             </h1>
+
             <form className="recipe-form" onSubmit={handleSaveChanges}>
                 {loading && (
                     <div className="recipe-form--loading">
                         <ClipLoader color="var(--green)" />
                     </div>
                 )}
-
                 {newRecipe && (
-                    <div className="recipe-form__content">
-                        <div className="recipe-form__field">
-                            <label htmlFor="url" className="recipe-form__label">
-                                Länk *
-                            </label>
-                            <input
-                                type="url"
-                                className="recipe-form__input recipe-form__input-url"
-                                id="url"
-                                required
-                                value={newRecipe.url}
-                                onChange={handleInput}
-                            />
-                        </div>
-                        <div className="recipe-form__image">
-                            <img
-                                src={
-                                    newRecipe.photoUrl
-                                        ? `${newRecipe.photoUrl}`
-                                        : `${placeholder}`
-                                }
-                                alt="placeholder"
-                            />
-                            {!newRecipe.photoUrl && (
-                                <div className="recipe-form__overlay"></div>
-                            )}
-
-                            <p className="recipe-form__image-text">
-                                Bild på recept
-                            </p>
-                            <AddImage className="recipe-form__icon-plus" />
-                        </div>
-
+                    <div className="recipe-form__content--file">
                         <div
                             {...getRootProps()}
-                            className="recipe-form__dropzone"
+                            className="recipe-form__dropzone--file"
                         >
                             <input {...getInputProps()} />
                             <div className="recipe-form__dropzone-text">
@@ -199,20 +277,59 @@ const EditRecipeWithUrl = () => {
                                 />
                                 {isDragActive ? (
                                     isDragAccept ? (
-                                        <p>Släpp bilden här</p>
+                                        <p>Släpp filen här</p>
                                     ) : (
                                         <p>
                                             Ledsen, fel filtyp, testa jpg eller
-                                            png
+                                            png{" "}
                                         </p>
                                     )
-                                ) : newRecipe.photoUrl === "" ? (
-                                    <p>Ladda upp bild</p>
+                                ) : recipe.fileUrl === "" ? (
+                                    <p>Ladda upp recept</p>
                                 ) : (
-                                    <p>Byt bild</p>
+                                    <p>Byt receptfil</p>
+                                )}
+                                {newRecipe.fileName && (
+                                    <p>{newRecipe.fileName}</p>
                                 )}
                             </div>
                         </div>
+
+                        <label
+                            className="recipe-form__image-upload"
+                            htmlFor="photo"
+                        >
+                            <input
+                                type="file"
+                                id="photo"
+                                onChange={handlePhotoChange}
+                            />
+                            <div className="recipe-form__image">
+                                {newRecipe.photoUrl ? (
+                                    <>
+                                        <img
+                                            src={newRecipe.photoUrl}
+                                            alt="presentation"
+                                        />
+                                        <p className="recipe-form__image-text">
+                                            Byt bild
+                                        </p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <img
+                                            src={placeholder}
+                                            alt="placeholder"
+                                        />
+                                        <div className="recipe-form__overlay"></div>
+                                        <p className="recipe-form__image-text">
+                                            Lägg till bild
+                                        </p>
+                                    </>
+                                )}
+                                <AddImage className="recipe-form__icon-plus" />
+                            </div>
+                        </label>
 
                         <div className="recipe-form__field">
                             <label
@@ -223,7 +340,7 @@ const EditRecipeWithUrl = () => {
                             </label>
                             <input
                                 type="text"
-                                className="recipe-form__input"
+                                className="form__input"
                                 id="name"
                                 required
                                 value={newRecipe.name}
@@ -240,7 +357,7 @@ const EditRecipeWithUrl = () => {
                             </label>
                             <textarea
                                 name="comment"
-                                className="recipe-form__textarea"
+                                className="form__textarea"
                                 id="comment"
                                 rows="4"
                                 maxLength="300"
@@ -257,6 +374,7 @@ const EditRecipeWithUrl = () => {
                                         name="Veganskt"
                                         onChange={handleCheckbox}
                                         className="recipe-form__checkbox"
+                                        checked={newRecipe.vegan}
                                     />
                                     <span className="recipe-form__slider"></span>
                                     Veganskt
@@ -272,8 +390,8 @@ const EditRecipeWithUrl = () => {
                     </div>
                 )}
             </form>
-        </>
+        </div>
     );
 };
 
-export default EditRecipeWithUrl;
+export default EditRecipeWithFile;

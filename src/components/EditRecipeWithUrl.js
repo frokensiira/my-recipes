@@ -38,7 +38,6 @@ const EditRecipeWithUrl = () => {
 
     const handleSaveChanges = (e) => {
         e.preventDefault();
-        console.log('submitting');
         
         db.collection("recipes")
             .doc(recipeId)

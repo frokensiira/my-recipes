@@ -37,10 +37,10 @@ const CreateRecipeWithUrl = () => {
     };
 
     const handleInput = async (e) => {
-        setRecipe({
-            ...recipe,
+        setRecipe((prevstate) => ({
+            ...prevstate,
             [e.target.id]: e.target.value,
-        });
+        }));
 
         if (e.target.id === "url") {
             if (e.target.value.includes("http")) {

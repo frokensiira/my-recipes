@@ -11,6 +11,7 @@ import { ReactComponent as AddImage } from "../assets/plus.svg";
 import placeholder from "../assets/images/placeholder.png";
 import { storage } from "../firebase";
 import { useDropzone } from "react-dropzone";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const CreateRecipeWithFile = () => {
     const [photo, setPhoto] = useState(null);
@@ -63,9 +64,9 @@ const CreateRecipeWithFile = () => {
     };
 
     const addPhotoToStorage = (selectedPhoto) => {
-        const photoRef = storage.ref().child(
-            `photos/${selectedPhoto.name}${uuidv4()}`
-        );
+        const photoRef = storage
+            .ref()
+            .child(`photos/${selectedPhoto.name}${uuidv4()}`);
 
         //upload photo to photoRef
         photoRef
@@ -81,26 +82,31 @@ const CreateRecipeWithFile = () => {
 
                     setPhoto({
                         fullPath: snapshot.ref.fullPath,
-                    })
+                    });
                     setLoading(false);
                 });
             })
             .catch((err) => {
                 console.log("problem uploading photo", err);
             });
-    }
+    };
 
     const deletePhotoFromStorage = (selectedPhoto) => {
-        storage.ref().child(photo.fullPath).delete().then(() => {
-            // File deleted successfully
-            setPhoto(null);
-            //and add the new one instead 
-            addPhotoToStorage(selectedPhoto);
-          }).catch((error) => {
-            console.log('could not delete photo', error);
-            setLoading(false);
-          });
-    }
+        storage
+            .ref()
+            .child(photo.fullPath)
+            .delete()
+            .then(() => {
+                // File deleted successfully
+                setPhoto(null);
+                //and add the new one instead
+                addPhotoToStorage(selectedPhoto);
+            })
+            .catch((error) => {
+                console.log("could not delete photo", error);
+                setLoading(false);
+            });
+    };
 
     const handlePhotoChange = (e) => {
         const allowedPhotoTypes = ["image/jpeg", "image/png"];
@@ -112,20 +118,20 @@ const CreateRecipeWithFile = () => {
                 setLoading(true);
 
                 //if the user changed photo, delete the old one from storage
-                if(photo) {                    
+                if (photo) {
                     deletePhotoFromStorage(selectedPhoto);
                 } else {
                     addPhotoToStorage(selectedPhoto);
-                }                
+                }
             }
         }
     };
 
     const addFileToStorage = (selectedFile) => {
         //create a reference based on the files name
-        const fileRef = storage.ref().child(
-            `files/${selectedFile.name}${uuidv4()}`
-        );
+        const fileRef = storage
+            .ref()
+            .child(`files/${selectedFile.name}${uuidv4()}`);
 
         //upload file to fileRef
         fileRef
@@ -135,44 +141,56 @@ const CreateRecipeWithFile = () => {
                 snapshot.ref.getDownloadURL().then((url) => {
                     setRecipe((prevState) => ({
                         ...prevState,
+                        fileName: selectedFile.name,
                         fileUrl: url,
                         fullPathFile: snapshot.ref.fullPath,
                     }));
-                    //save the file in a state to see if the user changes file in the future                    
-                    setFile({fullPath: snapshot.ref.fullPath});
+                    //save the file in a state to see if the user changes file in the future
+                    setFile({ fullPath: snapshot.ref.fullPath });
+                    setLoading(false);
                 });
             })
             .catch((err) => {
                 console.log("something went wrong", err);
+                setLoading(false);
             });
-    }
+    };
 
     const deleteFileFromStorage = (selectedFile) => {
-        storage.ref().child(file.fullPath).delete().then(() => {            
-            // File deleted successfully
-            setFile(null);
-            //add the new one instead 
-            addFileToStorage(selectedFile);
-          }).catch((error) => {
-            console.log('could not delete photo', error);
-            setLoading(false);
-          });
-    }
+        storage
+            .ref()
+            .child(file.fullPath)
+            .delete()
+            .then(() => {
+                // File deleted successfully
+                setFile(null);
+                //add the new one instead
+                addFileToStorage(selectedFile);
+            })
+            .catch((error) => {
+                console.log("could not delete photo", error);
+                setLoading(false);
+            });
+    };
 
     // Dropzone
-    const onDrop = useCallback((acceptedFile) => {
-        if (acceptedFile.length === 0) {
-            return;
-        }
-        //check if a user already uploaded a file
-        if(file) {
-            //in that case delete it before uploading a new one
-            deleteFileFromStorage(acceptedFile[0]);
-        } else {
-            //otherwise add it to storage
-            addFileToStorage(acceptedFile[0])
-        }
-    }, [file]);
+    const onDrop = useCallback(
+        (acceptedFile) => {
+            if (acceptedFile.length === 0) {
+                return;
+            }
+            setLoading(true);
+            //check if a user already uploaded a file
+            if (file) {
+                //in that case delete it before uploading a new one
+                deleteFileFromStorage(acceptedFile[0]);
+            } else {
+                //otherwise add it to storage
+                addFileToStorage(acceptedFile[0]);
+            }
+        },
+        [file]
+    );
 
     const {
         getRootProps,
@@ -200,6 +218,11 @@ const CreateRecipeWithFile = () => {
                 <p className="page__text"> Steg 2 av 2</p>
             </div>
             <form onSubmit={handleSubmit} className="recipe-form">
+                {loading && (
+                    <div className="recipe-form--loading">
+                        <ClipLoader color="var(--green)" />
+                    </div>
+                )}
                 <div className="recipe-form__content--file">
                     <div
                         {...getRootProps()}
@@ -213,7 +236,7 @@ const CreateRecipeWithFile = () => {
                             />
                             {isDragActive ? (
                                 isDragAccept ? (
-                                    <p>Släpp bilden här</p>
+                                    <p>Släpp filen här</p>
                                 ) : (
                                     <p>
                                         Ledsen, fel filtyp, testa jpg eller png{" "}
@@ -222,8 +245,9 @@ const CreateRecipeWithFile = () => {
                             ) : recipe.fileUrl === "" ? (
                                 <p>Ladda upp recept</p>
                             ) : (
-                                <p>Byt bild</p>
+                                <p>Byt receptfil</p>
                             )}
+                            {recipe.fileName && <p>{recipe.fileName}</p>}
                         </div>
                     </div>
 

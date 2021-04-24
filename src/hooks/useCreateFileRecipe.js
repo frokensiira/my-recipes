@@ -23,6 +23,7 @@ const useCreateFileRecipe = (recipe, submit) => {
                 name: recipe.name,
                 comment: recipe.comment,
                 photoUrl: recipe.photoUrl,
+                fileName: recipe.fileName,
                 fullPathPhoto: recipe.fullPathPhoto,
                 fileUrl: recipe.fileUrl,
                 fullPathFile: recipe.fullPathFile,
