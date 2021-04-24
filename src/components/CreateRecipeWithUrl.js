@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import useCreateUrlRecipe from "../hooks/useCreateUrlRecipe";
 import placeholder from "../assets/images/placeholder.png";
 import axios from "axios";
@@ -66,7 +66,10 @@ const CreateRecipeWithUrl = () => {
                             : "",
                         url: e.target.value,
                     });
-                    deletePhotoFromStorage();
+                    //if user uploaded an image before, remove it from storage
+                    if(photo) {
+                        deletePhotoFromStorage();
+                    }
                     setLoading(false);
                 }
             } else {

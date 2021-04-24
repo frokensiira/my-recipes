@@ -9,6 +9,9 @@ const useCreateUrlRecipe = (recipe, submit) => {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
 
+    console.log('recipe', recipe);
+    
+
     useEffect(() => {
         if (!submit) {
             return;
@@ -22,7 +25,7 @@ const useCreateUrlRecipe = (recipe, submit) => {
                 name: recipe.name,
                 url: recipe.url,
                 comment: recipe.comment,
-                ...(recipe.fullPath && { path: recipe.fullPath }),
+                ...(recipe.fullPathPhoto && { path: recipe.fullPathPhoto }),
                 photoUrl: recipe.photoUrl,
                 vegan: recipe.vegan,
             })

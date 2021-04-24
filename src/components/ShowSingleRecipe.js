@@ -114,7 +114,7 @@ const ShowSingleRecipe = () => {
         return () => {
             setLikes(false);
         };
-    }, []);
+    }, []);    
 
     useEffect(() => {
         if (initialRender.current) {
@@ -322,8 +322,12 @@ const ShowSingleRecipe = () => {
                                         />
                                         Radera recept
                                     </button>
+
+                                    {
+                                        
+                                    }
                                     <Link
-                                        to={`/my-recipes/edit-recipe/url/${recipeId}`}
+                                        to={recipe.fileUrl ? `/my-recipes/edit-recipe/file/${recipeId}` : `/my-recipes/edit-recipe/url/${recipeId}` }
                                         className="recipe__edit-link"
                                     >
                                         <FontAwesomeIcon
