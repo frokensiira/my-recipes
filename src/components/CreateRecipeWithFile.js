@@ -23,10 +23,9 @@ const CreateRecipeWithFile = () => {
         fullPathFile: "",
         vegan: false,
     });
-    const [vegan, setVegan] = useState(false);
     const [submit, setSubmit] = useState(null);
     const [loading, setLoading] = useState(false);
-    useCreateFileRecipe(recipe, vegan, submit);
+    useCreateFileRecipe(recipe, submit);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -45,10 +44,10 @@ const CreateRecipeWithFile = () => {
     };
 
     const handleCheckbox = (e) => {
-        setVegan(false);
-        if (e.target.checked === true) {
-            setVegan(true);
-        }
+        setRecipe({
+            ...recipe,
+            vegan: e.target.checked,
+        });
     };
 
     const uuidv4 = () => {
@@ -199,7 +198,7 @@ const CreateRecipeWithFile = () => {
                                         Ledsen, fel filtyp, testa jpg eller png{" "}
                                     </p>
                                 )
-                            ) : recipe.photoUrl === "" ? (
+                            ) : recipe.fileUrl === "" ? (
                                 <p>Ladda upp recept</p>
                             ) : (
                                 <p>Byt bild</p>

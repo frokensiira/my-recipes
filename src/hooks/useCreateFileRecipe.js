@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const useCreateFileRecipe = (recipe, vegan, submit) => {
+const useCreateFileRecipe = (recipe, submit) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const { currentUser } = useAuth();
@@ -26,7 +26,7 @@ const useCreateFileRecipe = (recipe, vegan, submit) => {
                 fullPathPhoto: recipe.fullPathPhoto,
                 fileUrl: recipe.fileUrl,
                 fullPathFile: recipe.fullPathFile,
-                vegan,
+                vegan: recipe.vegan,
             })
             .then(() => {
                 navigate("/my-recipes/");
