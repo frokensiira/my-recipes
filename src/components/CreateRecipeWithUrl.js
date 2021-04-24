@@ -66,6 +66,7 @@ const CreateRecipeWithUrl = () => {
                             : "",
                         url: e.target.value,
                     });
+                    deletePhotoFromStorage();
                     setLoading(false);
                 }
             } else {
@@ -117,9 +118,11 @@ const CreateRecipeWithUrl = () => {
     const deletePhotoFromStorage = (selectedPhoto) => {
         storage.ref().child(photo.fullPath).delete().then(() => {
             // File deleted successfully
-            console.log('deleted photo');
-            //and add the new one instead
-            addPhotoToStorage(selectedPhoto);
+            setPhoto(null);
+            //and add the new one instead if the user uploaded a new one manually
+            if(selectedPhoto) {
+                addPhotoToStorage(selectedPhoto);
+            }
           }).catch((error) => {
             console.log('could not delete photo', error);
             setLoading(false);
@@ -137,9 +140,7 @@ const CreateRecipeWithUrl = () => {
 
                 //if the user changed photo, delete the old one from storage
                 if(photo) {
-                    console.log('photo', photo);
                     deletePhotoFromStorage(selectedPhoto);
-                      
                 } else {
                     addPhotoToStorage(selectedPhoto);
                 }                
