@@ -13,6 +13,7 @@ import { storage } from "../firebase";
 import { useDropzone } from "react-dropzone";
 
 const CreateRecipeWithFile = () => {
+    const [photo, setPhoto] = useState(null);
     const [recipe, setRecipe] = useState({
         name: "",
         comment: "",
@@ -24,6 +25,7 @@ const CreateRecipeWithFile = () => {
     });
     const [vegan, setVegan] = useState(false);
     const [submit, setSubmit] = useState(null);
+    const [loading, setLoading] = useState(false);
     useCreateFileRecipe(recipe, vegan, submit);
 
     const handleSubmit = (e) => {
@@ -32,7 +34,6 @@ const CreateRecipeWithFile = () => {
         if (!recipe.fileUrl) {
             return;
         }
-
         setSubmit(true);
     };
 
@@ -61,38 +62,62 @@ const CreateRecipeWithFile = () => {
         );
     };
 
+    const addPhotoToStorage = (selectedPhoto) => {
+        const photoRef = storage.ref().child(
+            `photos/${selectedPhoto.name}${uuidv4()}`
+        );
+
+        //upload photo to photoRef
+        photoRef
+            .put(selectedPhoto)
+            .then((snapshot) => {
+                //retrieve url to uploaded photo
+                snapshot.ref.getDownloadURL().then((url) => {
+                    setRecipe((prevState) => ({
+                        ...prevState,
+                        photoUrl: url,
+                        fullPathPhoto: snapshot.ref.fullPath,
+                    }));
+
+                    setPhoto({
+                        photoUrl: url,
+                        fullPath: snapshot.ref.fullPath,
+                    })
+                    setLoading(false);
+                });
+            })
+            .catch((err) => {
+                console.log("problem uploading photo", err);
+            });
+    }
+
+    const deletePhotoFromStorage = (selectedPhoto) => {
+        storage.ref().child(photo.fullPath).delete().then(() => {
+            // File deleted successfully
+            setPhoto(null);
+            //and add the new one instead 
+            addPhotoToStorage(selectedPhoto);
+          }).catch((error) => {
+            console.log('could not delete photo', error);
+            setLoading(false);
+          });
+    }
+
     const handlePhotoChange = (e) => {
         const allowedPhotoTypes = ["image/jpeg", "image/png"];
         const selectedPhoto = e.target.files[0];
 
-        //if there is a photo and the type is ok, add it to state
+        //if there is a photo and the type is ok, proceed
         if (selectedPhoto) {
             if (allowedPhotoTypes.includes(selectedPhoto.type)) {
-                console.log("selectedPhoto", selectedPhoto);
+                setLoading(true);
 
-                //get root reference
-                const storageRef = storage.ref();
-
-                const photoRef = storageRef.child(
-                    `photos/${selectedPhoto.name}${uuidv4()}`
-                );
-
-                //upload photo to photoRef
-                photoRef
-                    .put(selectedPhoto)
-                    .then((snapshot) => {
-                        //retrieve url to uploaded photo
-                        snapshot.ref.getDownloadURL().then((url) => {
-                            setRecipe((prevState) => ({
-                                ...prevState,
-                                photoUrl: url,
-                                fullPathPhoto: snapshot.ref.fullPath,
-                            }));
-                        });
-                    })
-                    .catch((err) => {
-                        console.log("problem uploading photo", err);
-                    });
+                //if the user changed photo, delete the old one from storage
+                if(photo) {
+                    deletePhotoFromStorage(selectedPhoto);
+                } else {
+                    addPhotoToStorage(selectedPhoto);
+                }                
             }
         }
     };
