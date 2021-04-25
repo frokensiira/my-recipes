@@ -12,6 +12,7 @@ import { db } from "../firebase";
 import { ReactComponent as Radish } from "../assets/radish.svg";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
+import ImageUpload from "./ImageUpload";
 
 const EditRecipeWithFile = () => {
     const [photo, setPhoto] = useState(null);
@@ -25,8 +26,8 @@ const EditRecipeWithFile = () => {
     useEffect(() => {
         if (recipe.length !== 0) {
             setNewRecipe(recipe);
-            setPhoto(recipe.fullPathPhoto);
-            setFile(recipe.fullPathFile);
+            setPhoto({fullPathPhoto: recipe.fullPathPhoto});
+            setFile({fullPathFile: recipe.fullPathFile});
         }
 
         return () => {
@@ -55,46 +56,11 @@ const EditRecipeWithFile = () => {
             });
     };
 
-    const handleInput = async (e) => {
-        setNewRecipe((prevstate) => ({
-            ...prevstate,
+    const handleInput = (e) => {
+        setNewRecipe((prevState) => ({
+            ...prevState,
             [e.target.id]: e.target.value,
         }));
-
-        if (e.target.id === "url") {
-            if (e.target.value.includes("http")) {
-                setLoading(true);
-                const url = e.target.value;
-                const urlEncoded = encodeURIComponent(url);
-                const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
-                const response = await axios.get(requestUrl);
-
-                if (!response.data.error) {
-                    setNewRecipe({
-                        ...recipe,
-                        name: response.data.ogTitle
-                            ? response.data.ogTitle
-                            : "",
-                        comment: response.data.ogDescription
-                            ? response.data.ogDescription
-                            : response.data.twitterDescription
-                            ? response.data.twitterDescription
-                            : "",
-                        photoUrl: response.data.ogImage
-                            ? response.data.ogImage.url
-                            : "",
-                        url: e.target.value,
-                    });
-                    //if user uploaded an image before, remove it from storage
-                    if (photo) {
-                        deletePhotoFromStorage();
-                    }
-                    setLoading(false);
-                }
-            } else {
-                setLoading(false);
-            }
-        }
     };
 
     const uuidv4 = () => {
@@ -126,7 +92,7 @@ const EditRecipeWithFile = () => {
                     }));
 
                     setPhoto({
-                        fullPath: snapshot.ref.fullPath,
+                        fullPathPhoto: snapshot.ref.fullPath,
                     });
                     setLoading(false);
                 });
@@ -137,10 +103,9 @@ const EditRecipeWithFile = () => {
     };
 
     const deletePhotoFromStorage = (selectedPhoto) => {
-        //let photoUpload = photo.fullPath ? photo.fullPath : photo;
         storage
             .ref()
-            .child(photo)
+            .child(photo.fullPathPhoto)
             .delete()
             .then(() => {
                 // File deleted successfully
@@ -193,7 +158,7 @@ const EditRecipeWithFile = () => {
                         fullPathFile: snapshot.ref.fullPath,
                     }));
                     //save the file in a state to see if the user changes file in the future
-                    setFile({ fullPath: snapshot.ref.fullPath });
+                    setFile({ fullPathFile: snapshot.ref.fullPath });
                 });
                 setLoading(false);
             })
@@ -204,10 +169,9 @@ const EditRecipeWithFile = () => {
     };
 
     const deleteFileFromStorage = (selectedFile) => {
-        let fileUpload = file.fullPath ? file.fullPath : file;
         storage
             .ref()
-            .child(fileUpload)
+            .child(file.fullPathFile)
             .delete()
             .then(() => {
                 // File deleted successfully
@@ -294,6 +258,8 @@ const EditRecipeWithFile = () => {
                                 )}
                             </div>
                         </div>
+
+                        {/* <ImageUpload handlePhotoChange={handlePhotoChange} recipe={newRecipe}/> */}
 
                         <label
                             className="recipe-form__image-upload"

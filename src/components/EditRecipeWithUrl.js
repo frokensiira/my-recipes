@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import placeholder from "../assets/images/placeholder.png";
 import axios from "axios";
 import { storage } from "../firebase";
 import ClipLoader from "react-spinners/ClipLoader";
-import { ReactComponent as AddImage } from "../assets/plus.svg";
 import { useParams } from "react-router-dom";
 import useRecipe from "../hooks/useRecipe";
 import { useNavigate } from "react-router-dom";
