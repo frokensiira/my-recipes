@@ -5,8 +5,7 @@ import useRecipe from "../hooks/useRecipe";
 import { SRLWrapper } from "simple-react-lightbox";
 import { ReactComponent as Vegan } from "../assets/vegan.svg";
 import { useAuth } from "../contexts/AuthContext";
-import { db } from "../firebase";
-import { storage } from "../firebase";
+import { db, storage } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,7 +23,7 @@ const ShowSingleRecipe = () => {
     const [like, setLike] = useState(false);
     const initialRender = useRef(true);
     const navigate = useNavigate();
-    
+
     const handleLike = (e) => {
         setLike((prevState) => !prevState);
     };
@@ -72,7 +71,6 @@ const ShowSingleRecipe = () => {
                 recipeId: recipeId,
             })
             .then(() => {
-                console.log("Added to seperate likes collection");
                 getLikesForRecipe();
             })
             .catch((err) => {
@@ -114,13 +112,7 @@ const ShowSingleRecipe = () => {
         return () => {
             setLikes(false);
         };
-    }, []);    
-
-    useEffect(() => {
-        return () => {
-            console.log('unmounting');
-        };
-    }, []);    
+    }, []);
 
     useEffect(() => {
         if (initialRender.current) {
@@ -153,7 +145,6 @@ const ShowSingleRecipe = () => {
                                     });
 
                                     if (like.length !== 0) {
-                                        console.log("already liked recipe");
                                         return;
                                     } else {
                                         addLikeToRecipe();
@@ -169,9 +160,9 @@ const ShowSingleRecipe = () => {
                     .catch((err) => {
                         console.log("error", err);
                     });
-            } else if (like === false) {
-                console.log("want to delete recipe from favourites");
-
+            }
+            //want to delete recipe from favourites
+            else if (like === false) {
                 deleteLikeFromRecipe();
             }
         }
@@ -193,10 +184,35 @@ const ShowSingleRecipe = () => {
             .ref(recipe.fullPathFile)
             .delete()
             .then(() => {
-                deleteRecipe();
+                deleteLikes();
             })
             .catch((error) => {
                 console.log("error", error);
+            });
+    };
+
+    //if recipe that is getting deleted has likes,
+    //remove the like documents from firestore
+    const deleteLikes = () => {
+        db.collection("likes")
+            .where("recipeId", "==", recipeId)
+            .get()
+            .then((query) => {
+                const batch = db.batch();
+                query.forEach((doc) => {
+                    batch.delete(doc.ref);
+                });
+                batch
+                    .commit()
+                    .then(() => {
+                        deleteRecipe();
+                    })
+                    .catch((err) => {
+                        console.log("error", err);
+                    });
+            })
+            .catch((err) => {
+                console.log("error", err);
             });
     };
 
@@ -222,7 +238,7 @@ const ShowSingleRecipe = () => {
             if (recipe.fullPathFile) {
                 deleteRecipeFile();
             } else {
-                deleteRecipe();
+                deleteLikes();
             }
         }
     };
@@ -361,11 +377,13 @@ const ShowSingleRecipe = () => {
                                         Radera recept
                                     </button>
 
-                                    {
-                                        
-                                    }
+                                    {}
                                     <Link
-                                        to={recipe.fileUrl ? `/my-recipes/edit-recipe/file/${recipeId}` : `/my-recipes/edit-recipe/url/${recipeId}` }
+                                        to={
+                                            recipe.fileUrl
+                                                ? `/my-recipes/edit-recipe/file/${recipeId}`
+                                                : `/my-recipes/edit-recipe/url/${recipeId}`
+                                        }
                                         className="recipe__edit-link"
                                     >
                                         <FontAwesomeIcon
