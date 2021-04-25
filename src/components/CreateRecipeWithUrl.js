@@ -6,10 +6,8 @@ import { storage } from "../firebase";
 import ClipLoader from "react-spinners/ClipLoader";
 import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
 import { ReactComponent as AddImage } from "../assets/plus.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import StepCounter from './StepCounter';
+import StepCounter from "./StepCounter";
+import ImageUpload from "./ImageUpload";
 
 const CreateRecipeWithUrl = () => {
     const [submit, setSubmit] = useState(null);
@@ -66,9 +64,10 @@ const CreateRecipeWithUrl = () => {
                             ? response.data.ogImage.url
                             : "",
                         url: e.target.value,
+                        fullPathPhoto: null,
                     });
                     //if user uploaded an image before, remove it from storage
-                    if(photo) {
+                    if (photo) {
                         deletePhotoFromStorage();
                     }
                     setLoading(false);
@@ -91,9 +90,9 @@ const CreateRecipeWithUrl = () => {
     };
 
     const addPhotoToStorage = (selectedPhoto) => {
-        const photoRef = storage.ref().child(
-            `photos/${selectedPhoto.name}${uuidv4()}`
-        );
+        const photoRef = storage
+            .ref()
+            .child(`photos/${selectedPhoto.name}${uuidv4()}`);
 
         //upload photo to photoRef
         photoRef
@@ -108,29 +107,34 @@ const CreateRecipeWithUrl = () => {
                     }));
 
                     setPhoto({
-                        fullPath: snapshot.ref.fullPath,
-                    })
+                        fullPathPhoto: snapshot.ref.fullPath,
+                    });
                     setLoading(false);
                 });
             })
             .catch((err) => {
                 console.log("problem uploading photo", err);
             });
-    }
+    };
 
     const deletePhotoFromStorage = (selectedPhoto) => {
-        storage.ref().child(photo.fullPath).delete().then(() => {
-            // File deleted successfully
-            setPhoto(null);
-            //and add the new one instead if the user uploaded a new one manually
-            if(selectedPhoto) {
-                addPhotoToStorage(selectedPhoto);
-            }
-          }).catch((error) => {
-            console.log('could not delete photo', error);
-            setLoading(false);
-          });
-    }
+        storage
+            .ref()
+            .child(photo.fullPathPhoto)
+            .delete()
+            .then(() => {
+                // File deleted successfully
+                setPhoto(null);
+                //and add the new one instead if the user uploaded a new one manually
+                if (selectedPhoto) {
+                    addPhotoToStorage(selectedPhoto);
+                }
+            })
+            .catch((error) => {
+                console.log("could not delete photo", error);
+                setLoading(false);
+            });
+    };
 
     const handlePhotoChange = (e) => {
         const allowedPhotoTypes = ["image/jpeg", "image/png"];
@@ -142,11 +146,11 @@ const CreateRecipeWithUrl = () => {
                 setLoading(true);
 
                 //if the user changed photo, delete the old one from storage
-                if(photo) {
+                if (photo) {
                     deletePhotoFromStorage(selectedPhoto);
                 } else {
                     addPhotoToStorage(selectedPhoto);
-                }                
+                }
             }
         }
     };
@@ -157,7 +161,7 @@ const CreateRecipeWithUrl = () => {
                 Skapa recept
                 <Artichoke className="icon" />
             </h1>
-            <StepCounter/>
+            <StepCounter />
             <form className="recipe-form" onSubmit={handleSubmit}>
                 {loading && (
                     <div className="recipe-form--loading">
@@ -178,6 +182,8 @@ const CreateRecipeWithUrl = () => {
                             onChange={handleInput}
                         />
                     </div>
+
+                    {/* <ImageUpload handlePhotoChange={handlePhotoChange} recipe={recipe}/> */}
 
                     <label
                         className="recipe-form__image-upload"

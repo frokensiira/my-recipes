@@ -137,10 +137,10 @@ const EditRecipeWithFile = () => {
     };
 
     const deletePhotoFromStorage = (selectedPhoto) => {
-        let photoUpload = photo.fullPath ? photo.fullPath : photo;
+        //let photoUpload = photo.fullPath ? photo.fullPath : photo;
         storage
             .ref()
-            .child(photoUpload)
+            .child(photo)
             .delete()
             .then(() => {
                 // File deleted successfully

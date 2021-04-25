@@ -55,7 +55,7 @@ const SignUp = () => {
                             favoritrecept och spara andras smarriga vegorecept
                             till din egen samling.
                         </p>
-                        <img src={avocado} className="form__image" />
+                        <img src={avocado} className="form__image" alt=""/>
                     </div>
 
                     <form onSubmit={handleSubmit}>

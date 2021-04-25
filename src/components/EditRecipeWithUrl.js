@@ -18,15 +18,17 @@ const EditRecipeWithUrl = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {        
-        if (recipe.length !== 0) {
+    useEffect(() => {
+        if (recipe && recipe.length !== 0) {
             setNewRecipe(recipe);
-            setPhoto(recipe.path);
+            if(recipe.fullPathPhoto) {
+                setPhoto(recipe.fullPathPhoto);
+            }
         }
 
         return () => {
             setNewRecipe(null);
-        }
+        };
     }, [recipe]);
 
     const handleCheckbox = (e) => {
@@ -38,7 +40,7 @@ const EditRecipeWithUrl = () => {
 
     const handleSaveChanges = (e) => {
         e.preventDefault();
-        
+
         db.collection("recipes")
             .doc(recipeId)
             .set(newRecipe)
@@ -113,7 +115,7 @@ const EditRecipeWithUrl = () => {
             .put(selectedPhoto)
             .then((snapshot) => {
                 //retrieve url to uploaded photo
-                snapshot.ref.getDownloadURL().then((url) => {
+                snapshot.ref.getDownloadURL().then((url) => {                    
                     setNewRecipe((prevState) => ({
                         ...prevState,
                         photoUrl: url,
@@ -121,7 +123,7 @@ const EditRecipeWithUrl = () => {
                     }));
 
                     setPhoto({
-                        fullPath: snapshot.ref.fullPath,
+                        fullPathPhoto: snapshot.ref.fullPath,
                     });
                     setLoading(false);
                 });
@@ -132,9 +134,10 @@ const EditRecipeWithUrl = () => {
     };
 
     const deletePhotoFromStorage = (selectedPhoto) => {
+        let photoUpload = photo.fullPathPhoto ? photo.fullPathPhoto : photo;
         storage
             .ref()
-            .child(photo)
+            .child(photoUpload)
             .delete()
             .then(() => {
                 // File deleted successfully

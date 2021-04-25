@@ -292,6 +292,7 @@ const ShowSingleRecipe = () => {
                                         <img
                                             className="recipe__profile-image"
                                             src={profilePlaceholder}
+                                            alt=""
                                         />
                                         <p className="recipe__footer-name">
                                             {recipe.creatorUsername}
