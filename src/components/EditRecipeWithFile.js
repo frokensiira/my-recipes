@@ -26,7 +26,9 @@ const EditRecipeWithFile = () => {
     useEffect(() => {
         if (recipe.length !== 0) {
             setNewRecipe(recipe);
-            setPhoto({fullPathPhoto: recipe.fullPathPhoto});
+            if(recipe.fullPathPhoto !== "") {
+                setPhoto({fullPathPhoto: recipe.fullPathPhoto});
+            }
             setFile({fullPathFile: recipe.fullPathFile});
         }
 
@@ -130,7 +132,10 @@ const EditRecipeWithFile = () => {
             if (allowedPhotoTypes.includes(selectedPhoto.type)) {
                 setLoading(true);
                 //if the user changed photo, delete the old one from storage
+                console.log('photo before', photo);
                 if (photo) {
+                    console.log('photo', photo);
+                    
                     deletePhotoFromStorage(selectedPhoto);
                 } else {
                     addPhotoToStorage(selectedPhoto);

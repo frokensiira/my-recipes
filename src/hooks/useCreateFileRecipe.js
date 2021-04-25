@@ -13,7 +13,7 @@ const useCreateFileRecipe = (recipe, submit) => {
         if (!recipe || !submit) {
             return;
         }
-
+        
         //add uploaded photo to database
         db.collection("recipes")
             .add({

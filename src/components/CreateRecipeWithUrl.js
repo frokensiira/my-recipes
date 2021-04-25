@@ -62,6 +62,8 @@ const CreateRecipeWithUrl = () => {
                                 : "",
                             photoUrl: response.data.ogImage
                                 ? response.data.ogImage.url
+                                    ? response.data.ogImage.url
+                                    : ""
                                 : "",
                             url: e.target.value,
                             fullPathPhoto: null,
@@ -72,14 +74,10 @@ const CreateRecipeWithUrl = () => {
                         }
                         setLoading(false);
                     }
-                } catch(err) {
+                } catch (err) {
                     setLoading(false);
-                    console.log('error', err);
-                    
+                    console.log("error", err);
                 }
-                
-
-                
             } else {
                 setLoading(false);
             }
@@ -97,7 +95,7 @@ const CreateRecipeWithUrl = () => {
         );
     };
 
-    const addPhotoToStorage = (selectedPhoto) => {        
+    const addPhotoToStorage = (selectedPhoto) => {
         const photoRef = storage
             .ref()
             .child(`photos/${selectedPhoto.name}${uuidv4()}`);
@@ -144,7 +142,7 @@ const CreateRecipeWithUrl = () => {
             });
     };
 
-    const handlePhotoChange = (e) => {        
+    const handlePhotoChange = (e) => {
         const allowedPhotoTypes = ["image/jpeg", "image/png"];
         const selectedPhoto = e.target.files[0];
 
@@ -191,7 +189,10 @@ const CreateRecipeWithUrl = () => {
                         />
                     </div>
 
-                    <ImageUpload handlePhotoChange={handlePhotoChange} recipe={recipe}/>
+                    <ImageUpload
+                        handlePhotoChange={handlePhotoChange}
+                        recipe={recipe}
+                    />
 
                     <div className="recipe-form__field">
                         <label htmlFor="name" className="recipe-form__label">

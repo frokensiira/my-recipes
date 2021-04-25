@@ -20,7 +20,7 @@ const EditRecipeWithUrl = () => {
     useEffect(() => {
         if (recipe && recipe.length !== 0) {
             setNewRecipe(recipe);
-            if(recipe.fullPathPhoto) {
+            if(recipe.fullPathPhoto && recipe.fullPathPhoto !== "") {
                 setPhoto({fullPathPhoto: recipe.fullPathPhoto});
             }
         }
@@ -51,19 +51,21 @@ const EditRecipeWithUrl = () => {
             });
     };
 
-    const handleInput = async (e) => {
+    const handleInput = async (e) => {        
         setNewRecipe((prevstate) => ({
             ...prevstate,
             [e.target.id]: e.target.value,
         }));
-
+        
         if (e.target.id === "url") {
-            if (e.target.value.includes("http")) {
+            console.log('url input');
+            
+            if (e.target.value.includes("http")) {                
                 setLoading(true);
                 const url = e.target.value;
                 const urlEncoded = encodeURIComponent(url);
                 const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
-                const response = await axios.get(requestUrl);
+                const response = await axios.get(requestUrl);                
 
                 if (!response.data.error) {
                     setNewRecipe({
@@ -78,6 +80,8 @@ const EditRecipeWithUrl = () => {
                             : "",
                         photoUrl: response.data.ogImage
                             ? response.data.ogImage.url
+                                ? response.data.ogImage.url
+                                : ""
                             : "",
                         url: e.target.value,
                     });

@@ -14,6 +14,9 @@ const useCreateUrlRecipe = (recipe, submit) => {
             return;
         }
 
+        console.log('recipe', recipe);
+        
+
         db.collection("recipes")
             .add({
                 owner: currentUser.uid,
