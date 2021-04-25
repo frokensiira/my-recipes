@@ -33,11 +33,13 @@ const Home = () => {
                                 Skapa konto för att kunna lägga in dina
                                 favoritrecept eller spara andras.
                             </p>
-                            <button className="button">
-                                <Link className="banner__link" to={`/signup`}>
-                                    Skapa konto
-                                </Link>
-                            </button>
+
+                            <Link
+                                className="button banner__link"
+                                to={`/signup`}
+                            >
+                                Skapa konto
+                            </Link>
                         </div>
                         <div className="banner__image banner__image--desktop">
                             <Banner />

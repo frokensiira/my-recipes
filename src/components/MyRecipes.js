@@ -5,6 +5,7 @@ import { ReactComponent as Cabbage } from "../assets/cabbage.svg";
 import AddRecipeButton from "./AddRecipeButton";
 import Filter from "./Filter";
 import ClipLoader from "react-spinners/ClipLoader";
+import { Link } from "react-router-dom";
 
 const MyRecipes = () => {
     const [vegan, setVegan] = useState(false);
@@ -41,22 +42,30 @@ const MyRecipes = () => {
                 </div>
             )}
             <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
-            <div className="cards">
-                {allRecipes && allRecipes.length !== 0 ? (
-                    allRecipes.map((recipe) => (
+
+            {allRecipes && allRecipes.length !== 0 ? (
+                allRecipes.map((recipe) => (
+                    <div className="cards">
                         <RecipeCard
                             recipe={recipe}
                             key={recipe.id}
                             handleDislike={handleDislike}
                         />
-                    ))
-                ) : vegan ? (
-                    <p>Du har inga veganska recept än...</p>
-                ) : (
-                    <p>Du har inga recept än...</p>
-                )}
-                <AddRecipeButton />
-            </div>
+                        <AddRecipeButton />
+                    </div>
+                ))
+            ) : (
+                <div className="page__feedback">
+                    {vegan ? (
+                        <p>Du har inga veganska recept än. Skapa ditt allra första!</p>
+                    ) : (
+                        <p>Du har inga recept än. Skapa ditt allra första!</p>
+                    )}
+                    <Link to="/create-recipe" className="button banner__link">
+                        Skapa recept
+                    </Link>
+                </div>
+            )}
         </main>
     );
 };

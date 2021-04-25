@@ -46,6 +46,13 @@
     color: #000;
 }
 
+.page__feedback {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4rem;
+}
+
 @media (min-width: 2309px) {
     .page__title {
         width: calc(100% - 2 * (4 * var(--page-margin)));

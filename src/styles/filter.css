@@ -2,11 +2,6 @@
     display: flex;
 }
 
-.filter {
-    display: flex;
-
-}
-
 .filter__item {
     text-transform: uppercase;
     list-style-type: none;

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import avocado from "../assets/images/avocado.png";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -30,6 +31,11 @@ const Login = () => {
     return (
         <>
             <h1 className="page__title">Logga in</h1>
+            {loading && (
+                <div className="recipe-form--loading">
+                    <ClipLoader color="var(--green)" />
+                </div>
+            )}
             <div className="form__wrapper">
                 <div className="form">
                     {error && <div variant="danger">{error}</div>}
