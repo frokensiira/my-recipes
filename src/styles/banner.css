@@ -33,14 +33,6 @@
     margin-bottom: 1.5rem;
 }
 
-.banner__link {
-    color: #fff;
-    text-decoration: none;
-    
-    letter-spacing: 1px;
-    font-weight: 400;
-}
-
 .banner__image {
     display: flex;
     justify-content: center;

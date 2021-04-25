@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useCreateUrlRecipe from "../hooks/useCreateUrlRecipe";
 import axios from "axios";
 import { storage } from "../firebase";
-import ClipLoader from "react-spinners/ClipLoader";
+import Loading from "./Loading";
 import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
 import StepCounter from "./StepCounter";
 import ImageUpload from "./ImageUpload";
@@ -172,9 +172,7 @@ const CreateRecipeWithUrl = () => {
             <StepCounter />
             <form className="recipe-form" onSubmit={handleSubmit}>
                 {loading && (
-                    <div className="recipe-form--loading">
-                        <ClipLoader color="var(--green)" />
-                    </div>
+                    <Loading/>
                 )}
 
                 <div className="recipe-form__content">

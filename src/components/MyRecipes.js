@@ -4,7 +4,7 @@ import useMyRecipes from "../hooks/useMyRecipes";
 import { ReactComponent as Cabbage } from "../assets/cabbage.svg";
 import AddRecipeButton from "./AddRecipeButton";
 import Filter from "./Filter";
-import ClipLoader from "react-spinners/ClipLoader";
+import Loading from "./Loading";
 import { Link } from "react-router-dom";
 
 const MyRecipes = () => {
@@ -37,9 +37,7 @@ const MyRecipes = () => {
                 Mina recept <Cabbage className="icon" />
             </h1>
             {loading && (
-                <div className="recipe-form--loading">
-                    <ClipLoader color="var(--green)" />
-                </div>
+                <Loading/>
             )}
             <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
@@ -61,7 +59,7 @@ const MyRecipes = () => {
                     ) : (
                         <p>Du har inga recept än. Skapa ditt allra första!</p>
                     )}
-                    <Link to="/create-recipe" className="button banner__link">
+                    <Link to="/create-recipe" className="button link">
                         Skapa recept
                     </Link>
                 </div>

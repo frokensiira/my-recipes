@@ -5,7 +5,7 @@ import useRecipe from "../hooks/useRecipe";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { ReactComponent as Radish } from "../assets/radish.svg";
-import ClipLoader from "react-spinners/ClipLoader";
+import Loading from "./Loading";
 import ImageUpload from "./ImageUpload";
 import RecipeFormDescription from "./RecipeFormDescription";
 import VeganCheckbox from "./VeganCheckbox";
@@ -196,9 +196,7 @@ const EditRecipeWithFile = () => {
 
             <form className="recipe-form" onSubmit={handleSaveChanges}>
                 {loading && (
-                    <div className="recipe-form--loading">
-                        <ClipLoader color="var(--green)" />
-                    </div>
+                    <Loading/>
                 )}
                 {newRecipe && (
                     <div className="recipe-form__content--file">

@@ -5,7 +5,6 @@ import { useAuth } from "../contexts/AuthContext";
 const Logout = () => {
     const { logout } = useAuth();
     const navigate = useNavigate();
-    console.log("want to log out");
 
     useEffect(() => {
         (async () => {

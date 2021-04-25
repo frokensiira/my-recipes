@@ -3,6 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import AllRecipes from "./AllRecipes";
 import { ReactComponent as Banner } from "../assets/banner.svg";
+import Loading from "./Loading";
 
 const Home = () => {
     const { currentUser, loading } = useAuth();
@@ -11,7 +12,7 @@ const Home = () => {
         <>
             <section className="banner">
                 {loading ? (
-                    <p>loading...</p>
+                    <Loading />
                 ) : currentUser ? (
                     <>
                         <p>
@@ -34,10 +35,7 @@ const Home = () => {
                                 favoritrecept eller spara andras.
                             </p>
 
-                            <Link
-                                className="button banner__link"
-                                to={`/signup`}
-                            >
+                            <Link className="button link" to={`/signup`}>
                                 Skapa konto
                             </Link>
                         </div>

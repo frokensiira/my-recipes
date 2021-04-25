@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { storage } from "../firebase";
-import ClipLoader from "react-spinners/ClipLoader";
+import Loading from "./Loading";
 import { useParams } from "react-router-dom";
 import useRecipe from "../hooks/useRecipe";
 import { useNavigate } from "react-router-dom";
@@ -189,9 +189,7 @@ const EditRecipeWithUrl = () => {
             </h1>
             <form className="recipe-form" onSubmit={handleSaveChanges}>
                 {loading && (
-                    <div className="recipe-form--loading">
-                        <ClipLoader color="var(--green)" />
-                    </div>
+                    <Loading/>
                 )}
 
                 {newRecipe && (

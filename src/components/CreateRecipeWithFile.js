@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useCreateFileRecipe from "../hooks/useCreateFileRecipe";
 import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
 import { storage } from "../firebase";
-import ClipLoader from "react-spinners/ClipLoader";
+import Loading from "./Loading";
 import StepCounter from "./StepCounter";
 import RecipeFormDescription from "./RecipeFormDescription";
 import ImageUpload from "./ImageUpload";
@@ -177,11 +177,7 @@ const CreateRecipeWithFile = () => {
             </h1>
             <StepCounter />
             <form onSubmit={handleSubmit} className="recipe-form">
-                {loading && (
-                    <div className="recipe-form--loading">
-                        <ClipLoader color="var(--green)" />
-                    </div>
-                )}
+                {loading && <Loading />}
                 <div className="recipe-form__content--file">
                     <Dropzone
                         recipe={recipe}

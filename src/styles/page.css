@@ -53,6 +53,10 @@
     margin: 4rem var(--page-margin) 0;
 }
 
+.page__feedback .link{
+    margin-bottom: 10rem;
+}
+
 @media (min-width: 2309px) {
     .page__title {
         width: calc(100% - 2 * (4 * var(--page-margin)));

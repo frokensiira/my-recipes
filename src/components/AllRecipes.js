@@ -4,7 +4,7 @@ import AddRecipeButton from "./AddRecipeButton";
 import { ReactComponent as Broccoli } from "../assets/broccoli.svg";
 import Filter from "./Filter";
 import useAllRecipes from "../hooks/useAllRecipes";
-import ClipLoader from "react-spinners/ClipLoader";
+import Loading from "./Loading";
 import { Link } from "react-router-dom";
 
 const AllRecipes = () => {
@@ -25,9 +25,7 @@ const AllRecipes = () => {
                 Recept <Broccoli className="icon" />
             </h1>
             {loading && (
-                <div className="recipe-form--loading">
-                    <ClipLoader color="var(--green)" />
-                </div>
+                <Loading/>
             )}
             <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
@@ -47,7 +45,7 @@ const AllRecipes = () => {
                     ) : (
                         <p>Det finns inga recept än. Skapa det allra första!</p>
                     )}
-                    <Link to="/create-recipe" className="button banner__link">
+                    <Link to="/create-recipe" className="button link">
                         Skapa recept
                     </Link>
                 </div>

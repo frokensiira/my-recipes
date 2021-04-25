@@ -5,7 +5,7 @@ import avocado from "../assets/images/avocado.png";
 import { ReactComponent as User } from "../assets/user.svg";
 import { ReactComponent as Password } from "../assets/password.svg";
 import { ReactComponent as Mail } from "../assets/mail.svg";
-import ClipLoader from "react-spinners/ClipLoader";
+import Loading from "./Loading";
 
 const SignUp = () => {
     const usernameRef = useRef();
@@ -44,9 +44,7 @@ const SignUp = () => {
         <>
             <h1 className="page__title">Skapa konto</h1>
             {loading && (
-                <div className="recipe-form--loading">
-                    <ClipLoader color="var(--green)" />
-                </div>
+                <Loading/>
             )}
             <div className="form__wrapper">
                 <div className="form">
