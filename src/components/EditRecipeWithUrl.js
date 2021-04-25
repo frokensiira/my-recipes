@@ -172,8 +172,6 @@ const EditRecipeWithUrl = () => {
 
                 //if the user changed photo, delete the old one from storage
                 if (photo) {
-                    console.log("photo", photo);
-
                     deletePhotoFromStorage(selectedPhoto);
                 } else {
                     addPhotoToStorage(selectedPhoto);
@@ -212,42 +210,6 @@ const EditRecipeWithUrl = () => {
                         </div>
 
                         <ImageUpload handlePhotoChange={handlePhotoChange} recipe={newRecipe}/>
-
-                        {/* <label
-                            className="recipe-form__image-upload"
-                            htmlFor="photo"
-                        >
-                            <input
-                                type="file"
-                                id="photo"
-                                onChange={handlePhotoChange}
-                            />
-                            <div className="recipe-form__image">
-                                {newRecipe.photoUrl ? (
-                                    <>
-                                        <img
-                                            src={newRecipe.photoUrl}
-                                            alt="presentation"
-                                        />
-                                        <p className="recipe-form__image-text">
-                                            Byt bild
-                                        </p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <img
-                                            src={placeholder}
-                                            alt="placeholder"
-                                        />
-                                        <div className="recipe-form__overlay"></div>
-                                        <p className="recipe-form__image-text">
-                                            Lägg till bild
-                                        </p>
-                                    </>
-                                )}
-                                <AddImage className="recipe-form__icon-plus" />
-                            </div>
-                        </label> */}
 
                         <div className="recipe-form__field">
                             <label
