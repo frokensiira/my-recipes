@@ -211,7 +211,9 @@ const EditRecipeWithUrl = () => {
                             />
                         </div>
 
-                        <label
+                        <ImageUpload handlePhotoChange={handlePhotoChange} recipe={newRecipe}/>
+
+                        {/* <label
                             className="recipe-form__image-upload"
                             htmlFor="photo"
                         >
@@ -245,7 +247,7 @@ const EditRecipeWithUrl = () => {
                                 )}
                                 <AddImage className="recipe-form__icon-plus" />
                             </div>
-                        </label>
+                        </label> */}
 
                         <div className="recipe-form__field">
                             <label

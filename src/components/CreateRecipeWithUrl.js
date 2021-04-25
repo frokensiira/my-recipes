@@ -5,7 +5,6 @@ import axios from "axios";
 import { storage } from "../firebase";
 import ClipLoader from "react-spinners/ClipLoader";
 import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
-import { ReactComponent as AddImage } from "../assets/plus.svg";
 import StepCounter from "./StepCounter";
 import ImageUpload from "./ImageUpload";
 
@@ -137,6 +136,8 @@ const CreateRecipeWithUrl = () => {
     };
 
     const handlePhotoChange = (e) => {
+        console.log('changing photo', e.target.files[0]);
+        
         const allowedPhotoTypes = ["image/jpeg", "image/png"];
         const selectedPhoto = e.target.files[0];
 
