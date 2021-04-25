@@ -3,8 +3,6 @@ import placeholder from "../assets/images/placeholder.png";
 import { ReactComponent as AddImage } from "../assets/plus.svg";
 
 const ImageUpload = ({ recipe, handlePhotoChange }) => {
-    console.log("recipe.photoUrl", recipe.photoUrl);
-
     return (
         <label className="recipe-form__image-upload" htmlFor="photo">
             <input type="file" id="photo" onChange={handlePhotoChange} />

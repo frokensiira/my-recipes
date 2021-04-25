@@ -9,6 +9,7 @@ import useRecipe from "../hooks/useRecipe";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { ReactComponent as Radish } from "../assets/radish.svg";
+import ImageUpload from "./ImageUpload";
 
 const EditRecipeWithUrl = () => {
     const [photo, setPhoto] = useState(null);
@@ -84,6 +85,8 @@ const EditRecipeWithUrl = () => {
                     });
                     //if user uploaded an image before, remove it from storage
                     if (photo) {
+                        console.log('photo', photo);
+                        
                         deletePhotoFromStorage();
                     }
                     setLoading(false);
@@ -142,6 +145,11 @@ const EditRecipeWithUrl = () => {
             .then(() => {
                 // File deleted successfully
                 setPhoto(null);
+                setNewRecipe((prevstate) => ({
+                    ...prevstate,
+                    fullPathPhoto: null,
+                }));
+                
                 //and add the new one instead if the user uploaded a new one manually
                 if (selectedPhoto) {
                     addPhotoToStorage(selectedPhoto);

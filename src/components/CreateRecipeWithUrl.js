@@ -183,40 +183,7 @@ const CreateRecipeWithUrl = () => {
                         />
                     </div>
 
-                    {/* <ImageUpload handlePhotoChange={handlePhotoChange} recipe={recipe}/> */}
-
-                    <label
-                        className="recipe-form__image-upload"
-                        htmlFor="photo"
-                    >
-                        <input
-                            type="file"
-                            id="photo"
-                            onChange={handlePhotoChange}
-                        />
-                        <div className="recipe-form__image">
-                            {recipe.photoUrl ? (
-                                <>
-                                    <img
-                                        src={recipe.photoUrl}
-                                        alt="presentation"
-                                    />
-                                    <p className="recipe-form__image-text">
-                                        Byt bild
-                                    </p>
-                                </>
-                            ) : (
-                                <>
-                                    <img src={placeholder} alt="placeholder" />
-                                    <div className="recipe-form__overlay"></div>
-                                    <p className="recipe-form__image-text">
-                                        Lägg till bild
-                                    </p>
-                                </>
-                            )}
-                            <AddImage className="recipe-form__icon-plus" />
-                        </div>
-                    </label>
+                    <ImageUpload handlePhotoChange={handlePhotoChange} recipe={recipe}/>
 
                     <div className="recipe-form__field">
                         <label htmlFor="name" className="recipe-form__label">
