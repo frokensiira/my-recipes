@@ -51,7 +51,7 @@ const MyRecipes = () => {
                             key={recipe.id}
                             handleDislike={handleDislike}
                         />
-                        <AddRecipeButton />
+                        
                     </div>
                 ))
             ) : (
@@ -66,6 +66,7 @@ const MyRecipes = () => {
                     </Link>
                 </div>
             )}
+            <AddRecipeButton />
         </main>
     );
 };

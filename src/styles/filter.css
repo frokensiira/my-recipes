@@ -36,10 +36,3 @@
         margin-right: var(--page-margin);
     }
 }
-
-@media(max-width: 575px) {
-    .filter {
-        margin-left: 2vw;
-        margin-right: 2vw;
-    }
-} 
