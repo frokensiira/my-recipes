@@ -135,9 +135,7 @@ const CreateRecipeWithUrl = () => {
             });
     };
 
-    const handlePhotoChange = (e) => {
-        console.log('changing photo', e.target.files[0]);
-        
+    const handlePhotoChange = (e) => {        
         const allowedPhotoTypes = ["image/jpeg", "image/png"];
         const selectedPhoto = e.target.files[0];
 

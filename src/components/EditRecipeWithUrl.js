@@ -21,7 +21,7 @@ const EditRecipeWithUrl = () => {
         if (recipe && recipe.length !== 0) {
             setNewRecipe(recipe);
             if(recipe.fullPathPhoto) {
-                setPhoto(recipe.fullPathPhoto);
+                setPhoto({fullPathPhoto: recipe.fullPathPhoto});
             }
         }
 
@@ -135,10 +135,9 @@ const EditRecipeWithUrl = () => {
     };
 
     const deletePhotoFromStorage = (selectedPhoto) => {
-        let photoUpload = photo.fullPathPhoto ? photo.fullPathPhoto : photo;
         storage
             .ref()
-            .child(photoUpload)
+            .child(photo.fullPathPhoto)
             .delete()
             .then(() => {
                 // File deleted successfully
