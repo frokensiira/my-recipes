@@ -1,11 +1,9 @@
 import React from "react";
-import ClipLoader from "react-spinners/ClipLoader";
 
-const RecipeSubmitButton = ({ children, loading }) => {
+const RecipeSubmitButton = ({ children }) => {
     return (
         <button type="submit" className="button recipe-form__submit-button">
             {children}
-            {loading && <ClipLoader color="#fff" size={25} />}
         </button>
     );
 };

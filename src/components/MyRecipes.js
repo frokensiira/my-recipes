@@ -4,11 +4,12 @@ import useMyRecipes from "../hooks/useMyRecipes";
 import { ReactComponent as Cabbage } from "../assets/cabbage.svg";
 import AddRecipeButton from "./AddRecipeButton";
 import Filter from "./Filter";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const MyRecipes = () => {
     const [vegan, setVegan] = useState(false);
     const [disLiked, setDisLiked] = useState(false);
-    const { recipes, likedRecipes } = useMyRecipes(vegan, disLiked);
+    const { recipes, likedRecipes, loading } = useMyRecipes(vegan, disLiked);
     const [allRecipes, setAllRecipes] = useState(null);
 
     const handleFilterSearch = (e) => {
@@ -34,6 +35,11 @@ const MyRecipes = () => {
             <h1 className="page__title">
                 Mina recept <Cabbage className="icon" />
             </h1>
+            {loading && (
+                <div className="recipe-form--loading">
+                    <ClipLoader color="var(--green)" />
+                </div>
+            )}
             <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
             <div className="cards">
                 {allRecipes && allRecipes.length !== 0 ? (

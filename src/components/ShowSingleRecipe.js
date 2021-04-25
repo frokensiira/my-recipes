@@ -14,6 +14,7 @@ import { faTrashAlt, faEdit } from "@fortawesome/free-regular-svg-icons";
 import { ReactComponent as Heart } from "../assets/heart.svg";
 import { ReactComponent as HeartFilled } from "../assets/heart-filled.svg";
 import profilePlaceholder from "../assets/profile-placeholder.svg";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const ShowSingleRecipe = () => {
     const { recipeId } = useParams();
@@ -246,7 +247,9 @@ const ShowSingleRecipe = () => {
     return (
         <>
             {loading ? (
-                <p>Laddar</p>
+                <div className="recipe-form--loading">
+                    <ClipLoader color="var(--green)" />
+                </div>
             ) : (
                 recipe && (
                     <div className="recipe">
