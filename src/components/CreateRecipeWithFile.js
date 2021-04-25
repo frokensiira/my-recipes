@@ -9,6 +9,8 @@ import { storage } from "../firebase";
 import { useDropzone } from "react-dropzone";
 import ClipLoader from "react-spinners/ClipLoader";
 import StepCounter from "./StepCounter";
+import RecipeFormDescription from "./RecipeFormDescription";
+import ImageUpload from "./ImageUpload";
 
 const CreateRecipeWithFile = () => {
     const [photo, setPhoto] = useState(null);
@@ -240,7 +242,9 @@ const CreateRecipeWithFile = () => {
                         </div>
                     </div>
 
-                    <label
+                    <ImageUpload handlePhotoChange={handlePhotoChange} recipe={recipe}/>
+
+                    {/* <label
                         className="recipe-form__image-upload"
                         htmlFor="photo"
                     >
@@ -271,7 +275,7 @@ const CreateRecipeWithFile = () => {
                             )}
                             <AddImage className="recipe-form__icon-plus" />
                         </div>
-                    </label>
+                    </label> */}
 
                     <div className="recipe-form__field">
                         <label htmlFor="name" className="recipe-form__label">
@@ -287,20 +291,7 @@ const CreateRecipeWithFile = () => {
                         />
                     </div>
 
-                    <div className="recipe-form__field">
-                        <label htmlFor="comment" className="recipe-form__label">
-                            Kommentar
-                        </label>
-                        <textarea
-                            name="comment"
-                            className="form__textarea"
-                            id="comment"
-                            rows="4"
-                            maxLength="300"
-                            onChange={handleInput}
-                            value={recipe.comment}
-                        ></textarea>
-                    </div>
+                    <RecipeFormDescription handleInput={handleInput} recipe={recipe} />
 
                     <div className="recipe-form__checkbox-wrapper">
                         <label className="recipe-form__switch">

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import useCreateUrlRecipe from "../hooks/useCreateUrlRecipe";
-import placeholder from "../assets/images/placeholder.png";
 import axios from "axios";
 import { storage } from "../firebase";
 import ClipLoader from "react-spinners/ClipLoader";
 import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
 import StepCounter from "./StepCounter";
 import ImageUpload from "./ImageUpload";
+import RecipeFormDescription from "./RecipeFormDescription";
 
 const CreateRecipeWithUrl = () => {
     const [submit, setSubmit] = useState(null);
@@ -208,20 +208,7 @@ const CreateRecipeWithUrl = () => {
                         />
                     </div>
 
-                    <div className="recipe-form__field">
-                        <label htmlFor="comment" className="recipe-form__label">
-                            Kommentar
-                        </label>
-                        <textarea
-                            name="comment"
-                            className="form__textarea"
-                            id="comment"
-                            rows="4"
-                            maxLength="300"
-                            onChange={handleInput}
-                            value={recipe.comment}
-                        ></textarea>
-                    </div>
+                    <RecipeFormDescription handleInput={handleInput} recipe={recipe} />
 
                     <div className="recipe-form__checkbox-wrapper">
                         <label className="recipe-form__switch">

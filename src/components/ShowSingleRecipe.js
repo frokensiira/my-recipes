@@ -281,7 +281,7 @@ const ShowSingleRecipe = () => {
                         )}
 
                         <div className="recipe__content">
-                            <div>
+                            <div className="recipe__description">
                                 <h1 className="recipe__heading">
                                     {recipe.name}
                                 </h1>

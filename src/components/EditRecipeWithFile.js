@@ -10,9 +10,9 @@ import useRecipe from "../hooks/useRecipe";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { ReactComponent as Radish } from "../assets/radish.svg";
-import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import ImageUpload from "./ImageUpload";
+import RecipeFormDescription from "./RecipeFormDescription";
 
 const EditRecipeWithFile = () => {
     const [photo, setPhoto] = useState(null);
@@ -264,9 +264,9 @@ const EditRecipeWithFile = () => {
                             </div>
                         </div>
 
-                        {/* <ImageUpload handlePhotoChange={handlePhotoChange} recipe={newRecipe}/> */}
+                        <ImageUpload handlePhotoChange={handlePhotoChange} recipe={newRecipe}/>
 
-                        <label
+                        {/* <label
                             className="recipe-form__image-upload"
                             htmlFor="photo"
                         >
@@ -300,7 +300,7 @@ const EditRecipeWithFile = () => {
                                 )}
                                 <AddImage className="recipe-form__icon-plus" />
                             </div>
-                        </label>
+                        </label> */}
 
                         <div className="recipe-form__field">
                             <label
@@ -319,23 +319,7 @@ const EditRecipeWithFile = () => {
                             />
                         </div>
 
-                        <div className="recipe-form__field">
-                            <label
-                                htmlFor="comment"
-                                className="recipe-form__label"
-                            >
-                                Kommentar
-                            </label>
-                            <textarea
-                                name="comment"
-                                className="form__textarea"
-                                id="comment"
-                                rows="4"
-                                maxLength="300"
-                                onChange={handleInput}
-                                value={newRecipe.comment}
-                            ></textarea>
-                        </div>
+                        <RecipeFormDescription handleInput={handleInput} recipe={recipe} />
 
                         <div className="recipe-form__checkbox-wrapper">
                             <label className="recipe-form__switch">

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { ReactComponent as Radish } from "../assets/radish.svg";
 import ImageUpload from "./ImageUpload";
+import RecipeFormDescription from "./RecipeFormDescription";
 
 const EditRecipeWithUrl = () => {
     const [photo, setPhoto] = useState(null);
@@ -58,7 +59,6 @@ const EditRecipeWithUrl = () => {
         }));
         
         if (e.target.id === "url") {
-            console.log('url input');
             
             if (e.target.value.includes("http")) {                
                 setLoading(true);
@@ -227,23 +227,7 @@ const EditRecipeWithUrl = () => {
                             />
                         </div>
 
-                        <div className="recipe-form__field">
-                            <label
-                                htmlFor="comment"
-                                className="recipe-form__label"
-                            >
-                                Kommentar
-                            </label>
-                            <textarea
-                                name="comment"
-                                className="form__textarea"
-                                id="comment"
-                                rows="4"
-                                maxLength="300"
-                                onChange={handleInput}
-                                value={newRecipe.comment}
-                            ></textarea>
-                        </div>
+                        <RecipeFormDescription handleInput={handleInput} recipe={recipe} />
 
                         <div className="recipe-form__checkbox-wrapper">
                             <label className="recipe-form__switch">
