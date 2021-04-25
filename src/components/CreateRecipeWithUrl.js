@@ -7,6 +7,7 @@ import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
 import StepCounter from "./StepCounter";
 import ImageUpload from "./ImageUpload";
 import RecipeFormDescription from "./RecipeFormDescription";
+import VeganCheckbox from "./VeganCheckbox";
 
 const CreateRecipeWithUrl = () => {
     const [submit, setSubmit] = useState(null);
@@ -210,20 +211,7 @@ const CreateRecipeWithUrl = () => {
 
                     <RecipeFormDescription handleInput={handleInput} recipe={recipe} />
 
-                    <div className="recipe-form__checkbox-wrapper">
-                        <label className="recipe-form__switch">
-                            <label className="recipe-form__label recipe-form__checkbox-label">
-                                <input
-                                    type="checkbox"
-                                    name="Veganskt"
-                                    onChange={handleCheckbox}
-                                    className="recipe-form__checkbox"
-                                />
-                                <span className="recipe-form__slider"></span>
-                                Veganskt
-                            </label>
-                        </label>
-                    </div>
+                    <VeganCheckbox handleCheckbox={handleCheckbox} recipe={recipe} />
                     <button
                         type="submit"
                         className="button recipe-form__submit-button"

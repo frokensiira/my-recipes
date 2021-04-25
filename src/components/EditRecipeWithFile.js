@@ -1,8 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
-import { ReactComponent as AddImage } from "../assets/plus.svg";
-import placeholder from "../assets/images/placeholder.png";
 import { storage } from "../firebase";
 import { useDropzone } from "react-dropzone";
 import { useParams } from "react-router-dom";
@@ -13,6 +11,7 @@ import { ReactComponent as Radish } from "../assets/radish.svg";
 import ClipLoader from "react-spinners/ClipLoader";
 import ImageUpload from "./ImageUpload";
 import RecipeFormDescription from "./RecipeFormDescription";
+import VeganCheckbox from "./VeganCheckbox";
 
 const EditRecipeWithFile = () => {
     const [photo, setPhoto] = useState(null);
@@ -266,42 +265,6 @@ const EditRecipeWithFile = () => {
 
                         <ImageUpload handlePhotoChange={handlePhotoChange} recipe={newRecipe}/>
 
-                        {/* <label
-                            className="recipe-form__image-upload"
-                            htmlFor="photo"
-                        >
-                            <input
-                                type="file"
-                                id="photo"
-                                onChange={handlePhotoChange}
-                            />
-                            <div className="recipe-form__image">
-                                {newRecipe.photoUrl ? (
-                                    <>
-                                        <img
-                                            src={newRecipe.photoUrl}
-                                            alt="presentation"
-                                        />
-                                        <p className="recipe-form__image-text">
-                                            Byt bild
-                                        </p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <img
-                                            src={placeholder}
-                                            alt="placeholder"
-                                        />
-                                        <div className="recipe-form__overlay"></div>
-                                        <p className="recipe-form__image-text">
-                                            Lägg till bild
-                                        </p>
-                                    </>
-                                )}
-                                <AddImage className="recipe-form__icon-plus" />
-                            </div>
-                        </label> */}
-
                         <div className="recipe-form__field">
                             <label
                                 htmlFor="name"
@@ -321,21 +284,7 @@ const EditRecipeWithFile = () => {
 
                         <RecipeFormDescription handleInput={handleInput} recipe={recipe} />
 
-                        <div className="recipe-form__checkbox-wrapper">
-                            <label className="recipe-form__switch">
-                                <label className="recipe-form__label recipe-form__checkbox-label">
-                                    <input
-                                        type="checkbox"
-                                        name="Veganskt"
-                                        onChange={handleCheckbox}
-                                        className="recipe-form__checkbox"
-                                        checked={newRecipe.vegan}
-                                    />
-                                    <span className="recipe-form__slider"></span>
-                                    Veganskt
-                                </label>
-                            </label>
-                        </div>
+                        <VeganCheckbox handleCheckbox={handleCheckbox} recipe={newRecipe} />
                         <button
                             type="submit"
                             className="button recipe-form__submit-button"

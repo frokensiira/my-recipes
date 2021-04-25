@@ -3,14 +3,13 @@ import useCreateFileRecipe from "../hooks/useCreateFileRecipe";
 import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
-import { ReactComponent as AddImage } from "../assets/plus.svg";
-import placeholder from "../assets/images/placeholder.png";
 import { storage } from "../firebase";
 import { useDropzone } from "react-dropzone";
 import ClipLoader from "react-spinners/ClipLoader";
 import StepCounter from "./StepCounter";
 import RecipeFormDescription from "./RecipeFormDescription";
 import ImageUpload from "./ImageUpload";
+import VeganCheckbox from "./VeganCheckbox";
 
 const CreateRecipeWithFile = () => {
     const [photo, setPhoto] = useState(null);
@@ -244,39 +243,6 @@ const CreateRecipeWithFile = () => {
 
                     <ImageUpload handlePhotoChange={handlePhotoChange} recipe={recipe}/>
 
-                    {/* <label
-                        className="recipe-form__image-upload"
-                        htmlFor="photo"
-                    >
-                        <input
-                            type="file"
-                            id="photo"
-                            onChange={handlePhotoChange}
-                        />
-                        <div className="recipe-form__image">
-                            {recipe.photoUrl ? (
-                                <>
-                                    <img
-                                        src={recipe.photoUrl}
-                                        alt="presentation"
-                                    />
-                                    <p className="recipe-form__image-text">
-                                        Byt bild
-                                    </p>
-                                </>
-                            ) : (
-                                <>
-                                    <img src={placeholder} alt="placeholder" />
-                                    <div className="recipe-form__overlay"></div>
-                                    <p className="recipe-form__image-text">
-                                        Lägg till bild
-                                    </p>
-                                </>
-                            )}
-                            <AddImage className="recipe-form__icon-plus" />
-                        </div>
-                    </label> */}
-
                     <div className="recipe-form__field">
                         <label htmlFor="name" className="recipe-form__label">
                             Receptnamn *
@@ -293,20 +259,7 @@ const CreateRecipeWithFile = () => {
 
                     <RecipeFormDescription handleInput={handleInput} recipe={recipe} />
 
-                    <div className="recipe-form__checkbox-wrapper">
-                        <label className="recipe-form__switch">
-                            <label className="recipe-form__label recipe-form__checkbox-label">
-                                <input
-                                    type="checkbox"
-                                    name="Veganskt"
-                                    onChange={handleCheckbox}
-                                    className="recipe-form__checkbox"
-                                />
-                                <span className="recipe-form__slider"></span>
-                                Veganskt
-                            </label>
-                        </label>
-                    </div>
+                    <VeganCheckbox handleCheckbox={handleCheckbox} recipe={recipe} />
                     <button
                         type="submit"
                         className="button recipe-form__submit-button"
