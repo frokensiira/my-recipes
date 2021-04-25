@@ -1,15 +1,13 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import useCreateFileRecipe from "../hooks/useCreateFileRecipe";
 import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
 import { storage } from "../firebase";
-import { useDropzone } from "react-dropzone";
 import ClipLoader from "react-spinners/ClipLoader";
 import StepCounter from "./StepCounter";
 import RecipeFormDescription from "./RecipeFormDescription";
 import ImageUpload from "./ImageUpload";
 import VeganCheckbox from "./VeganCheckbox";
+import Dropzone from "./Dropzone";
 
 const CreateRecipeWithFile = () => {
     const [photo, setPhoto] = useState(null);
@@ -171,36 +169,6 @@ const CreateRecipeWithFile = () => {
             });
     };
 
-    // Dropzone
-    const onDrop = useCallback(
-        (acceptedFile) => {
-            if (acceptedFile.length === 0) {
-                return;
-            }
-            setLoading(true);
-            //check if a user already uploaded a file
-            if (file) {
-                //in that case delete it before uploading a new one
-                deleteFileFromStorage(acceptedFile[0]);
-            } else {
-                //otherwise add it to storage
-                addFileToStorage(acceptedFile[0]);
-            }
-        },
-        [file]
-    );
-
-    const {
-        getRootProps,
-        getInputProps,
-        isDragActive,
-        isDragAccept,
-        isDragReject,
-    } = useDropzone({
-        accept: "image/jpeg, image/png",
-        onDrop,
-    });
-
     return (
         <div>
             <h1 className="page__title">
@@ -214,34 +182,18 @@ const CreateRecipeWithFile = () => {
                     </div>
                 )}
                 <div className="recipe-form__content--file">
-                    <div
-                        {...getRootProps()}
-                        className="recipe-form__dropzone--file"
-                    >
-                        <input {...getInputProps()} />
-                        <div className="recipe-form__dropzone-text">
-                            <FontAwesomeIcon
-                                className="recipe-form__upload-icon"
-                                icon={faCloudUploadAlt}
-                            />
-                            {isDragActive ? (
-                                isDragAccept ? (
-                                    <p>Släpp filen här</p>
-                                ) : (
-                                    <p>
-                                        Ledsen, fel filtyp, testa jpg eller png{" "}
-                                    </p>
-                                )
-                            ) : recipe.fileUrl === "" ? (
-                                <p>Ladda upp recept</p>
-                            ) : (
-                                <p>Byt receptfil</p>
-                            )}
-                            {recipe.fileName && <p>{recipe.fileName}</p>}
-                        </div>
-                    </div>
+                    <Dropzone
+                        recipe={recipe}
+                        file={file}
+                        setLoading={setLoading}
+                        deleteFileFromStorage={deleteFileFromStorage}
+                        addFileToStorage={addFileToStorage}
+                    />
 
-                    <ImageUpload handlePhotoChange={handlePhotoChange} recipe={recipe}/>
+                    <ImageUpload
+                        handlePhotoChange={handlePhotoChange}
+                        recipe={recipe}
+                    />
 
                     <div className="recipe-form__field">
                         <label htmlFor="name" className="recipe-form__label">
@@ -257,9 +209,16 @@ const CreateRecipeWithFile = () => {
                         />
                     </div>
 
-                    <RecipeFormDescription handleInput={handleInput} recipe={recipe} />
+                    <RecipeFormDescription
+                        handleInput={handleInput}
+                        recipe={recipe}
+                    />
 
-                    <VeganCheckbox handleCheckbox={handleCheckbox} recipe={recipe} />
+                    <VeganCheckbox
+                        handleCheckbox={handleCheckbox}
+                        recipe={recipe}
+                    />
+
                     <button
                         type="submit"
                         className="button recipe-form__submit-button"

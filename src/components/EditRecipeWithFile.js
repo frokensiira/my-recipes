@@ -1,8 +1,5 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from "react";
 import { storage } from "../firebase";
-import { useDropzone } from "react-dropzone";
 import { useParams } from "react-router-dom";
 import useRecipe from "../hooks/useRecipe";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +9,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import ImageUpload from "./ImageUpload";
 import RecipeFormDescription from "./RecipeFormDescription";
 import VeganCheckbox from "./VeganCheckbox";
+import Dropzone from "./Dropzone";
 
 const EditRecipeWithFile = () => {
     const [photo, setPhoto] = useState(null);
@@ -25,10 +23,10 @@ const EditRecipeWithFile = () => {
     useEffect(() => {
         if (recipe.length !== 0) {
             setNewRecipe(recipe);
-            if(recipe.fullPathPhoto !== "") {
-                setPhoto({fullPathPhoto: recipe.fullPathPhoto});
+            if (recipe.fullPathPhoto !== "") {
+                setPhoto({ fullPathPhoto: recipe.fullPathPhoto });
             }
-            setFile({fullPathFile: recipe.fullPathFile});
+            setFile({ fullPathFile: recipe.fullPathFile });
         }
 
         return () => {
@@ -131,10 +129,10 @@ const EditRecipeWithFile = () => {
             if (allowedPhotoTypes.includes(selectedPhoto.type)) {
                 setLoading(true);
                 //if the user changed photo, delete the old one from storage
-                console.log('photo before', photo);
+                console.log("photo before", photo);
                 if (photo) {
-                    console.log('photo', photo);
-                    
+                    console.log("photo", photo);
+
                     deletePhotoFromStorage(selectedPhoto);
                 } else {
                     addPhotoToStorage(selectedPhoto);
@@ -189,36 +187,6 @@ const EditRecipeWithFile = () => {
             });
     };
 
-    // Dropzone
-    const onDrop = useCallback(
-        (acceptedFile) => {
-            if (acceptedFile.length === 0) {
-                return;
-            }
-            setLoading(true);
-            //check if a user already uploaded a file
-            if (file) {
-                //in that case delete it before uploading a new one
-                deleteFileFromStorage(acceptedFile[0]);
-            } else {
-                //otherwise add it to storage
-                addFileToStorage(acceptedFile[0]);
-            }
-        },
-        [file]
-    );
-
-    const {
-        getRootProps,
-        getInputProps,
-        isDragActive,
-        isDragAccept,
-        isDragReject,
-    } = useDropzone({
-        accept: "image/jpeg, image/png",
-        onDrop,
-    });
-
     return (
         <div>
             <h1 className="page__title">
@@ -233,37 +201,18 @@ const EditRecipeWithFile = () => {
                 )}
                 {newRecipe && (
                     <div className="recipe-form__content--file">
-                        <div
-                            {...getRootProps()}
-                            className="recipe-form__dropzone--file"
-                        >
-                            <input {...getInputProps()} />
-                            <div className="recipe-form__dropzone-text">
-                                <FontAwesomeIcon
-                                    className="recipe-form__upload-icon"
-                                    icon={faCloudUploadAlt}
-                                />
-                                {isDragActive ? (
-                                    isDragAccept ? (
-                                        <p>Släpp filen här</p>
-                                    ) : (
-                                        <p>
-                                            Ledsen, fel filtyp, testa jpg eller
-                                            png{" "}
-                                        </p>
-                                    )
-                                ) : recipe.fileUrl === "" ? (
-                                    <p>Ladda upp recept</p>
-                                ) : (
-                                    <p>Byt receptfil</p>
-                                )}
-                                {newRecipe.fileName && (
-                                    <p>{newRecipe.fileName}</p>
-                                )}
-                            </div>
-                        </div>
+                        <Dropzone
+                            recipe={newRecipe}
+                            file={file}
+                            setLoading={setLoading}
+                            deleteFileFromStorage={deleteFileFromStorage}
+                            addFileToStorage={addFileToStorage}
+                        />
 
-                        <ImageUpload handlePhotoChange={handlePhotoChange} recipe={newRecipe}/>
+                        <ImageUpload
+                            handlePhotoChange={handlePhotoChange}
+                            recipe={newRecipe}
+                        />
 
                         <div className="recipe-form__field">
                             <label
@@ -282,9 +231,15 @@ const EditRecipeWithFile = () => {
                             />
                         </div>
 
-                        <RecipeFormDescription handleInput={handleInput} recipe={recipe} />
+                        <RecipeFormDescription
+                            handleInput={handleInput}
+                            recipe={recipe}
+                        />
 
-                        <VeganCheckbox handleCheckbox={handleCheckbox} recipe={newRecipe} />
+                        <VeganCheckbox
+                            handleCheckbox={handleCheckbox}
+                            recipe={newRecipe}
+                        />
                         <button
                             type="submit"
                             className="button recipe-form__submit-button"
