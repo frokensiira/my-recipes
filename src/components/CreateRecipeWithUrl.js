@@ -45,32 +45,41 @@ const CreateRecipeWithUrl = () => {
                 setLoading(true);
                 const url = e.target.value;
                 const urlEncoded = encodeURIComponent(url);
-                const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
-                const response = await axios.get(requestUrl);
+                try {
+                    const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
+                    const response = await axios.get(requestUrl);
 
-                if (!response.data.error) {
-                    setRecipe({
-                        ...recipe,
-                        name: response.data.ogTitle
-                            ? response.data.ogTitle
-                            : "",
-                        comment: response.data.ogDescription
-                            ? response.data.ogDescription
-                            : response.data.twitterDescription
-                            ? response.data.twitterDescription
-                            : "",
-                        photoUrl: response.data.ogImage
-                            ? response.data.ogImage.url
-                            : "",
-                        url: e.target.value,
-                        fullPathPhoto: null,
-                    });
-                    //if user uploaded an image before, remove it from storage
-                    if (photo) {
-                        deletePhotoFromStorage();
+                    if (!response.data.error) {
+                        setRecipe({
+                            ...recipe,
+                            name: response.data.ogTitle
+                                ? response.data.ogTitle
+                                : "",
+                            comment: response.data.ogDescription
+                                ? response.data.ogDescription
+                                : response.data.twitterDescription
+                                ? response.data.twitterDescription
+                                : "",
+                            photoUrl: response.data.ogImage
+                                ? response.data.ogImage.url
+                                : "",
+                            url: e.target.value,
+                            fullPathPhoto: null,
+                        });
+                        //if user uploaded an image before, remove it from storage
+                        if (photo) {
+                            deletePhotoFromStorage();
+                        }
+                        setLoading(false);
                     }
+                } catch(err) {
                     setLoading(false);
+                    console.log('error', err);
+                    
                 }
+                
+
+                
             } else {
                 setLoading(false);
             }
@@ -88,7 +97,7 @@ const CreateRecipeWithUrl = () => {
         );
     };
 
-    const addPhotoToStorage = (selectedPhoto) => {
+    const addPhotoToStorage = (selectedPhoto) => {        
         const photoRef = storage
             .ref()
             .child(`photos/${selectedPhoto.name}${uuidv4()}`);

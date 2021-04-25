@@ -82,9 +82,7 @@ const EditRecipeWithUrl = () => {
                         url: e.target.value,
                     });
                     //if user uploaded an image before, remove it from storage
-                    if (photo) {
-                        console.log('photo', photo);
-                        
+                    if (photo) {                        
                         deletePhotoFromStorage();
                     }
                     setLoading(false);

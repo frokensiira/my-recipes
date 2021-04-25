@@ -50,9 +50,9 @@ const useMyRecipes = (vegan, disLiked) => {
         //subscribe to recipe snapshots from firebase to update component whenever something changes
         const unsubscribe = query.orderBy("name").onSnapshot((snapshot) => {
             setLoading(true);
-            const myRecipes = [];
+            const myRecipes = [];    
 
-            snapshot.forEach((doc) => {
+            snapshot.forEach((doc) => {                
                 myRecipes.push({
                     id: doc.id,
                     ...doc.data(),

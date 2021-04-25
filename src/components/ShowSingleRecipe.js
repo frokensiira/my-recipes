@@ -117,6 +117,12 @@ const ShowSingleRecipe = () => {
     }, []);    
 
     useEffect(() => {
+        return () => {
+            console.log('unmounting');
+        };
+    }, []);    
+
+    useEffect(() => {
         if (initialRender.current) {
             initialRender.current = false;
         } else {
@@ -171,16 +177,7 @@ const ShowSingleRecipe = () => {
         }
     }, [like]);
 
-    const handleDelete = async () => {
-        //check if the recipe photo exist in storage, if so delete it
-        if (recipe.path) {
-            try {
-                await storage.ref(recipe.path).delete();
-            } catch (error) {
-                console.log("error", error);
-            }
-        }
-
+    const deleteRecipe = () => {
         // delete recipe from database
         db.collection("recipes")
             .doc(recipeId)
@@ -188,6 +185,46 @@ const ShowSingleRecipe = () => {
             .then(() => {
                 navigate("/my-recipes/");
             });
+    };
+
+    const deleteRecipeFile = () => {
+        // delete recipe file from storage
+        storage
+            .ref(recipe.fullPathFile)
+            .delete()
+            .then(() => {
+                deleteRecipe();
+            })
+            .catch((error) => {
+                console.log("error", error);
+            });
+    };
+
+    const handleDelete = async () => {
+        //check if the recipe photo exist in storage, if so delete it
+        if (recipe.fullPathPhoto) {
+            storage
+                .ref(recipe.fullPathPhoto)
+                .delete()
+                .then(() => {
+                    //check if the recipe has a file, if so delete it
+                    if (recipe.fullPathFile) {
+                        deleteRecipeFile();
+                    } else {
+                        deleteRecipe();
+                    }
+                })
+                .catch((error) => {
+                    console.log("error", error);
+                });
+        } else {
+            //check if the recipe has a file, if so delete it
+            if (recipe.fullPathFile) {
+                deleteRecipeFile();
+            } else {
+                deleteRecipe();
+            }
+        }
     };
 
     return (

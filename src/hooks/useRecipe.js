@@ -4,16 +4,15 @@ import { db } from "../firebase";
 const useRecipe = (recipeId) => {
     const [loading, setLoading] = useState(true);
     const [recipe, setRecipe] = useState([]);
-
-    useEffect(() => {
+    
+    useEffect(() => {      
+        setLoading(true);
         const unsubscribe = db
             .collection("recipes")
             .doc(recipeId)
             .onSnapshot((doc) => {
-                setLoading(true);
                 setLoading(false);
-                setRecipe(doc.data());
-
+                setRecipe(doc.data());                
                 return unsubscribe;
             });
     }, [recipeId]);
