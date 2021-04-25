@@ -8,6 +8,7 @@ import RecipeFormDescription from "./RecipeFormDescription";
 import ImageUpload from "./ImageUpload";
 import VeganCheckbox from "./VeganCheckbox";
 import Dropzone from "./Dropzone";
+import RecipeSubmitButton from "./RecipeSubmitButton";
 
 const CreateRecipeWithFile = () => {
     const [photo, setPhoto] = useState(null);
@@ -219,12 +220,7 @@ const CreateRecipeWithFile = () => {
                         recipe={recipe}
                     />
 
-                    <button
-                        type="submit"
-                        className="button recipe-form__submit-button"
-                    >
-                        Skapa recept
-                    </button>
+                    <RecipeSubmitButton>Skapa recept</RecipeSubmitButton>
                 </div>
             </form>
         </div>

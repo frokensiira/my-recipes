@@ -8,6 +8,7 @@ import StepCounter from "./StepCounter";
 import ImageUpload from "./ImageUpload";
 import RecipeFormDescription from "./RecipeFormDescription";
 import VeganCheckbox from "./VeganCheckbox";
+import RecipeSubmitButton from "./RecipeSubmitButton";
 
 const CreateRecipeWithUrl = () => {
     const [submit, setSubmit] = useState(null);
@@ -212,12 +213,8 @@ const CreateRecipeWithUrl = () => {
                     <RecipeFormDescription handleInput={handleInput} recipe={recipe} />
 
                     <VeganCheckbox handleCheckbox={handleCheckbox} recipe={recipe} />
-                    <button
-                        type="submit"
-                        className="button recipe-form__submit-button"
-                    >
-                        Skapa recept
-                    </button>
+                
+                    <RecipeSubmitButton>Skapa recept</RecipeSubmitButton>
                 </div>
             </form>
         </>

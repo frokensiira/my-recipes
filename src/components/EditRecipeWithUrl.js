@@ -10,6 +10,7 @@ import { ReactComponent as Radish } from "../assets/radish.svg";
 import ImageUpload from "./ImageUpload";
 import RecipeFormDescription from "./RecipeFormDescription";
 import VeganCheckbox from "./VeganCheckbox";
+import RecipeSubmitButton from "./RecipeSubmitButton";
 
 const EditRecipeWithUrl = () => {
     const [photo, setPhoto] = useState(null);
@@ -231,12 +232,8 @@ const EditRecipeWithUrl = () => {
                         <RecipeFormDescription handleInput={handleInput} recipe={recipe} />
 
                         <VeganCheckbox handleCheckbox={handleCheckbox} recipe={newRecipe} />
-                        <button
-                            type="submit"
-                            className="button recipe-form__submit-button"
-                        >
-                            Spara recept
-                        </button>
+                        
+                        <RecipeSubmitButton>Spara recept</RecipeSubmitButton>
                     </div>
                 )}
             </form>

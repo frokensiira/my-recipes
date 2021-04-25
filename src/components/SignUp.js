@@ -55,7 +55,7 @@ const SignUp = () => {
                             favoritrecept och spara andras smarriga vegorecept
                             till din egen samling.
                         </p>
-                        <img src={avocado} className="form__image" alt=""/>
+                        <img src={avocado} className="form__image" alt="" />
                     </div>
 
                     <form onSubmit={handleSubmit}>
@@ -111,7 +111,11 @@ const SignUp = () => {
                             </div>
                         </div>
                         <div className="form__button">
-                            <button disabled={loading} className="button">
+                            <button
+                                disabled={loading}
+                                className="button"
+                                type="submit"
+                            >
                                 Skapa konto
                             </button>
                         </div>
