@@ -184,6 +184,16 @@
     display: none;
 }
 
+button.recipe-form__submit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.css-8epi70 {
+    margin-left: 0.5rem;
+}
+
 @media (min-width: 821px) {
     .recipe-form__content {
         display: grid;

@@ -214,7 +214,7 @@ const CreateRecipeWithUrl = () => {
 
                     <VeganCheckbox handleCheckbox={handleCheckbox} recipe={recipe} />
                 
-                    <RecipeSubmitButton>Skapa recept</RecipeSubmitButton>
+                    <RecipeSubmitButton loading={loading}>Skapa recept</RecipeSubmitButton>
                 </div>
             </form>
         </>
