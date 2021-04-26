@@ -24,17 +24,16 @@ const AllRecipes = () => {
             <h1 className="page__title">
                 Recept <Broccoli className="icon" />
             </h1>
-            {loading && (
-                <Loading/>
-            )}
+            {loading && <Loading />}
             <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
             {recipes.length !== 0 ? (
-                recipes.map((recipe) => (
-                    <div className="cards">
+                <div className="cards">
+                    
+                    {recipes.map((recipe) => (
                         <RecipeCard recipe={recipe} key={recipe.id} />
-                    </div>
-                ))
+                    ))}
+                </div>
             ) : (
                 <div className="page__feedback">
                     {vegan ? (

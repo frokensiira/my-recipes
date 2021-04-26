@@ -36,26 +36,27 @@ const MyRecipes = () => {
             <h1 className="page__title">
                 Mina recept <Cabbage className="icon" />
             </h1>
-            {loading && (
-                <Loading/>
-            )}
+            {loading && <Loading />}
             <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
             {allRecipes && allRecipes.length !== 0 ? (
-                allRecipes.map((recipe) => (
-                    <div className="cards">
+                <div className="cards">
+                    {" "}
+                    {allRecipes.map((recipe) => (
                         <RecipeCard
                             recipe={recipe}
                             key={recipe.id}
                             handleDislike={handleDislike}
                         />
-                        
-                    </div>
-                ))
+                    ))}
+                </div>
             ) : (
                 <div className="page__feedback">
                     {vegan ? (
-                        <p>Du har inga veganska recept än. Skapa ditt allra första!</p>
+                        <p>
+                            Du har inga veganska recept än. Skapa ditt allra
+                            första!
+                        </p>
                     ) : (
                         <p>Du har inga recept än. Skapa ditt allra första!</p>
                     )}

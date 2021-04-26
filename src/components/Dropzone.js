@@ -28,7 +28,6 @@ const Dropzone = ({recipe, file, setLoading, deleteFileFromStorage, addFileToSto
         getInputProps,
         isDragActive,
         isDragAccept,
-        isDragReject,
     } = useDropzone({
         accept: "image/jpeg, image/png",
         onDrop,
@@ -38,6 +37,7 @@ const Dropzone = ({recipe, file, setLoading, deleteFileFromStorage, addFileToSto
         <div {...getRootProps()} className="recipe-form__dropzone--file">
             <input {...getInputProps()} />
             <div className="recipe-form__dropzone-text">
+                
                 <FontAwesomeIcon
                     className="recipe-form__upload-icon"
                     icon={faCloudUploadAlt}

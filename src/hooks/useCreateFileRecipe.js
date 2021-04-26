@@ -13,7 +13,7 @@ const useCreateFileRecipe = (recipe, submit) => {
         if (!recipe || !submit) {
             return;
         }
-        
+        setLoading(true);
         //add uploaded photo to database
         db.collection("recipes")
             .add({
@@ -30,9 +30,11 @@ const useCreateFileRecipe = (recipe, submit) => {
                 vegan: recipe.vegan,
             })
             .then(() => {
+                setLoading(false);
                 navigate("/my-recipes/");
             })
             .catch((err) => {
+                setLoading(false);
                 console.log("something went wrong", err);
             });
     }, [submit]);

@@ -12,11 +12,8 @@ const useCreateUrlRecipe = (recipe, submit) => {
     useEffect(() => {
         if (!submit) {           
             return;
-        }
-
-        console.log('recipe', recipe);
-        
-
+        }        
+        setLoading(true);
         db.collection("recipes")
             .add({
                 owner: currentUser.uid,
@@ -30,9 +27,11 @@ const useCreateUrlRecipe = (recipe, submit) => {
                 vegan: recipe.vegan,
             })
             .then(() => {
+                setLoading(false);
                 navigate("/my-recipes/");
             })
             .catch((err) => {
+                setLoading(false);
                 console.log("something went wrong", err);
             });
     }, [submit]);
