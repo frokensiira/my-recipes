@@ -302,7 +302,7 @@ const ShowSingleRecipe = () => {
                                     >
                                         Länk till receptet
                                         <FontAwesomeIcon
-                                            className="recipe__link-icon"
+                                            className="recipe__link-arrow"
                                             icon={faChevronRight}
                                         />
                                     </a>
@@ -375,7 +375,7 @@ const ShowSingleRecipe = () => {
                                             className="recipe__link-icon"
                                             icon={faTrashAlt}
                                         />
-                                        Radera recept
+                                        Radera
                                     </button>
 
                                     {}
@@ -391,7 +391,7 @@ const ShowSingleRecipe = () => {
                                             className="recipe__link-icon"
                                             icon={faEdit}
                                         />
-                                        Redigera recept
+                                        Redigera
                                     </Link>
                                 </div>
                             ) : (
