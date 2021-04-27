@@ -23,8 +23,13 @@ const CreateRecipeWithFile = () => {
         vegan: false,
     });
     const [submit, setSubmit] = useState(null);
-    const [loading, setLoading] = useState(false);
-    useCreateFileRecipe(recipe, submit);
+    const { error, setError, loading, setLoading } = useCreateFileRecipe(recipe, submit);
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    const resetError = () => {
+        setError(false);
+        setErrorMessage(null);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -69,6 +74,7 @@ const CreateRecipeWithFile = () => {
         photoRef
             .put(selectedPhoto)
             .then((snapshot) => {
+                resetError();
                 //retrieve url to uploaded photo
                 snapshot.ref.getDownloadURL().then((url) => {
                     setRecipe((prevState) => ({
@@ -83,8 +89,10 @@ const CreateRecipeWithFile = () => {
                     setLoading(false);
                 });
             })
-            .catch((err) => {
-                console.log("problem uploading photo", err);
+            .catch((error) => {
+                setError(true);
+                setErrorMessage('Problem med att ladda upp foto. Prova igen.')
+                console.error(error);
             });
     };
 
@@ -94,13 +102,17 @@ const CreateRecipeWithFile = () => {
             .child(photo.fullPath)
             .delete()
             .then(() => {
+                resetError();
                 // File deleted successfully
                 setPhoto(null);
                 //and add the new one instead
                 addPhotoToStorage(selectedPhoto);
             })
             .catch((error) => {
-                console.log("could not delete photo", error);
+                console.error(error);
+                setError(true);
+                setErrorMessage('Problem med uppladdning av foto. Försök igen.');
+                console.error(error);
                 setLoading(false);
             });
     };
@@ -108,6 +120,7 @@ const CreateRecipeWithFile = () => {
     const handlePhotoChange = (e) => {
         const allowedPhotoTypes = ["image/jpeg", "image/png"];
         const selectedPhoto = e.target.files[0];
+        resetError();
 
         //if there is a photo and the type is ok, proceed
         if (selectedPhoto) {
@@ -145,10 +158,13 @@ const CreateRecipeWithFile = () => {
                     //save the file in a state to see if the user changes file in the future
                     setFile({ fullPath: snapshot.ref.fullPath });
                     setLoading(false);
+                    resetError();
                 });
             })
-            .catch((err) => {
-                console.log("something went wrong", err);
+            .catch((error) => {
+                console.error(error);
+                setError(true);
+                setErrorMessage('Problem med att ladda upp filen. Försök igen.')
                 setLoading(false);
             });
     };
@@ -159,13 +175,16 @@ const CreateRecipeWithFile = () => {
             .child(file.fullPath)
             .delete()
             .then(() => {
+                resetError();
                 // File deleted successfully
                 setFile(null);
                 //add the new one instead
                 addFileToStorage(selectedFile);
             })
             .catch((error) => {
-                console.log("could not delete photo", error);
+                console.error(error);
+                setError(true);
+                setErrorMessage('Problem med att ladda upp filen. Försök igen.');
                 setLoading(false);
             });
     };
@@ -185,6 +204,7 @@ const CreateRecipeWithFile = () => {
                         setLoading={setLoading}
                         deleteFileFromStorage={deleteFileFromStorage}
                         addFileToStorage={addFileToStorage}
+                        setError={setError}
                     />
 
                     <ImageUpload
@@ -218,6 +238,11 @@ const CreateRecipeWithFile = () => {
 
                     <RecipeSubmitButton>Skapa recept</RecipeSubmitButton>
                 </div>
+                {error && (
+                    <div className="error">
+                        <p className="error__message">{errorMessage ? errorMessage : 'Något gick fel, försök igen.'}</p>
+                    </div>
+                )}
             </form>
         </div>
     );

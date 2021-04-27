@@ -31,15 +31,17 @@ const useCreateFileRecipe = (recipe, submit) => {
             })
             .then(() => {
                 setLoading(false);
+                setError(false);
                 navigate("/my-recipes/");
             })
-            .catch((err) => {
+            .catch((error) => {
                 setLoading(false);
-                console.log("something went wrong", err);
+                setError(true);
+                console.error(error);
             });
     }, [submit]);
 
-    return { error, loading };
+    return { error, setError, loading, setLoading };
 };
 
 export default useCreateFileRecipe;

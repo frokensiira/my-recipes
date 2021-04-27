@@ -82,6 +82,10 @@
     text-align: center;
 }
 
+.recipe-form__dropzone-message:not(:last-child) {
+    margin-bottom: 0;
+}
+
 .recipe-form__icon-plus {
     position: absolute;
     z-index: 2;

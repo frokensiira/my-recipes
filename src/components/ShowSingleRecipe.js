@@ -247,156 +247,164 @@ const ShowSingleRecipe = () => {
     return (
         <>
             {loading ? (
-                <Loading/>
+                <Loading />
             ) : (
                 recipe && (
-                    <div className="recipe">
-                        {recipe.photoUrl ? (
-                            <SRLWrapper>
-                                <a
-                                    href={recipe.photoUrl}
-                                    title="Visa bild"
-                                    data-attribute="SRL"
-                                >
-                                    <img
-                                        src={recipe.photoUrl}
-                                        className="recipe__image"
-                                        alt="food"
-                                    />
-                                </a>
-                            </SRLWrapper>
-                        ) : (
-                            <SRLWrapper>
-                                <a
-                                    href={recipe.photoUrl}
-                                    title="Visa bild"
-                                    data-attribute="SRL"
-                                >
-                                    <img
-                                        src={foodPlaceholder}
-                                        className="recipe__image"
-                                        alt="plate"
-                                    />
-                                </a>
-                            </SRLWrapper>
-                        )}
-
-                        <div className="recipe__content">
-                            <div className="recipe__description">
-                                <h1 className="recipe__heading">
-                                    {recipe.name}
-                                </h1>
-
-                                {recipe.comment && (
-                                    <p className="recipe__text">
-                                        {recipe.comment}
-                                    </p>
-                                )}
-
-                                {recipe.url && (
+                    <div className="wrapper">
+                        <div className="recipe">
+                            {recipe.photoUrl ? (
+                                <SRLWrapper>
                                     <a
-                                        href={recipe.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="recipe__link"
+                                        href={recipe.photoUrl}
+                                        title="Visa bild"
+                                        data-attribute="SRL"
                                     >
-                                        Länk till receptet
-                                        <FontAwesomeIcon
-                                            className="recipe__link-arrow"
-                                            icon={faChevronRight}
+                                        <img
+                                            src={recipe.photoUrl}
+                                            className="recipe__image"
+                                            alt="food"
                                         />
                                     </a>
-                                )}
-
-                                {recipe.fileUrl && (
-                                    <div className="recipe__file">
-                                        <SRLWrapper>
-                                            <a
-                                                href={recipe.fileUrl}
-                                                title="Visa recept"
-                                                data-attribute="SRL"
-                                            >
-                                                <img
-                                                    src={recipe.fileUrl}
-                                                    className="recipe__file"
-                                                    alt="food"
-                                                />
-                                            </a>
-                                        </SRLWrapper>
-                                    </div>
-                                )}
-
-                                {recipe.vegan && (
-                                    <div className="recipe__vegan">
-                                        <Vegan className="recipe__vegan-icon" />
-                                        <p className="recipe__vegan-text">
-                                            Veganskt
-                                        </p>
-                                    </div>
-                                )}
-                            </div>
-
-                            {currentUser && currentUser.uid !== recipe.owner && (
-                                <div className="recipe__footer">
-                                    <div className="card__likes">
-                                        <p>{likes.length} gillar</p>
-                                    </div>
-
-                                    <div className="recipe__footer-owner">
+                                </SRLWrapper>
+                            ) : (
+                                <SRLWrapper>
+                                    <a
+                                        href={recipe.photoUrl}
+                                        title="Visa bild"
+                                        data-attribute="SRL"
+                                    >
                                         <img
-                                            className="recipe__profile-image"
-                                            src={profilePlaceholder}
-                                            alt=""
+                                            src={foodPlaceholder}
+                                            className="recipe__image"
+                                            alt="plate"
                                         />
-                                        <p className="recipe__footer-name">
-                                            {recipe.creatorUsername}
-                                        </p>
-                                    </div>
+                                    </a>
+                                </SRLWrapper>
+                            )}
 
-                                    {like ? (
-                                        <div className="card__heart">
-                                            <HeartFilled onClick={handleLike} />
+                            <div className="recipe__content">
+                                <div className="recipe__description">
+                                    <h1 className="recipe__heading">
+                                        {recipe.name}
+                                    </h1>
+
+                                    {recipe.comment && (
+                                        <p className="recipe__text">
+                                            {recipe.comment}
+                                        </p>
+                                    )}
+
+                                    {recipe.url && (
+                                        <a
+                                            href={recipe.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="recipe__link"
+                                        >
+                                            Länk till receptet
+                                            <FontAwesomeIcon
+                                                className="recipe__link-arrow"
+                                                icon={faChevronRight}
+                                            />
+                                        </a>
+                                    )}
+
+                                    {recipe.fileUrl && (
+                                        <div className="recipe__file">
+                                            <SRLWrapper>
+                                                <a
+                                                    href={recipe.fileUrl}
+                                                    title="Visa recept"
+                                                    data-attribute="SRL"
+                                                >
+                                                    <img
+                                                        src={recipe.fileUrl}
+                                                        className="recipe__file"
+                                                        alt="food"
+                                                    />
+                                                </a>
+                                            </SRLWrapper>
                                         </div>
-                                    ) : (
-                                        <div className="card__heart">
-                                            <Heart onClick={handleLike} />
+                                    )}
+
+                                    {recipe.vegan && (
+                                        <div className="recipe__vegan">
+                                            <Vegan className="recipe__vegan-icon" />
+                                            <p className="recipe__vegan-text">
+                                                Veganskt
+                                            </p>
                                         </div>
                                     )}
                                 </div>
-                            )}
 
-                            {currentUser && currentUser.uid === recipe.owner ? (
-                                <div className="recipe__buttons">
-                                    <button
-                                        className="recipe__delete-button"
-                                        onClick={handleDelete}
-                                    >
-                                        <FontAwesomeIcon
-                                            className="recipe__link-icon"
-                                            icon={faTrashAlt}
-                                        />
-                                        Radera
-                                    </button>
+                                {currentUser &&
+                                    currentUser.uid !== recipe.owner && (
+                                        <div className="recipe__footer">
+                                            <div className="card__likes">
+                                                <p>{likes.length} gillar</p>
+                                            </div>
 
-                                    {}
-                                    <Link
-                                        to={
-                                            recipe.fileUrl
-                                                ? `/my-recipes/edit-recipe/file/${recipeId}`
-                                                : `/my-recipes/edit-recipe/url/${recipeId}`
-                                        }
-                                        className="recipe__edit-link"
-                                    >
-                                        <FontAwesomeIcon
-                                            className="recipe__link-icon"
-                                            icon={faEdit}
-                                        />
-                                        Redigera
-                                    </Link>
-                                </div>
-                            ) : (
-                                ""
-                            )}
+                                            <div className="recipe__footer-owner">
+                                                <img
+                                                    className="recipe__profile-image"
+                                                    src={profilePlaceholder}
+                                                    alt=""
+                                                />
+                                                <p className="recipe__footer-name">
+                                                    {recipe.creatorUsername}
+                                                </p>
+                                            </div>
+
+                                            {like ? (
+                                                <div className="card__heart">
+                                                    <HeartFilled
+                                                        onClick={handleLike}
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <div className="card__heart">
+                                                    <Heart
+                                                        onClick={handleLike}
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+
+                                {currentUser &&
+                                currentUser.uid === recipe.owner ? (
+                                    <div className="recipe__buttons">
+                                        <button
+                                            className="recipe__delete-button"
+                                            onClick={handleDelete}
+                                        >
+                                            <FontAwesomeIcon
+                                                className="recipe__link-icon"
+                                                icon={faTrashAlt}
+                                            />
+                                            Radera
+                                        </button>
+
+                                        {}
+                                        <Link
+                                            to={
+                                                recipe.fileUrl
+                                                    ? `/my-recipes/edit-recipe/file/${recipeId}`
+                                                    : `/my-recipes/edit-recipe/url/${recipeId}`
+                                            }
+                                            className="recipe__edit-link"
+                                        >
+                                            <FontAwesomeIcon
+                                                className="recipe__link-icon"
+                                                icon={faEdit}
+                                            />
+                                            Redigera
+                                        </Link>
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
+                            </div>
                         </div>
                     </div>
                 )

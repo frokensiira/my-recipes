@@ -120,7 +120,7 @@
     height: 1.5rem;
     margin:0 auto;
     cursor: pointer;
-    fill: var(--light-red);
+    fill: var(--red);
     display: block;
 }
 

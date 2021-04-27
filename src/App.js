@@ -26,7 +26,7 @@ function App() {
                     <Navbar />
                 </header>
 
-                <div>
+                <>
                     <Routes>
                         <Route path="/">
                             <Home />
@@ -80,7 +80,7 @@ function App() {
 
                         <Route path="*" element={<NotFound />} />
                     </Routes>
-                </div>
+                </>
             </SimpleReactLightbox>
         </AuthContextProvider>
     );

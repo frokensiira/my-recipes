@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
 import { useDropzone } from "react-dropzone";
 
-const Dropzone = ({recipe, file, setLoading, deleteFileFromStorage, addFileToStorage}) => {
+const Dropzone = ({recipe, file, setLoading, setError, deleteFileFromStorage, addFileToStorage}) => {
 
     const onDrop = useCallback(
         (acceptedFile) => {
@@ -11,6 +11,9 @@ const Dropzone = ({recipe, file, setLoading, deleteFileFromStorage, addFileToSto
                 return;
             }
             setLoading(true);
+            setError(false);
+            console.log('setting error to false');
+            
             //check if a user already uploaded a file
             if (file) {
                 //in that case delete it before uploading a new one
@@ -51,7 +54,7 @@ const Dropzone = ({recipe, file, setLoading, deleteFileFromStorage, addFileToSto
                 ) : recipe.fileUrl === "" ? (
                     <p>Ladda upp recept</p>
                 ) : (
-                    <p>Byt receptfil</p>
+                    <p className="recipe-form__dropzone-message">Byt receptfil</p>
                 )}
                 {recipe.fileName && <p>{recipe.fileName}</p>}
             </div>
