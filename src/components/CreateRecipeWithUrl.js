@@ -20,9 +20,14 @@ const CreateRecipeWithUrl = () => {
         url: "",
         vegan: false,
     });
-    const [loading, setLoading] = useState(false);
 
-    useCreateUrlRecipe(recipe, submit);
+    const {error, setError, loading, setLoading } = useCreateUrlRecipe(recipe, submit);
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    const resetError = () => {
+        setError(false);
+        setErrorMessage(null);
+    }
 
     const handleCheckbox = (e) => {
         setRecipe({
@@ -75,13 +80,17 @@ const CreateRecipeWithUrl = () => {
                             deletePhotoFromStorage();
                         }
                         setLoading(false);
+                        resetError();
                     }
-                } catch (err) {
+                } catch (error) {
                     setLoading(false);
-                    console.log("error", err);
+                    setErrorMessage(true);
+                    setErrorMessage('Kunde inte hämta receptet. Försök igen.');
+                    console.error(error);
                 }
             } else {
                 setLoading(false);
+                resetError();
             }
         }
     };
@@ -106,6 +115,7 @@ const CreateRecipeWithUrl = () => {
         photoRef
             .put(selectedPhoto)
             .then((snapshot) => {
+                resetError();
                 //retrieve url to uploaded photo
                 snapshot.ref.getDownloadURL().then((url) => {
                     setRecipe((prevState) => ({
@@ -120,8 +130,10 @@ const CreateRecipeWithUrl = () => {
                     setLoading(false);
                 });
             })
-            .catch((err) => {
-                console.log("problem uploading photo", err);
+            .catch((error) => {
+                setErrorMessage(true);
+                setErrorMessage('Problem med att ladda upp foto. Försök igen.');
+                console.error(error);
             });
     };
 
@@ -131,6 +143,7 @@ const CreateRecipeWithUrl = () => {
             .child(photo.fullPathPhoto)
             .delete()
             .then(() => {
+                resetError();
                 // File deleted successfully
                 setPhoto(null);
                 //and add the new one instead if the user uploaded a new one manually
@@ -139,7 +152,9 @@ const CreateRecipeWithUrl = () => {
                 }
             })
             .catch((error) => {
-                console.log("could not delete photo", error);
+                setErrorMessage(true);
+                setErrorMessage('Problem med att ladda upp foto. Försök igen.');
+                console.error(error);
                 setLoading(false);
             });
     };
@@ -214,6 +229,11 @@ const CreateRecipeWithUrl = () => {
                 
                     <RecipeSubmitButton>Skapa recept</RecipeSubmitButton>
                 </div>
+                {error && (
+                    <div className="error">
+                        <p className="error__message">{errorMessage ? errorMessage : 'Något gick fel, försök igen.'}</p>
+                    </div>
+                )}
             </form>
         </>
     );

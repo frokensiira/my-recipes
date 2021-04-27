@@ -28,15 +28,17 @@ const useCreateUrlRecipe = (recipe, submit) => {
             })
             .then(() => {
                 setLoading(false);
+                setError(false);
                 navigate("/my-recipes/");
             })
             .catch((err) => {
+                setError(true);
                 setLoading(false);
-                console.log("something went wrong", err);
+                console.error("something went wrong", err);
             });
     }, [submit]);
 
-    return { error, loading };
+    return { error, setError, loading };
 };
 
 export default useCreateUrlRecipe;
