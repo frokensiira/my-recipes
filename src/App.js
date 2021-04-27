@@ -2,9 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "../src/styles/app.css";
 import SimpleReactLightbox from "simple-react-lightbox";
-import AccessDenied from "./components/AccessDenied";
 import AuthContextProvider from "../src/contexts/AuthContext";
-import AuthRoute from "../src/components/AuthRoute";
 import CreateRecipe from "./components/CreateRecipe";
 import CreateRecipeWithFile from "./components/CreateRecipeWithFile";
 import CreateRecipeWithUrl from "./components/CreateRecipeWithUrl";
@@ -50,7 +48,7 @@ function App() {
                             <Logout />
                         </Route>
 
-                        <AuthRoute path="/my-recipes">
+                        <Route path="/my-recipes">
                             <Route path="/">
                                 <MyRecipes />
                             </Route>
@@ -78,10 +76,6 @@ function App() {
                             <Route path="/create-recipe/file">
                                 <CreateRecipeWithFile />
                             </Route>
-                        </AuthRoute>
-
-                        <Route path="/403">
-                            <AccessDenied />
                         </Route>
 
                         <Route path="*" element={<NotFound />} />
