@@ -50,7 +50,7 @@ const MyRecipes = () => {
                         />
                     ))}
                 </div>
-            ) : (
+            ) : !loading && (
                 <div className="page__feedback">
                     {vegan ? (
                         <p>

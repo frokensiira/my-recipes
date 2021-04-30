@@ -34,7 +34,7 @@ const AllRecipes = () => {
                         <RecipeCard recipe={recipe} key={recipe.id} />
                     ))}
                 </div>
-            ) : (
+            ) : !loading && (
                 <div className="page__feedback">
                     {vegan ? (
                         <p>

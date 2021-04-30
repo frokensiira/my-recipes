@@ -1,7 +1,10 @@
 .cards {
     --auto-grid-min-size: 16rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(var(--auto-grid-min-size), 1fr)
+    );
     gap: 1.5rem;
     margin-left: var(--page-margin);
     margin-right: var(--page-margin);
@@ -16,18 +19,18 @@
 .card__wrapper {
     background-color: #fff;
     overflow: hidden;
-    box-shadow: 0 7px 30px -10px rgba(150,170,180,0.5);
-    /* border-radius: var(--border-radius); */
-    position: relative;
+    box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card__wrapper:hover {
-    box-shadow: 0 7px 30px -10px rgba(150,170,180,0.3);
+    box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.3);
 }
 
 .card__flag {
     background-color: rgba(255, 255, 255, 0.85);
-    /* border-radius: 0.2rem; */
     color: #000000;
     font-size: 0.8rem;
     padding: 0.5rem 1rem;
@@ -35,7 +38,6 @@
     top: 0;
     left: 0;
     z-index: 1;
-    
 }
 
 .card__link {
@@ -58,7 +60,6 @@
     padding-right: var(--page-margin);
     padding-left: var(--page-margin);
     text-align: center;
-    
 }
 
 .card__text {
@@ -69,7 +70,6 @@
     padding-bottom: 1rem;
     padding-right: calc(var(--page-margin) / 2);
     padding-left: calc(var(--page-margin) / 2);
-    
 }
 
 .card__text:not(:last-child) {
@@ -86,10 +86,6 @@
 .card__footer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
 }
 .card__profile-image {
     width: 2rem;
@@ -118,13 +114,13 @@
 
 .card__heart svg {
     height: 1.5rem;
-    margin:0 auto;
+    margin: 0 auto;
     cursor: pointer;
     fill: var(--red);
     display: block;
 }
 
-@media(min-width: 2309px) {
+@media (min-width: 2309px) {
     .cards {
         margin-left: calc(4 * var(--page-margin));
         margin-right: calc(4 * var(--page-margin));
@@ -136,14 +132,14 @@
     }
 }
 
-@media(max-width: 2308px) {
+@media (max-width: 2308px) {
     .cards {
         margin-left: calc(3 * var(--page-margin));
         margin-right: calc(3 * var(--page-margin));
     }
 }
 
-@media(max-width: 1150px) {
+@media (max-width: 1150px) {
     .card__image {
         height: 30vw;
     }
@@ -153,7 +149,7 @@
     }
 }
 
-@media(max-width: 890px) {
+@media (max-width: 890px) {
     .cards {
         --auto-grid-min-size: 10rem;
         margin-left: var(--page-margin);
@@ -161,7 +157,7 @@
     }
 }
 
-@media(max-width: 575px) {
+@media (max-width: 575px) {
     .cards {
         --auto-grid-min-size: 7rem;
         gap: 0.5rem;
@@ -174,7 +170,8 @@
         max-height: 7rem;
     }
 
-    .card__title {
+    .card__title,
+    .card__likes p {
         font-size: 0.5rem;
     }
 
@@ -185,4 +182,4 @@
     .card__flag {
         font-size: 0.5rem;
     }
-} 
+}

@@ -5,6 +5,7 @@
     margin-bottom: 2rem;
     margin-left: var(--page-margin);
     margin-right: var(--page-margin);
+    padding-bottom: 5rem;
 }
 
 .banner__text-area {

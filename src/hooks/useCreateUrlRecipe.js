@@ -38,7 +38,7 @@ const useCreateUrlRecipe = (recipe, submit) => {
             });
     }, [submit]);
 
-    return { error, setError, loading };
+    return { error, setError, loading, setLoading };
 };
 
 export default useCreateUrlRecipe;

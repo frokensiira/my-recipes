@@ -1,9 +1,15 @@
 .create-recipe {
     display: flex;
+    justify-content: center;
+}
+
+.create-recipe__wrapper {
+    display: flex;
     max-width: 30rem;
     margin: 0 auto;
     flex-direction: column;
     align-items: center;
+    margin: 0 var(--page-margin);
 }
 
 .create-recipe__button.button {
@@ -18,4 +24,16 @@
     width: 100%;
     text-decoration: none;
     margin-bottom: 2rem;
+}
+
+@media (max-width: 905px) {
+    .create-recipe__button.button {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .create-recipe__button.button {
+        font-size: 0.6rem;
+    }
 }
