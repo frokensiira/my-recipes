@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const useMyRecipes = (vegan) => {
     const [errorLikes, setErrorLikes] = useState(false);
-    const [loadingLikes, setLoadingLikes] = useState(true);
+    const [loadingLikes, setLoadingLikes] = useState(false);
     const [likedRecipes, setLikedRecipes] = useState([]);
     const [disLiked, setDisLiked] = useState(false);
     const { currentUser } = useAuth();
@@ -55,12 +55,13 @@ const useMyRecipes = (vegan) => {
         setLikedRecipes([]);
         setDisLiked(false);
         setErrorLikes(false);
-        setLoadingLikes(true);
+        
         //get a list of all the recipes that the user likes
         db.collection("likes")
             .where("liker", "==", currentUser.uid)
             .get()
             .then((querySnapshot) => {
+                setLoadingLikes(true);
                 querySnapshot.forEach((doc) => {
                     likedRecipeList.push({
                         ...doc.data(),
@@ -69,6 +70,7 @@ const useMyRecipes = (vegan) => {
 
                 //if the user doesn't have any likes recipes return
                 if (likedRecipeList.length === 0) {
+                    setLoadingLikes(false);
                     return;
                 }
 

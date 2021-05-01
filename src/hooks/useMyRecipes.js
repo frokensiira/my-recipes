@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const useMyRecipes = (vegan) => {
     const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [recipes, setRecipes] = useState([]);
     const { currentUser } = useAuth();
 

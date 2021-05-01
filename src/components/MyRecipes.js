@@ -11,8 +11,12 @@ import { Link } from "react-router-dom";
 const MyRecipes = () => {
     const [vegan, setVegan] = useState(false);
     const { recipes, loading, error } = useMyRecipes(vegan);
-    const { likedRecipes, loadingLikes, errorLikes,
-  setDisLiked } = useMyLikedRecipes(vegan);
+    const {
+        likedRecipes,
+        loadingLikes,
+        errorLikes,
+        setDisLiked,
+    } = useMyLikedRecipes(vegan);
     const [allRecipes, setAllRecipes] = useState(null);
 
     const handleFilterSearch = (e) => {
@@ -28,18 +32,18 @@ const MyRecipes = () => {
     };
 
     useEffect(() => {
-        if(recipes && likedRecipes){
+        if (recipes && likedRecipes) {
             setAllRecipes(recipes.concat(likedRecipes));
         }
-    }, [recipes, likedRecipes])
+    }, [recipes, likedRecipes]);
 
     return (
         <main>
             <h1 className="page__title">
                 Mina recept <Cabbage className="icon" />
             </h1>
-            {error && <p>Problem med att ladda recept...</p>}
-            {loading && <Loading />}
+            {error || errorLikes && <p>Problem med att ladda recept...</p>}
+            {loading || loadingLikes && <Loading />}
             <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
             {allRecipes && allRecipes.length !== 0 ? (
