@@ -19,6 +19,10 @@ const AllRecipes = () => {
         }
     };
 
+    const handleDislike = () => {
+        console.log('not liking this recipe anymore');
+    }
+
     return (
         <main>
             <h1 className="page__title">
@@ -30,7 +34,7 @@ const AllRecipes = () => {
             {recipes.length !== 0 ? (
                 <div className="cards">
                     {recipes.map((recipe) => (
-                        <RecipeCard recipe={recipe} key={recipe.id} />
+                        <RecipeCard recipe={recipe} key={recipe.id} handleDislike={handleDislike}/>
                     ))}
                 </div>
             ) : (

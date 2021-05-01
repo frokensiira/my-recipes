@@ -7,7 +7,7 @@ import { ReactComponent as HeartFilled } from "../assets/heart-filled.svg";
 import profilePlaceholder from "../assets/profile-placeholder.svg";
 import { db } from "../firebase";
 
-const RecipeCard = ({ recipe, handleDislike }) => {
+const RecipeCard = ({ recipe, handleDislike }) => {   
     const { currentUser } = useAuth();
     const initialRender = useRef(true);
     const [likes, setLikes] = useState([]);
@@ -50,7 +50,9 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                         });
                     return unsubscribe;
                 }
-            });
+            }).catch(error => {
+                console.error(error);
+            })
     };
 
     const addLikeToRecipe = (docRef) => {
@@ -68,7 +70,7 @@ const RecipeCard = ({ recipe, handleDislike }) => {
             });
     };
 
-    const deleteLikeFromRecipe = () => {
+    const deleteLikeFromRecipe = () => {        
         //find document with the recipe like
         db.collection("likes")
             .where("recipeId", "==", recipe.id)
@@ -80,13 +82,13 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                     db.collection("likes")
                         .doc(doc.id)
                         .delete()
-                        .then(() => {
+                        .then(() => {                            
                             getLikesForRecipe();
                             handleDislike();
                         })
                         .catch((err) => {
                             console.log(
-                                "could not remove like from recipe",
+                                "Sorry, could not remove like from recipe",
                                 err
                             );
                         });
@@ -106,6 +108,7 @@ const RecipeCard = ({ recipe, handleDislike }) => {
     }, []);
 
     useEffect(() => {
+        //do not do anything when like is being set during initial render
         if (initialRender.current) {
             initialRender.current = false;
         } else {
@@ -152,8 +155,6 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                         console.log("error", err);
                     });
             } else if (like === false) {
-                console.log("want to delete recipe from favourites");
-
                 deleteLikeFromRecipe();
             }
         }
