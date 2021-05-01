@@ -39,4 +39,5 @@ button {
 
 a {
     cursor: pointer;
+    color: var(--secondary);
 }

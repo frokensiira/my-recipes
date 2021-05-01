@@ -125,7 +125,7 @@ const SignUp = () => {
                         </div>
                         <div className="form__text">
                             <p>
-                                Har du redan ett konto? {"  "}
+                                Har du redan ett konto? &nbsp;
                                 <Link to="/login" className="form__link">
                                     Logga in
                                 </Link>

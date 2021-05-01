@@ -90,8 +90,7 @@ const Login = () => {
                         </div>
 
                         <p className="form__text">
-                            Har du inget ett konto? {"  "}
-                            <Link to="/signup">Skapa konto</Link>
+                            Har du inget konto?&nbsp; <Link to="/signup">Skapa konto</Link>
                         </p>
                     </form>
                 </div>

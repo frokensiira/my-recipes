@@ -10,9 +10,8 @@ import { Link } from "react-router-dom";
 const MyRecipes = () => {
     const [vegan, setVegan] = useState(false);
     const [disLiked, setDisLiked] = useState(false);
-    const { recipes, likedRecipes, loading } = useMyRecipes(vegan, disLiked);
-    const [allRecipes, setAllRecipes] = useState(null);
-
+    const { recipes, loading } = useMyRecipes(vegan, disLiked);
+    
     const handleFilterSearch = (e) => {
         if (e.target.id === "vegan") {
             setVegan(true);
@@ -20,12 +19,6 @@ const MyRecipes = () => {
             setVegan(false);
         }
     };
-
-    useEffect(() => {
-        if (recipes && likedRecipes) {
-            setAllRecipes(recipes.concat(likedRecipes));
-        }
-    }, [recipes, likedRecipes]);
 
     const handleDislike = () => {
         setDisLiked(true);
@@ -39,10 +32,9 @@ const MyRecipes = () => {
             {loading && <Loading />}
             <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
-            {allRecipes && allRecipes.length !== 0 ? (
+            {recipes && recipes.length !== 0 ? (
                 <div className="cards">
-                    {" "}
-                    {allRecipes.map((recipe) => (
+                    {recipes.map((recipe) => (
                         <RecipeCard
                             recipe={recipe}
                             key={recipe.id}
@@ -50,20 +42,27 @@ const MyRecipes = () => {
                         />
                     ))}
                 </div>
-            ) : !loading && (
-                <div className="page__feedback">
-                    {vegan ? (
-                        <p>
-                            Du har inga veganska recept än. Skapa ditt allra
-                            första!
-                        </p>
-                    ) : (
-                        <p>Du har inga recept än. Skapa ditt allra första!</p>
-                    )}
-                    <Link to="/create-recipe" className="button link">
-                        Skapa recept
-                    </Link>
-                </div>
+            ) : (
+                !loading && (
+                    <div className="page__feedback">
+                        {vegan ? (
+                            <p>
+                                Du har inga veganska recept än. Skapa ditt allra
+                                första!
+                            </p>
+                        ) : (
+                            <p>
+                                Du har inga recept än. Skapa ditt allra första!
+                            </p>
+                        )}
+                        <Link
+                            to="/my-recipes/create-recipe"
+                            className="button link"
+                        >
+                            Skapa recept
+                        </Link>
+                    </div>
+                )
             )}
             <AddRecipeButton />
         </main>
@@ -71,3 +70,4 @@ const MyRecipes = () => {
 };
 
 export default MyRecipes;
+

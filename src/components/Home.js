@@ -45,9 +45,8 @@ const Home = () => {
                     </>
                 )}
             </section>
-            <main className="page">
-                <AllRecipes />
-            </main>
+
+            <AllRecipes />
         </>
     );
 };

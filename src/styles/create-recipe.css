@@ -9,7 +9,6 @@
     margin: 0 auto;
     flex-direction: column;
     align-items: center;
-    margin: 0 var(--page-margin);
 }
 
 .create-recipe__button.button {

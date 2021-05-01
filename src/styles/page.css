@@ -1,5 +1,6 @@
 .page {
-    background-color: #fff;
+    /* background-color: #fff; */
+    margin: var(--page-margin);
     position: relative;
 }
 
@@ -16,6 +17,7 @@
     align-items: center;
     text-align: center;
     margin: 0 auto;
+    white-space: nowrap;
 }
 
 .page__title::before,
@@ -91,5 +93,11 @@
     .page__title::after {
         content: "";
         border-top: none;
+    }
+}
+
+@media (max-width: 400px) {
+    .page__text {
+        font-size: 0.8rem;
     }
 }

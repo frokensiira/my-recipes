@@ -26,61 +26,59 @@ function App() {
                     <Navbar />
                 </header>
 
-                <>
-                    <Routes>
+                <Routes>
+                    <Route path="/">
+                        <Home />
+                    </Route>
+
+                    <Route path="/all-recipes">
+                        <AllRecipes />
+                    </Route>
+
+                    <Route path="/signup">
+                        <SignUp />
+                    </Route>
+
+                    <Route path="/login">
+                        <Login />
+                    </Route>
+
+                    <Route path="/logout">
+                        <Logout />
+                    </Route>
+
+                    <Route path="/my-recipes">
                         <Route path="/">
-                            <Home />
+                            <MyRecipes />
                         </Route>
 
-                        <Route path="/all-recipes">
-                            <AllRecipes />
+                        <Route path="/:recipeId">
+                            <ShowSingleRecipe />
                         </Route>
 
-                        <Route path="/signup">
-                            <SignUp />
+                        <Route path="/create-recipe">
+                            <CreateRecipe />
                         </Route>
 
-                        <Route path="/login">
-                            <Login />
+                        <Route path="/create-recipe/url">
+                            <CreateRecipeWithUrl />
                         </Route>
 
-                        <Route path="/logout">
-                            <Logout />
+                        <Route path="/edit-recipe/url/:recipeId">
+                            <EditRecipeWithUrl />
                         </Route>
 
-                        <Route path="/my-recipes">
-                            <Route path="/">
-                                <MyRecipes />
-                            </Route>
-
-                            <Route path="/:recipeId">
-                                <ShowSingleRecipe />
-                            </Route>
-
-                            <Route path="/create-recipe">
-                                <CreateRecipe />
-                            </Route>
-
-                            <Route path="/create-recipe/url">
-                                <CreateRecipeWithUrl />
-                            </Route>
-
-                            <Route path="/edit-recipe/url/:recipeId">
-                                <EditRecipeWithUrl />
-                            </Route>
-
-                            <Route path="/edit-recipe/file/:recipeId">
-                                <EditRecipeWithFile />
-                            </Route>
-
-                            <Route path="/create-recipe/file">
-                                <CreateRecipeWithFile />
-                            </Route>
+                        <Route path="/edit-recipe/file/:recipeId">
+                            <EditRecipeWithFile />
                         </Route>
 
-                        <Route path="*" element={<NotFound />} />
-                    </Routes>
-                </>
+                        <Route path="/create-recipe/file">
+                            <CreateRecipeWithFile />
+                        </Route>
+                    </Route>
+
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
             </SimpleReactLightbox>
         </AuthContextProvider>
     );

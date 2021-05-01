@@ -1,5 +1,5 @@
 import React from "react";
-import placeholder from "../assets/images/placeholder.png";
+import placeholder from "../assets/images/placeholder.jpg";
 import { ReactComponent as AddImage } from "../assets/plus.svg";
 
 const ImageUpload = ({ recipe, handlePhotoChange }) => {
