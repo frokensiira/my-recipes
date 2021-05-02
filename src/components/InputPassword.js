@@ -4,7 +4,7 @@ import { ReactComponent as Password } from "../assets/password.svg";
 const InputPassword = ({ passwordRef }) => {
     return (
         <div className="form__input-wrapper">
-            <Password className="form__icon" />
+            <div className="form-input__password form-input__container"></div>
             <input
                 className="form__input form__input-account"
                 type="password"

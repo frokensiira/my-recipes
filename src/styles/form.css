@@ -27,6 +27,33 @@
     margin-bottom: 1rem;
 }
 
+.form-input__container {
+    display: inline-block;
+    position: relative;
+}
+
+.form-input__container::before {
+    content: "";
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    bottom: -0.3rem;
+    left: 0.5rem;
+    z-index: 1;
+}
+
+.form-input__mail::before {
+    background: url(../assets/mail.svg) no-repeat;
+}
+
+.form-input__password::before {
+    background: url(../assets/unlock.svg) no-repeat;
+}
+
+.form-input__user::before {
+    background: url(../assets/user.svg) no-repeat;
+}
+
 .form__input,
 .form__textarea {
     border: 1px solid rgb(211, 209, 209);

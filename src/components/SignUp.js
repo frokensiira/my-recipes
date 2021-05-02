@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import avocado from "../assets/images/avocado.png";
-import { ReactComponent as User } from "../assets/user.svg";
 import FormButton from "./FormButton";
 import Loading from "./Loading";
 import InputMail from "./InputMail";
@@ -67,7 +66,7 @@ const SignUp = () => {
                         <h2 className="form__heading">Registrera mig!</h2>
                         <div className="form__inputs">
                             <div className="form__input-wrapper" htmlFor="name">
-                                <User className="form__icon" />
+                            <div className="form-input__user form-input__container"></div>
                                 <input
                                     className="form__input form__input-account"
                                     type="text"
