@@ -179,7 +179,6 @@ const RecipeCard = ({ recipe, handleDislike }) => {
 
                     <h1 className="card__title">{recipe.name}</h1>
                 </Link>
-                <p className="card__text">{recipe.comment}</p>
 
                 <div className="card__footer">
                     <div className="card__likes">

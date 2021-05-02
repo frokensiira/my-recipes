@@ -38,29 +38,32 @@ const MyRecipes = () => {
     }, [recipes, likedRecipes]);
 
     return (
-        <div>
+        <main>
             <h1 className="page__title">
                 Mina recept <Cabbage className="icon" />
             </h1>
             {error || errorLikes ? <p>Problem med att ladda recept...</p> : ""}
             {loading || loadingLikes ? <Loading /> : ""}
-            <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
-            {allRecipes.length !== 0 ? (
-                <section className="cards">
-                    {allRecipes.map((recipe) => (
-                        <RecipeCard
-                            recipe={recipe}
-                            key={recipe.id}
-                            handleDislike={handleDislike}
-                        />
-                    ))}
-                </section>
-            ) : (
-                !loading && !loadingLikes && <NoRecipes vegan={vegan} />
-            )}
-            <AddRecipeButton />
-        </div>
+            <div className="page">
+                <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
+
+                {allRecipes.length !== 0 ? (
+                    <section className="cards">
+                        {allRecipes.map((recipe) => (
+                            <RecipeCard
+                                recipe={recipe}
+                                key={recipe.id}
+                                handleDislike={handleDislike}
+                            />
+                        ))}
+                    </section>
+                ) : (
+                    !loading && !loadingLikes && <NoRecipes vegan={vegan} />
+                )}
+                <AddRecipeButton />
+            </div>
+        </main>
     );
 };
 

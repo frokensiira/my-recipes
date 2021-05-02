@@ -29,25 +29,25 @@ const AllRecipes = () => {
                 Recept <Broccoli className="icon" />
             </h1>
             {loading && <Loading />}
-            <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
+            <div className="page">
+                <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
-            {recipes.length !== 0 ? (
-                <div className="cards">
-                    {recipes.map((recipe) => (
-                        <RecipeCard
-                            recipe={recipe}
-                            key={recipe.id}
-                            handleDislike={handleDislike}
-                        />
-                    ))}
-                </div>
-            ) : (
-                !loading && (
-                    <NoRecipes vegan={vegan}/>
-                )
-            )}
+                {recipes.length !== 0 ? (
+                    <div className="cards">
+                        {recipes.map((recipe) => (
+                            <RecipeCard
+                                recipe={recipe}
+                                key={recipe.id}
+                                handleDislike={handleDislike}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    !loading && <NoRecipes vegan={vegan} />
+                )}
 
-            <AddRecipeButton />
+                <AddRecipeButton />
+            </div>
         </main>
     );
 };

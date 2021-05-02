@@ -14,6 +14,7 @@
     --dark-green: #09484C;
 
     --page-margin: 5vw;
+    --page-margin-mobile: 2vw;
     --border-radius: 0.3rem;
 
     --primary: var(--light-pink);
