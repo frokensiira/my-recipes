@@ -7,7 +7,7 @@ import { ReactComponent as HeartFilled } from "../assets/heart-filled.svg";
 import profilePlaceholder from "../assets/profile-placeholder.svg";
 import { db } from "../firebase";
 
-const RecipeCard = ({ recipe, handleDislike }) => {   
+const RecipeCard = ({ recipe, handleDislike }) => {
     const { currentUser } = useAuth();
     const initialRender = useRef(true);
     const [likes, setLikes] = useState([]);
@@ -50,13 +50,13 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                         });
                     return unsubscribe;
                 }
-            }).catch(error => {
-                console.error(error);
             })
+            .catch((error) => {
+                console.error(error);
+            });
     };
 
     const addLikeToRecipe = (docRef) => {
-        
         db.collection("likes")
             .add({
                 liker: currentUser.uid,
@@ -70,7 +70,7 @@ const RecipeCard = ({ recipe, handleDislike }) => {
             });
     };
 
-    const deleteLikeFromRecipe = () => {        
+    const deleteLikeFromRecipe = () => {
         //find document with the recipe like
         db.collection("likes")
             .where("recipeId", "==", recipe.id)
@@ -82,7 +82,7 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                     db.collection("likes")
                         .doc(doc.id)
                         .delete()
-                        .then(() => {                            
+                        .then(() => {
                             getLikesForRecipe();
                             handleDislike();
                         })
@@ -185,11 +185,9 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                 <p className="card__text">{recipe.comment}</p>
 
                 <div className="card__footer">
-                    
-                        <div className="card__likes">
-                            <p>{likes.length} gillar</p>
-                        </div>
-                
+                    <div className="card__likes">
+                        <p>{likes.length} gillar</p>
+                    </div>
 
                     <div className="card__footer-owner">
                         <img

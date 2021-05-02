@@ -8,8 +8,10 @@ const useMyRecipes = (vegan) => {
     const [recipes, setRecipes] = useState([]);
     const { currentUser } = useAuth();
 
+    console.log('loading is now', loading);
+
     useEffect(() => {
-        setError(false);     
+        setError(false);
 
         let query = db
             .collection("recipes")
@@ -28,7 +30,7 @@ const useMyRecipes = (vegan) => {
                     ...doc.data(),
                 });
             });
-            
+
             setLoading(false);
             setRecipes(myRecipes);
         });

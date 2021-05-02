@@ -6,7 +6,7 @@ import { ReactComponent as Cabbage } from "../assets/cabbage.svg";
 import AddRecipeButton from "./AddRecipeButton";
 import Filter from "./Filter";
 import Loading from "./Loading";
-import { Link } from "react-router-dom";
+import NoRecipes from "./NoRecipes";
 
 const MyRecipes = () => {
     const [vegan, setVegan] = useState(false);
@@ -17,7 +17,7 @@ const MyRecipes = () => {
         errorLikes,
         setDisLiked,
     } = useMyLikedRecipes(vegan);
-    const [allRecipes, setAllRecipes] = useState(null);
+    const [allRecipes, setAllRecipes] = useState([]);    
 
     const handleFilterSearch = (e) => {
         if (e.target.id === "vegan") {
@@ -34,7 +34,7 @@ const MyRecipes = () => {
     useEffect(() => {
         if (recipes && likedRecipes) {
             setAllRecipes(recipes.concat(likedRecipes));
-        }
+        } 
     }, [recipes, likedRecipes]);
 
     return (
@@ -42,11 +42,11 @@ const MyRecipes = () => {
             <h1 className="page__title">
                 Mina recept <Cabbage className="icon" />
             </h1>
-            {error || errorLikes && <p>Problem med att ladda recept...</p>}
-            {loading || loadingLikes && <Loading />}
+            {error || errorLikes ? (<p>Problem med att ladda recept...</p>) : ''}
+            {loading || loadingLikes ? (<Loading />) : ''}
             <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
-            {allRecipes && allRecipes.length !== 0 ? (
+            {allRecipes.length !== 0 ? (
                 <div className="cards">
                     {allRecipes.map((recipe) => (
                         <RecipeCard
@@ -57,25 +57,8 @@ const MyRecipes = () => {
                     ))}
                 </div>
             ) : (
-                !loading && (
-                    <div className="page__feedback">
-                        {vegan ? (
-                            <p>
-                                Du har inga veganska recept än. Skapa ditt allra
-                                första!
-                            </p>
-                        ) : (
-                            <p>
-                                Du har inga recept än. Skapa ditt allra första!
-                            </p>
-                        )}
-                        <Link
-                            to="/my-recipes/create-recipe"
-                            className="button link"
-                        >
-                            Skapa recept
-                        </Link>
-                    </div>
+                !loading && !loadingLikes && (
+                    <NoRecipes vegan={vegan}/>
                 )
             )}
             <AddRecipeButton />

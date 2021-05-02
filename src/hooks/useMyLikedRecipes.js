@@ -55,7 +55,7 @@ const useMyRecipes = (vegan) => {
         setLikedRecipes([]);
         setDisLiked(false);
         setErrorLikes(false);
-        
+
         //get a list of all the recipes that the user likes
         db.collection("likes")
             .where("liker", "==", currentUser.uid)

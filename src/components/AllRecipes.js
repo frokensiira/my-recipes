@@ -5,7 +5,7 @@ import { ReactComponent as Broccoli } from "../assets/broccoli.svg";
 import Filter from "./Filter";
 import useAllRecipes from "../hooks/useAllRecipes";
 import Loading from "./Loading";
-import { Link } from "react-router-dom";
+import NoRecipes from "./NoRecipes";
 
 const AllRecipes = () => {
     const [vegan, setVegan] = useState(false);
@@ -20,8 +20,8 @@ const AllRecipes = () => {
     };
 
     const handleDislike = () => {
-        console.log('not liking this recipe anymore');
-    }
+        console.log("not liking this recipe anymore");
+    };
 
     return (
         <main>
@@ -34,27 +34,16 @@ const AllRecipes = () => {
             {recipes.length !== 0 ? (
                 <div className="cards">
                     {recipes.map((recipe) => (
-                        <RecipeCard recipe={recipe} key={recipe.id} handleDislike={handleDislike}/>
+                        <RecipeCard
+                            recipe={recipe}
+                            key={recipe.id}
+                            handleDislike={handleDislike}
+                        />
                     ))}
                 </div>
             ) : (
                 !loading && (
-                    <div className="page__feedback">
-                        {vegan ? (
-                            <p>
-                                Det finns inga veganska recept än. Skapa det
-                                allra första!
-                            </p>
-                        ) : (
-                            <p>
-                                Det finns inga recept än. Skapa det allra
-                                första!
-                            </p>
-                        )}
-                        <Link to="/create-recipe" className="button link">
-                            Skapa recept
-                        </Link>
-                    </div>
+                    <NoRecipes vegan={vegan}/>
                 )
             )}
 
