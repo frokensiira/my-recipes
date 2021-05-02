@@ -4,9 +4,9 @@ import { useAuth } from "../contexts/AuthContext";
 import avocado from "../assets/images/avocado.png";
 import { ReactComponent as User } from "../assets/user.svg";
 import { ReactComponent as Password } from "../assets/password.svg";
-import { ReactComponent as Mail } from "../assets/mail.svg";
 import FormButton from "./FormButton";
 import Loading from "./Loading";
+import InputMail from "./InputMail";
 
 const SignUp = () => {
     const usernameRef = useRef();
@@ -78,20 +78,7 @@ const SignUp = () => {
                                 />
                             </div>
 
-                            <div
-                                className="form__input-wrapper"
-                                htmlFor="email"
-                            >
-                                <Mail className="form__icon" />
-                                <input
-                                    className="form__input form__input-account"
-                                    type="email"
-                                    ref={emailRef}
-                                    placeholder="Email"
-                                    required
-                                    name="email"
-                                />
-                            </div>
+                            <InputMail emailRef={emailRef}/>
 
                             <div className="form__input-wrapper">
                                 <Password className="form__icon" />

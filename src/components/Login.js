@@ -7,6 +7,7 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import avocado from "../assets/images/avocado.png";
 import Loading from "./Loading";
 import FormButton from "./FormButton";
+import InputMail from "./InputMail";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ const Login = () => {
     };
 
     return (
-        <>
+        <main className="page">
             <h1 className="page__title">Logga in</h1>
             {loading && <Loading />}
             <div className="form__wrapper">
@@ -48,19 +49,7 @@ const Login = () => {
                     <form onSubmit={handleSubmit}>
                         <h2 className="form__heading">Logga in!</h2>
                         <div className="form__inputs">
-                            <div className="form__input-wrapper">
-                                <FontAwesomeIcon
-                                    icon={faUser}
-                                    className="form__icon"
-                                />
-                                <input
-                                    type="email"
-                                    ref={emailRef}
-                                    placeholder="Email"
-                                    required
-                                    className="form__input form__input-account"
-                                />
-                            </div>
+                            <InputMail emailRef={emailRef} />
 
                             <div className="form__input-wrapper">
                                 <FontAwesomeIcon
@@ -85,7 +74,7 @@ const Login = () => {
                     </form>
                 </div>
             </div>
-        </>
+        </main>
     );
 };
 
