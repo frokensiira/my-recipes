@@ -251,7 +251,6 @@ button.recipe-form__submit-button {
 
     .recipe-form__content--file,
     .recipe-form__content {
-        display: grid;
         grid-template-columns: 1fr;
     }
 
