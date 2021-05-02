@@ -8,8 +8,6 @@ const useMyRecipes = (vegan) => {
     const [recipes, setRecipes] = useState([]);
     const { currentUser } = useAuth();
 
-    console.log('loading is now', loading);
-
     useEffect(() => {
         setError(false);
 

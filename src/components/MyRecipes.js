@@ -17,7 +17,7 @@ const MyRecipes = () => {
         errorLikes,
         setDisLiked,
     } = useMyLikedRecipes(vegan);
-    const [allRecipes, setAllRecipes] = useState([]);    
+    const [allRecipes, setAllRecipes] = useState([]);
 
     const handleFilterSearch = (e) => {
         if (e.target.id === "vegan") {
@@ -34,20 +34,20 @@ const MyRecipes = () => {
     useEffect(() => {
         if (recipes && likedRecipes) {
             setAllRecipes(recipes.concat(likedRecipes));
-        } 
+        }
     }, [recipes, likedRecipes]);
 
     return (
-        <main>
+        <div>
             <h1 className="page__title">
                 Mina recept <Cabbage className="icon" />
             </h1>
-            {error || errorLikes ? (<p>Problem med att ladda recept...</p>) : ''}
-            {loading || loadingLikes ? (<Loading />) : ''}
+            {error || errorLikes ? <p>Problem med att ladda recept...</p> : ""}
+            {loading || loadingLikes ? <Loading /> : ""}
             <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
             {allRecipes.length !== 0 ? (
-                <div className="cards">
+                <section className="cards">
                     {allRecipes.map((recipe) => (
                         <RecipeCard
                             recipe={recipe}
@@ -55,14 +55,12 @@ const MyRecipes = () => {
                             handleDislike={handleDislike}
                         />
                     ))}
-                </div>
+                </section>
             ) : (
-                !loading && !loadingLikes && (
-                    <NoRecipes vegan={vegan}/>
-                )
+                !loading && !loadingLikes && <NoRecipes vegan={vegan} />
             )}
             <AddRecipeButton />
-        </main>
+        </div>
     );
 };
 

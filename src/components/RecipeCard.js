@@ -56,7 +56,7 @@ const RecipeCard = ({ recipe, handleDislike }) => {
             });
     };
 
-    const addLikeToRecipe = (docRef) => {
+    const addLikeToRecipe = () => {
         db.collection("likes")
             .add({
                 liker: currentUser.uid,
@@ -65,8 +65,8 @@ const RecipeCard = ({ recipe, handleDislike }) => {
             .then(() => {
                 getLikesForRecipe();
             })
-            .catch((err) => {
-                console.log("err", err);
+            .catch((error) => {
+                console.error(error);
             });
     };
 
@@ -86,16 +86,13 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                             getLikesForRecipe();
                             handleDislike();
                         })
-                        .catch((err) => {
-                            console.log(
-                                "Sorry, could not remove like from recipe",
-                                err
-                            );
+                        .catch((error) => {
+                            console.error(error);
                         });
                 });
             })
-            .catch((err) => {
-                console.log("could not remove like from recipe", err);
+            .catch((error) => {
+                console.error(error);
             });
     };
 
@@ -144,15 +141,15 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                                         addLikeToRecipe();
                                     }
                                 })
-                                .catch((err) => {
-                                    console.log("err", err);
+                                .catch((error) => {
+                                    console.error(error);
                                 });
                         } else {
                             addLikeToRecipe();
                         }
                     })
-                    .catch((err) => {
-                        console.log("error", err);
+                    .catch((error) => {
+                        console.error(error);
                     });
             } else if (like === false) {
                 deleteLikeFromRecipe();
@@ -161,8 +158,8 @@ const RecipeCard = ({ recipe, handleDislike }) => {
     }, [like]);
 
     return (
-        <div className="card">
-            <div className="card__wrapper">
+        <article className="card">
+
                 {recipe.vegan && <p className="card__flag">Veganskt</p>}
                 <Link to={`/my-recipes/${recipe.id}`} className="card__link">
                     {recipe.photoUrl ? (
@@ -212,8 +209,8 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                         ""
                     )}
                 </div>
-            </div>
-        </div>
+
+        </article>
     );
 };
 
