@@ -1,13 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
 import avocado from "../assets/images/avocado.png";
 import Loading from "./Loading";
 import FormButton from "./FormButton";
 import InputMail from "./InputMail";
+import InputPassword from "./InputPassword";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -50,20 +48,7 @@ const Login = () => {
                         <h2 className="form__heading">Logga in!</h2>
                         <div className="form__inputs">
                             <InputMail emailRef={emailRef} />
-
-                            <div className="form__input-wrapper">
-                                <FontAwesomeIcon
-                                    icon={faLock}
-                                    className="form__icon"
-                                />
-                                <input
-                                    type="password"
-                                    ref={passwordRef}
-                                    required
-                                    placeholder="Lösenord"
-                                    className="form__input form__input-account"
-                                />
-                            </div>
+                            <InputPassword passwordRef={passwordRef}/>
                         </div>
                         <FormButton loading={loading}>Logga in</FormButton>
 
