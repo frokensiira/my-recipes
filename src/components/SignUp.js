@@ -5,6 +5,7 @@ import avocado from "../assets/images/avocado.png";
 import { ReactComponent as User } from "../assets/user.svg";
 import { ReactComponent as Password } from "../assets/password.svg";
 import { ReactComponent as Mail } from "../assets/mail.svg";
+import FormButton from "./FormButton";
 import Loading from "./Loading";
 
 const SignUp = () => {
@@ -114,15 +115,7 @@ const SignUp = () => {
                                 />
                             </div>
                         </div>
-                        <div className="form__button">
-                            <button
-                                disabled={loading}
-                                className="button"
-                                type="submit"
-                            >
-                                Skapa konto
-                            </button>
-                        </div>
+                        <FormButton loading={loading}>Skapa konto</FormButton>
                         <div className="form__text">
                             <p>
                                 Har du redan ett konto? &nbsp;

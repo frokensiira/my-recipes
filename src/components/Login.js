@@ -6,6 +6,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import avocado from "../assets/images/avocado.png";
 import Loading from "./Loading";
+import FormButton from "./FormButton";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -31,12 +32,9 @@ const Login = () => {
     return (
         <>
             <h1 className="page__title">Logga in</h1>
-            {loading && (
-                <Loading/>
-            )}
+            {loading && <Loading />}
             <div className="form__wrapper">
                 <div className="form">
-
                     <div className="form__image-wrapper">
                         <h1 className="form__heading">Välkommen tillbaka!</h1>
                         <p className="form__text">
@@ -44,7 +42,7 @@ const Login = () => {
                             sist och glöm inte att lägga in dina senaste
                             favoriter.
                         </p>
-                        <img src={avocado} className="form__image" alt=""/>
+                        <img src={avocado} className="form__image" alt="" />
                     </div>
 
                     <form onSubmit={handleSubmit}>
@@ -78,19 +76,11 @@ const Login = () => {
                                 />
                             </div>
                         </div>
-
-                        <div className="form__button">
-                            <button
-                                disabled={loading}
-                                type="submit"
-                                className="button"
-                            >
-                                Logga in
-                            </button>
-                        </div>
+                        <FormButton loading={loading}>Logga in</FormButton>
 
                         <p className="form__text">
-                            Har du inget konto?&nbsp; <Link to="/signup">Skapa konto</Link>
+                            Har du inget konto?&nbsp;{" "}
+                            <Link to="/signup">Skapa konto</Link>
                         </p>
                     </form>
                 </div>
