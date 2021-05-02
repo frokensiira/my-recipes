@@ -201,15 +201,13 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                     </div>
 
                     {currentUser && currentUser.uid !== recipe.creator ? (
-                        like ? (
-                            <div className="card__heart">
+                        <div className="card__heart">
+                            {like ? (
                                 <HeartFilled onClick={handleLike} />
-                            </div>
-                        ) : (
-                            <div className="card__heart">
+                            ) : (
                                 <Heart onClick={handleLike} />
-                            </div>
-                        )
+                            )}
+                        </div>
                     ) : (
                         ""
                     )}
