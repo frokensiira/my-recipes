@@ -43,8 +43,16 @@
     position: absolute;
     z-index: 2;
     color: #fff;
-    top: 25%;
+    bottom: 15%;
     font-weight: 400;
+}
+
+.recipe-form__icon-plus {
+    position: absolute;
+    z-index: 2;
+    fill: #fff;
+    height: 4rem;
+    width: auto;
 }
 
 .recipe-form__label {
@@ -84,14 +92,6 @@
 
 .recipe-form__dropzone-message:not(:last-child) {
     margin-bottom: 0;
-}
-
-.recipe-form__icon-plus {
-    position: absolute;
-    z-index: 2;
-    fill: #fff;
-    height: 4rem;
-    width: auto;
 }
 
 .recipe-form__checkbox-wrapper {
@@ -236,12 +236,6 @@ button.recipe-form__submit-button {
     }
 }
 
-@media (max-width: 821px) { 
-    .recipe-form__image {
-        margin-bottom: 1rem;
-    }
-}
-
 @media (max-width: 821px) {
     .recipe-form {
         margin-left: var(--page-margin);
@@ -261,10 +255,30 @@ button.recipe-form__submit-button {
     .recipe-form__dropzone {
         margin-bottom: 1rem;
     }
+
+    .recipe-form__image {
+        margin-bottom: 1rem;
+    }
+
+    .recipe-form__image-text {
+        bottom: 25%;
+    }
+}
+
+@media (max-width: 600px) {
+    .recipe-form__image-text {
+        bottom: 15%;
+    }
+}
+
+@media (max-width: 400px) {
+    .recipe-form__image-text {
+        bottom: 5%;
+    }
 }
 
 @media (max-width: 340px) {
     button.recipe-form__submit-button {
         width: 100%;
-    }
+    }    
 }
