@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const useMyRecipes = (vegan) => {
     const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [recipes, setRecipes] = useState([]);
     const { currentUser } = useAuth();
 
@@ -20,7 +20,6 @@ const useMyRecipes = (vegan) => {
 
         //subscribe to the users own created recipes
         const unsubscribe = query.orderBy("name").onSnapshot((snapshot) => {
-            setLoading(true);
             const myRecipes = [];
             snapshot.forEach((doc) => {
                 myRecipes.push({

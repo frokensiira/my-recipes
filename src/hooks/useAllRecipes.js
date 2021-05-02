@@ -13,7 +13,6 @@ const useAllRecipes = (vegan) => {
 
         //subscribe to recipe snapshots from firebase to update component whenever something changes
         const unsubscribe = query.orderBy("name").onSnapshot((snapshot) => {
-            setLoading(true);
             const myRecipes = [];
 
             snapshot.forEach((doc) => {

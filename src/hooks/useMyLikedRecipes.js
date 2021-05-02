@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const useMyRecipes = (vegan) => {
     const [errorLikes, setErrorLikes] = useState(false);
-    const [loadingLikes, setLoadingLikes] = useState(false);
+    const [loadingLikes, setLoadingLikes] = useState(true);
     const [likedRecipes, setLikedRecipes] = useState([]);
     const [disLiked, setDisLiked] = useState(false);
     const { currentUser } = useAuth();
@@ -61,7 +61,6 @@ const useMyRecipes = (vegan) => {
             .where("liker", "==", currentUser.uid)
             .get()
             .then((querySnapshot) => {
-                setLoadingLikes(true);
                 querySnapshot.forEach((doc) => {
                     likedRecipeList.push({
                         ...doc.data(),
