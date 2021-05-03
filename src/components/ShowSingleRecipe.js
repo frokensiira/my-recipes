@@ -355,19 +355,18 @@ const ShowSingleRecipe = () => {
                                                 </p>
                                             </div>
 
-                                            {like ? (
-                                                <div className="card__heart">
+                                            <div className="card__heart">
+                                                {like ? (
                                                     <HeartFilled
                                                         onClick={handleLike}
                                                     />
-                                                </div>
-                                            ) : (
-                                                <div className="card__heart">
+                                                ) : (
                                                     <Heart
                                                         onClick={handleLike}
                                                     />
-                                                </div>
-                                            )}
+                                                )}
+                                            </div>
+
                                         </div>
                                     )}
 
