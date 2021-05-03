@@ -264,23 +264,21 @@ const ShowSingleRecipe = () => {
                                             className="recipe__image"
                                             alt="food"
                                         />
-                                        {recipe.vegan && <p className="card__flag">Veganskt</p>}
+                                        {recipe.vegan && (
+                                            <p className="card__flag">
+                                                Veganskt
+                                            </p>
+                                        )}
                                     </a>
                                 </SRLWrapper>
                             ) : (
-                                <SRLWrapper>
-                                    <a
-                                        href={recipe.photoUrl}
-                                        title="Visa bild"
-                                        data-attribute="SRL"
-                                    >
-                                        <img
-                                            src={foodPlaceholder}
-                                            className="recipe__image"
-                                            alt="plate"
-                                        />
-                                    </a>
-                                </SRLWrapper>
+                                <div className="recipe_image-link">
+                                    <img
+                                        src={foodPlaceholder}
+                                        className="recipe__image"
+                                        alt="plate"
+                                    />
+                                </div>
                             )}
 
                             <div className="recipe__content">
@@ -358,7 +356,6 @@ const ShowSingleRecipe = () => {
                                                     />
                                                 )}
                                             </div>
-
                                         </div>
                                     )}
 
