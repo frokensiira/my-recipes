@@ -27,6 +27,12 @@
     margin-bottom: 1rem;
 }
 
+.form__input:focus {
+    outline: none;
+    border: 2px solid var(--secondary);
+    background-color: #f9f9f9;
+}
+
 .form-input__container {
     display: inline-block;
     position: relative;
@@ -83,7 +89,7 @@
 }
 
 .form__image-wrapper {
-    background-color: #e7f0ef;
+    background-color: var(--light-green);
     display: flex;
     flex-direction: column;
     justify-content: center;

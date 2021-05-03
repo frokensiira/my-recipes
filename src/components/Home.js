@@ -26,8 +26,8 @@ const Home = () => {
                         <div className="banner__text-area">
                             <motion.h1
                                 className="banner__heading"
-                                initial={{ y: 10, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
+                                initial={{ x: -20, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
                                 transition={{ delay: 0.1, duration: 1 }}
                             >
                                 My Veggie Recipes

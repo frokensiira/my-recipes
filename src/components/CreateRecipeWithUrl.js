@@ -9,6 +9,7 @@ import ImageUpload from "./ImageUpload";
 import RecipeFormDescription from "./RecipeFormDescription";
 import VeganCheckbox from "./VeganCheckbox";
 import RecipeSubmitButton from "./RecipeSubmitButton";
+import PageTitle from "./PageTitle";
 
 const CreateRecipeWithUrl = () => {
     const [submit, setSubmit] = useState(null);
@@ -180,10 +181,10 @@ const CreateRecipeWithUrl = () => {
 
     return (
         <>
-            <h1 className="page__title">
+            <PageTitle>
                 Skapa recept
                 <Artichoke className="icon" />
-            </h1>
+            </PageTitle>
             <StepCounter />
             <form className="recipe-form" onSubmit={handleSubmit}>
                 {loading && (

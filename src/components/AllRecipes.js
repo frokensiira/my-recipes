@@ -6,6 +6,7 @@ import Filter from "./Filter";
 import useAllRecipes from "../hooks/useAllRecipes";
 import Loading from "./Loading";
 import NoRecipes from "./NoRecipes";
+import PageTitle from "./PageTitle";
 
 const AllRecipes = () => {
     const [vegan, setVegan] = useState(false);
@@ -25,9 +26,8 @@ const AllRecipes = () => {
 
     return (
         <main>
-            <h1 className="page__title">
-                Recept <Broccoli className="icon" />
-            </h1>
+            <PageTitle>Recept <Broccoli className="icon" /></PageTitle>
+            
             {loading && <Loading />}
             <div className="page">
                 <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />

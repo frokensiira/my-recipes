@@ -19,6 +19,8 @@
 
     --primary: var(--light-pink);
     --secondary: var(--dark-green);
+
+    --background-input: #F5F9F8;
 }
 
 .original {

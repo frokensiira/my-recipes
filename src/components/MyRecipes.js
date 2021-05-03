@@ -7,6 +7,7 @@ import AddRecipeButton from "./AddRecipeButton";
 import Filter from "./Filter";
 import Loading from "./Loading";
 import NoRecipes from "./NoRecipes";
+import PageTitle from "./PageTitle";
 
 const MyRecipes = () => {
     const [vegan, setVegan] = useState(false);
@@ -39,9 +40,9 @@ const MyRecipes = () => {
 
     return (
         <main>
-            <h1 className="page__title">
+            <PageTitle>
                 Mina recept <Cabbage className="icon" />
-            </h1>
+            </PageTitle>
             {error || errorLikes ? <p>Problem med att ladda recept...</p> : ""}
             {loading || loadingLikes ? <Loading /> : ""}
 

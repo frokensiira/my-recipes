@@ -9,6 +9,7 @@ import ImageUpload from "./ImageUpload";
 import VeganCheckbox from "./VeganCheckbox";
 import Dropzone from "./Dropzone";
 import RecipeSubmitButton from "./RecipeSubmitButton";
+import PageTitle from "./PageTitle";
 
 const CreateRecipeWithFile = () => {
     const [photo, setPhoto] = useState(null);
@@ -191,9 +192,9 @@ const CreateRecipeWithFile = () => {
 
     return (
         <div>
-            <h1 className="page__title">
+            <PageTitle>
                 Skapa recept <Artichoke className="icon" />
-            </h1>
+            </PageTitle>
             <StepCounter />
             <form onSubmit={handleSubmit} className="recipe-form">
                 {loading && <Loading />}
