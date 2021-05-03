@@ -6,6 +6,7 @@ import FormButton from "./FormButton";
 import Loading from "./Loading";
 import InputMail from "./InputMail";
 import InputPassword from "./InputPassword";
+import { motion } from "framer-motion";
 
 const SignUp = () => {
     const usernameRef = useRef();
@@ -43,10 +44,13 @@ const SignUp = () => {
     return (
         <>
             <h1 className="page__title">Skapa konto</h1>
-            {loading && (
-                <Loading/>
-            )}
-            <div className="form__wrapper">
+            {loading && <Loading />}
+            <motion.div
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.1, duration: 1 }}
+                className="form__wrapper"
+            >
                 <div className="form">
                     {error && <div className="">{error}</div>}
 
@@ -66,7 +70,7 @@ const SignUp = () => {
                         <h2 className="form__heading">Registrera mig!</h2>
                         <div className="form__inputs">
                             <div className="form__input-wrapper" htmlFor="name">
-                            <div className="form-input__user form-input__container"></div>
+                                <div className="form-input__user form-input__container"></div>
                                 <input
                                     className="form__input form__input-account"
                                     type="text"
@@ -77,9 +81,9 @@ const SignUp = () => {
                                 />
                             </div>
 
-                            <InputMail emailRef={emailRef}/>
-                            <InputPassword passwordRef={passwordRef}/>
-                            <InputPassword passwordRef={passwordConfirmRef}/>
+                            <InputMail emailRef={emailRef} />
+                            <InputPassword passwordRef={passwordRef} />
+                            <InputPassword passwordRef={passwordConfirmRef} />
                         </div>
                         <FormButton loading={loading}>Skapa konto</FormButton>
                         <div className="form__text">
@@ -92,7 +96,7 @@ const SignUp = () => {
                         </div>
                     </form>
                 </div>
-            </div>
+            </motion.div>
         </>
     );
 };

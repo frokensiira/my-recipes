@@ -10,7 +10,7 @@
     align-items: center;
     position: relative;
     z-index: 5;
-    margin-bottom: 1rem;
+    padding-bottom: 1rem;
 }
 
 .navbar__nav {

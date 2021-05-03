@@ -6,6 +6,7 @@ import { ReactComponent as Heart } from "../assets/heart.svg";
 import { ReactComponent as HeartFilled } from "../assets/heart-filled.svg";
 import profilePlaceholder from "../assets/profile-placeholder.svg";
 import { db } from "../firebase";
+import { motion } from "framer-motion";
 
 const RecipeCard = ({ recipe, handleDislike }) => {
     const { currentUser } = useAuth();
@@ -158,58 +159,61 @@ const RecipeCard = ({ recipe, handleDislike }) => {
     }, [like]);
 
     return (
-        <article className="card">
+        <motion.article
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.1, duration: 1 }}
+            className="card"
+        >
+            {recipe.vegan && <p className="card__flag">Veganskt</p>}
+            <Link to={`/my-recipes/${recipe.id}`} className="card__link">
+                {recipe.photoUrl ? (
+                    <img
+                        src={recipe.photoUrl}
+                        className="card__image"
+                        alt="presentation"
+                    />
+                ) : (
+                    <img
+                        src={foodPlaceholder}
+                        id="placeholder"
+                        className="card__image"
+                        alt="plate with cutlery"
+                    />
+                )}
 
-                {recipe.vegan && <p className="card__flag">Veganskt</p>}
-                <Link to={`/my-recipes/${recipe.id}`} className="card__link">
-                    {recipe.photoUrl ? (
-                        <img
-                            src={recipe.photoUrl}
-                            className="card__image"
-                            alt="presentation"
-                        />
-                    ) : (
-                        <img
-                            src={foodPlaceholder}
-                            id="placeholder"
-                            className="card__image"
-                            alt="plate with cutlery"
-                        />
-                    )}
+                <h1 className="card__title">{recipe.name}</h1>
+            </Link>
 
-                    <h1 className="card__title">{recipe.name}</h1>
-                </Link>
-
-                <div className="card__footer">
-                    <div className="card__likes">
-                        <p>{likes.length} gillar</p>
-                    </div>
-
-                    <div className="card__footer-owner">
-                        <img
-                            className="card__profile-image"
-                            src={profilePlaceholder}
-                            alt="presentation"
-                        />
-                        <p className="card__footer-name">
-                            {recipe.creatorUsername}
-                        </p>
-                    </div>
-
-                    {currentUser && currentUser.uid !== recipe.creator ? (
-                        <div className="card__heart">
-                            {like ? (
-                                <HeartFilled onClick={handleLike} />
-                            ) : (
-                                <Heart onClick={handleLike} />
-                            )}
-                        </div>
-                    ) : (
-                        ""
-                    )}
+            <div className="card__footer">
+                <div className="card__likes">
+                    <p>{likes.length} gillar</p>
                 </div>
 
-        </article>
+                <div className="card__footer-owner">
+                    <img
+                        className="card__profile-image"
+                        src={profilePlaceholder}
+                        alt="presentation"
+                    />
+                    <p className="card__footer-name">
+                        {recipe.creatorUsername}
+                    </p>
+                </div>
+
+                {currentUser && currentUser.uid !== recipe.creator ? (
+                    <div className="card__heart">
+                        {like ? (
+                            <HeartFilled onClick={handleLike} />
+                        ) : (
+                            <Heart onClick={handleLike} />
+                        )}
+                    </div>
+                ) : (
+                    ""
+                )}
+            </div>
+        </motion.article>
     );
 };
 

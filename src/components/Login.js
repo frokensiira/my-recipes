@@ -6,6 +6,7 @@ import Loading from "./Loading";
 import FormButton from "./FormButton";
 import InputMail from "./InputMail";
 import InputPassword from "./InputPassword";
+import { motion } from "framer-motion";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -29,10 +30,15 @@ const Login = () => {
     };
 
     return (
-        <main className="page">
+        <main>
             <h1 className="page__title">Logga in</h1>
             {loading && <Loading />}
-            <div className="form__wrapper">
+            <motion.div
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.1, duration: 1 }}
+                className="form__wrapper"
+            >
                 <div className="form">
                     <div className="form__image-wrapper">
                         <h1 className="form__heading">Välkommen tillbaka!</h1>
@@ -48,7 +54,7 @@ const Login = () => {
                         <h2 className="form__heading">Logga in!</h2>
                         <div className="form__inputs">
                             <InputMail emailRef={emailRef} />
-                            <InputPassword passwordRef={passwordRef}/>
+                            <InputPassword passwordRef={passwordRef} />
                         </div>
                         <FormButton loading={loading}>Logga in</FormButton>
 
@@ -58,7 +64,7 @@ const Login = () => {
                         </p>
                     </form>
                 </div>
-            </div>
+            </motion.div>
         </main>
     );
 };

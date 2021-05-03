@@ -2,9 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    margin-bottom: 2rem;
-    margin-left: var(--page-margin);
-    margin-right: var(--page-margin);
+    padding: 2rem var(--page-margin);
 }
 
 .banner__text-area {
@@ -18,7 +16,6 @@
     font-weight: 800;
     font-size: 5rem;
     line-height: 5rem;
-    
 }
 
 .banner__heading:not(:last-child) {
@@ -45,21 +42,21 @@
     transform: rotate(-15deg);
 }
 
-@media(min-width: 2309px) {
+@media (min-width: 2309px) {
     .banner {
-        margin-left: calc(4 * var(--page-margin));
-        margin-right: calc(4 * var(--page-margin));
+        padding-left: calc(4 * var(--page-margin));
+        padding-right: calc(4 * var(--page-margin));
     }
 }
 
-@media(max-width: 2308px) {
+@media (max-width: 2308px) {
     .banner {
-        margin-left: calc(3 * var(--page-margin));
-        margin-right: calc(3 * var(--page-margin));
+        padding-left: calc(3 * var(--page-margin));
+        padding-right: calc(3 * var(--page-margin));
     }
 }
 
-@media(min-width: 1156px) {
+@media (min-width: 1156px) {
     .banner__image--mobile svg {
         display: none;
     }
@@ -71,9 +68,9 @@
     }
 }
 
-@media(max-width: 1155px) {
+@media (max-width: 1155px) {
     .banner {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
     }
 
     .banner__image--desktop svg {
@@ -83,7 +80,7 @@
     .banner__image--mobile svg {
         height: 35vw;
         width: auto;
-        margin-bottom: 2rem;
+        padding-bottom: 2rem;
     }
 
     .banner__text-area {
@@ -91,14 +88,14 @@
     }
 }
 
-@media(max-width: 890px) {
+@media (max-width: 890px) {
     .banner {
-        margin-left: var(--page-margin);
-        margin-right: var(--page-margin);
+        padding-left: var(--page-margin);
+        padding-right: var(--page-margin);
     }
 }
 
-@media(max-width: 680px) {
+@media (max-width: 680px) {
     .banner__heading {
         font-size: 3.5rem;
         line-height: 3.5rem;

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import AllRecipes from "./AllRecipes";
 import { ReactComponent as Banner } from "../assets/banner.svg";
 import Loading from "./Loading";
+import { motion } from "framer-motion";
 
 const Home = () => {
     const { currentUser, loading } = useAuth();
@@ -23,17 +24,27 @@ const Home = () => {
                 ) : (
                     <>
                         <div className="banner__text-area">
-                            <h1 className="banner__heading">
+                            <motion.h1
+                                className="banner__heading"
+                                initial={{ y: 10, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.1, duration: 1 }}
+                            >
                                 My Veggie Recipes
-                            </h1>
+                            </motion.h1>
                             <div className="banner__image banner__image--mobile">
                                 <Banner />
                             </div>
-                            <p className="banner__text">
+                            <motion.p
+                                initial={{ y: 10, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.1, duration: 1 }}
+                                className="banner__text"
+                            >
                                 Skapa och inspireras av nya vegetariska recept!
                                 Skapa konto för att kunna lägga in dina
                                 favoritrecept eller spara andras.
-                            </p>
+                            </motion.p>
 
                             <Link className="button link" to={`/signup`}>
                                 Skapa konto
