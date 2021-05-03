@@ -5,7 +5,7 @@
     background-color: rgba(255, 255, 255, 0.815);
     box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
     padding: 2rem;
-    gap: 2rem;
+    gap: 3rem;
     max-width: 40rem;
 }
 
@@ -14,13 +14,12 @@
     width: 100%;
     max-width: 35vw;
     height: auto;
-    max-height: 20rem;
+    max-height: 15rem;
     object-fit: cover;
     position: relative;
 }
 
 .recipe__content {
-    padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -32,6 +31,7 @@
 
 .recipe__heading {
     font-size: 1.5rem;
+    line-height: 110%;
 }
 
 .recipe__text {
@@ -64,6 +64,7 @@
     color: #fff;
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius);
+    display: inline-block;
 }
 
 .recipe__link-icon {
@@ -88,12 +89,13 @@
 
 .recipe__buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .recipe__delete-button {
     background-color: var(--red);
     letter-spacing: 0;
+    margin-right: 0.5rem;
 }
 
 .recipe__edit-link {

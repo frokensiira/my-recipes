@@ -1,5 +1,4 @@
 import React from "react";
-import { ReactComponent as Password } from "../assets/password.svg";
 
 const InputPassword = ({ passwordRef }) => {
     return (
