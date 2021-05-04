@@ -12,7 +12,7 @@
 .card {
     background-color: #fff;
     overflow: hidden;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -55,36 +55,28 @@
     text-align: center;
 }
 
-.card__likes {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    font-size: 0.9rem;
-}
-
 .card__footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-bottom: 1rem;
 }
 
 .card__footer-owner {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
     display: flex;
     align-items: center;
-
 }
 
 .card__profile-image {
-    width: 2rem;
-    height: auto;
+    width: auto;
+    height: 1.5rem;
     border-radius: 50%;
     margin: 0.5rem;
     margin-left: 1rem;
 }
 
-.card__footer-name {
+.card__footer-name,
+.card__footer-likes {
     font-size: 0.8rem;
 }
 
@@ -120,17 +112,15 @@
         font-size: 0.8rem;
     }
 
-    .card__profile-image {
-        width: 1.5rem;
-        margin: 0.2rem auto;
+    .card__profile-image,
+    .card__heart svg {
+        height: 1rem;
+        margin-right: 0.3rem;
     }
 
-    .card__footer-name {
+    .card__footer-name,
+    .card__footer-likes {
         font-size: 0.7rem;
-    }
-
-    .card__likes {
-        font-size: 0.6rem;
     }
 
     .card__heart svg {
@@ -150,8 +140,8 @@
     }
 
     .card__footer-name,
-    .card__title,
-    .card__likes p {
+    .card__footer-likes,
+    .card__title {
         font-size: 0.5rem;
     }
 
@@ -159,19 +149,13 @@
         padding: 0.5rem;
     }
 
-    .card__profile-image {
-        width: 1.2rem;
-    }
-
     .card__flag {
         font-size: 0.5rem;
     }
 
-    .card__footer-owner {
-        padding-top: 0;
-    }
-
-    .card__heart svg {
+    .card__heart svg,
+    .card__profile-image {
         height: 0.8rem;
+        margin-right: 0.2rem;
     }
 }
