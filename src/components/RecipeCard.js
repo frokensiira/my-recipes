@@ -158,27 +158,14 @@ const RecipeCard = ({ recipe, handleDislike }) => {
     }, [like]);
 
     return (
-        <article
-            
-            className="card"
-        >
+        <article className="card">
             {recipe.vegan && <p className="card__flag">Veganskt</p>}
             <Link to={`/my-recipes/${recipe.id}`} className="card__link">
-                {recipe.photoUrl ? (
-                    <img
-                        src={recipe.photoUrl}
-                        className="card__image"
-                        alt="presentation"
-                    />
-                ) : (
-                    <img
-                        src={foodPlaceholder}
-                        id="placeholder"
-                        className="card__image"
-                        alt="plate with cutlery"
-                    />
-                )}
-
+                <img
+                    src={recipe.photoUrl ? recipe.photoUrl : foodPlaceholder}
+                    className="card__image"
+                    alt=""
+                />
                 <h1 className="card__title">{recipe.name}</h1>
             </Link>
 
@@ -193,7 +180,6 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                         {recipe.creatorUsername}
                     </p>
                 </div>
-                
 
                 {currentUser && currentUser.uid !== recipe.creator ? (
                     <div className="card__heart">
