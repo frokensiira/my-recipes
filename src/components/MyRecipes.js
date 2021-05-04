@@ -8,6 +8,7 @@ import Filter from "./Filter";
 import Loading from "./Loading";
 import NoRecipes from "./NoRecipes";
 import PageTitle from "./PageTitle";
+import { motion } from "framer-motion";
 
 const MyRecipes = () => {
     const [vegan, setVegan] = useState(false);
@@ -50,7 +51,9 @@ const MyRecipes = () => {
                 <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
                 {allRecipes.length !== 0 ? (
-                    <section className="cards">
+                    <motion.section initial={{ y: 10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.3, duration: 1 }}className="cards">
                         {allRecipes.map((recipe) => (
                             <RecipeCard
                                 recipe={recipe}
@@ -58,7 +61,7 @@ const MyRecipes = () => {
                                 handleDislike={handleDislike}
                             />
                         ))}
-                    </section>
+                    </motion.section>
                 ) : (
                     !loading && !loadingLikes && <NoRecipes vegan={vegan} />
                 )}

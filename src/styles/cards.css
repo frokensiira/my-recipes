@@ -63,42 +63,46 @@
 }
 
 .card__footer {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card__footer-owner {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: flex;
+    align-items: center;
+
 }
 
 .card__profile-image {
     width: 2rem;
     height: auto;
     border-radius: 50%;
-    margin: 0.2rem auto;
+    margin: 0.5rem;
+    margin-left: 1rem;
 }
 
 .card__footer-name {
     font-size: 0.8rem;
-    margin: 0 auto;
-}
-
-.card__footer-owner {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    grid-column: 2/3;
-    display: flex;
-    flex-direction: column;
 }
 
 .card__heart {
     display: flex;
     align-items: center;
-    grid-column: 3/4;
 }
 
 .card__heart svg {
     height: 1.5rem;
-    margin: 0 auto;
+    margin: 0.5rem;
     cursor: pointer;
     fill: var(--red);
     display: block;
+}
+
+.card__footer-likes {
+    margin-right: 1rem;
 }
 
 @media (max-width: 1150px) {

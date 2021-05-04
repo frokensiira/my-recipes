@@ -23,7 +23,7 @@ const Dropzone = ({recipe, file, setLoading, setError, deleteFileFromStorage, ad
                 addFileToStorage(acceptedFile[0]);
             }
         },
-        [file]
+        [file, addFileToStorage, deleteFileFromStorage, setError, setLoading]
     );
 
     const {

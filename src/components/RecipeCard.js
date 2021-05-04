@@ -6,7 +6,6 @@ import { ReactComponent as Heart } from "../assets/heart.svg";
 import { ReactComponent as HeartFilled } from "../assets/heart-filled.svg";
 import profilePlaceholder from "../assets/profile-placeholder.svg";
 import { db } from "../firebase";
-import { motion } from "framer-motion";
 
 const RecipeCard = ({ recipe, handleDislike }) => {
     const { currentUser } = useAuth();
@@ -159,10 +158,8 @@ const RecipeCard = ({ recipe, handleDislike }) => {
     }, [like]);
 
     return (
-        <motion.article
-            initial={{ y: 10, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.1, duration: 1 }}
+        <article
+            
             className="card"
         >
             {recipe.vegan && <p className="card__flag">Veganskt</p>}
@@ -186,10 +183,6 @@ const RecipeCard = ({ recipe, handleDislike }) => {
             </Link>
 
             <div className="card__footer">
-                <div className="card__likes">
-                    <p>{likes.length} gillar</p>
-                </div>
-
                 <div className="card__footer-owner">
                     <img
                         className="card__profile-image"
@@ -200,6 +193,7 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                         {recipe.creatorUsername}
                     </p>
                 </div>
+                
 
                 {currentUser && currentUser.uid !== recipe.creator ? (
                     <div className="card__heart">
@@ -208,12 +202,13 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                         ) : (
                             <Heart onClick={handleLike} />
                         )}
+                        <p className="card__footer-likes">{likes.length}</p>
                     </div>
                 ) : (
                     ""
                 )}
             </div>
-        </motion.article>
+        </article>
     );
 };
 

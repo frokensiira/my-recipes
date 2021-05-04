@@ -46,7 +46,12 @@ const Home = () => {
                                 favoritrecept eller spara andras.
                             </motion.p>
 
-                            <Link className="button link" to={`/signup`}>
+                            <Link
+                                whileHover={{ scale: 1.02 }}
+                                transition={{ duration: 0.4 }}
+                                className="button link"
+                                to={`/signup`}
+                            >
                                 Skapa konto
                             </Link>
                         </div>
