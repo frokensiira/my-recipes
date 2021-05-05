@@ -5,10 +5,10 @@
 .navbar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     position: relative;
     z-index: 5;
-    padding-bottom: 2rem;
+    padding: 2rem var(--page-margin);
 }
 
 .navbar__nav {
@@ -22,13 +22,11 @@
     font-size: 0.8rem;
     font-weight: 700;
     text-decoration: none;
-    margin-left: var(--page-margin);
-    margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
-    padding-top: 0.5rem;
     text-transform: uppercase;
     white-space: nowrap;
+    margin-bottom: 0.2rem;
 }
 
 .navbar__logo svg {
@@ -40,8 +38,6 @@
 .navbar__nav-items {
     display: flex;
     justify-content: space-around;
-    margin-right: var(--page-margin);
-    margin-top: 4.4rem;
     align-items: center;
     text-transform: uppercase;
 }
@@ -124,6 +120,12 @@
     margin-right: 0.3rem;
 }
 
+.navbar__login-icon {
+    cursor: pointer;
+    height: 1rem;
+    margin-right: 0.5rem;
+}
+
 @media (max-width: 1024px) {
     .navbar__nav-links {
         width: 50%;
@@ -162,7 +164,15 @@
     .navbar__logo {
         font-size: 0.5rem;
     }
+
+    .navbar__logo svg {
+        margin-bottom: 0;
+    } 
     .navbar__logotext {
         display: none;
+    }
+
+    .navbar__nav-link {
+        font-size: 0.8rem;
     }
 }

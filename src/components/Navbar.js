@@ -51,10 +51,7 @@ const Navbar = () => {
                 ) : (
                     <li className="navbar__nav-item">
                         <NavLink to={`/login`} className="navbar__nav-link">
-                            <FontAwesomeIcon
-                                icon={faUser}
-                                className="navbar__icon"
-                            />
+                            <User className="navbar__login-icon"/>
                             Logga in
                         </NavLink>
                     </li>
