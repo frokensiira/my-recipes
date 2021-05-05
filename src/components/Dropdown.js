@@ -25,7 +25,7 @@ function Dropdown () {
 
             {showDropdown && (
                 <ul className="navbar__dropdown">
-                    <li className="navbar__nav-item navbar__nav-item--mobile">
+                    <li className="navbar__nav-item--mobile">
                         <NavLink
                             to={`/my-recipes`}
                             className="navbar__nav-link"
@@ -33,7 +33,7 @@ function Dropdown () {
                             Mina recept
                         </NavLink>
                     </li>
-                    <li className="navbar__nav-item navbar__nav-item--mobile">
+                    <li className="navbar__nav-item--mobile">
                         <NavLink
                             to={`/my-recipes/create-recipe`}
                             className="navbar__nav-link"
@@ -41,7 +41,7 @@ function Dropdown () {
                             Skapa recept
                         </NavLink>
                     </li>
-                    <li className="navbar__nav-item">
+                    <li className="navbar__nav-item--mobile">
                         <NavLink to={`/logout`} className="navbar__nav-link">
                             Logga ut
                         </NavLink>

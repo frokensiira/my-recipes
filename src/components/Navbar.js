@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import Dropdown from "./Dropdown";
+import { ReactComponent as User } from "../assets/user.svg";
 
 const Navbar = () => {
     const { currentUser } = useAuth();

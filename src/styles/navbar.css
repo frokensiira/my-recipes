@@ -2,15 +2,13 @@
  * Navbar styles
  */
 
-@import "./variables.css";
-
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
     z-index: 5;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
 }
 
 .navbar__nav {
@@ -19,7 +17,7 @@
 
 .navbar__logo {
     color: black;
-    font-family: 'Sue Ellen Francisco', cursive;
+    font-family: "Sue Ellen Francisco", cursive;
     letter-spacing: 3px;
     font-size: 0.8rem;
     font-weight: 700;
@@ -46,11 +44,10 @@
     margin-top: 4.4rem;
     align-items: center;
     text-transform: uppercase;
-}   
+}
 
 .navbar__nav-link {
-    color: #000000;
-    /* color: var(--dark-green); */
+    color: #000;
     text-decoration: none;
     letter-spacing: 3px;
     font-weight: 500;
@@ -58,8 +55,11 @@
     white-space: nowrap;
 }
 
-.navbar__nav-item {
+.navbar li {
     list-style: none;
+}
+
+.navbar__nav-item {
     padding-right: 1vw;
     padding-left: 1vw;
 }
@@ -69,32 +69,29 @@
 }
 
 .navbar__profile-button {
-    background-color: var(--light-pink);
     background-color: transparent;
     border: none;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: absolute;
-    top: -1.1rem;
 }
 
 .navbar__dropdown {
     position: absolute;
-    top: 1rem;
-    background-color: var(--light-yellow);
+    top: 2rem;
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
 .navbar__dropdown li {
     padding: 0.5rem 1rem;
 }
 
-.navbar__nav-item a {
+.navbar__nav-item > a {
     position: relative;
     padding-bottom: 0.5em;
 }
 
-.navbar__nav-item a::after {
+.navbar__nav-item > a::after {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -108,7 +105,7 @@
     transition: all 0.5s;
 }
 
-.navbar__nav-item a:hover::after {
+.navbar__nav-item > a:hover::after {
     width: 100%;
 }
 
@@ -150,14 +147,14 @@
 
     .navbar {
         justify-content: space-between;
-    } 
+    }
 
     .navbar__nav {
         display: none;
     }
 
     .navbar__dropdown {
-        left: -7.5rem;
+        left: -6rem;
     }
 }
 

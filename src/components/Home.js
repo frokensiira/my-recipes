@@ -47,8 +47,6 @@ const Home = () => {
                             </motion.p>
 
                             <Link
-                                whileHover={{ scale: 1.02 }}
-                                transition={{ duration: 0.4 }}
                                 className="button link"
                                 to={`/signup`}
                             >
