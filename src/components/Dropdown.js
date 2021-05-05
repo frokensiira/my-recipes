@@ -32,6 +32,7 @@ function Dropdown() {
                         <NavLink
                             to={`/all-recipes`}
                             className="navbar__nav-link"
+                            onClick={handleClick}
                         >
                             Alla recept
                         </NavLink>
@@ -40,6 +41,7 @@ function Dropdown() {
                         <NavLink
                             to={`/my-recipes`}
                             className="navbar__nav-link"
+                            onClick={handleClick}
                         >
                             Mina recept
                         </NavLink>
@@ -48,6 +50,7 @@ function Dropdown() {
                         <NavLink
                             to={`/my-recipes/create-recipe`}
                             className="navbar__nav-link"
+                            onClick={handleClick}
                         >
                             Skapa recept
                         </NavLink>

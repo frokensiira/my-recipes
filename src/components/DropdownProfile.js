@@ -30,7 +30,11 @@ function DropdownProfile() {
             {showDropdown && (
                 <ul className="navbar__dropdown navbar__dropdown-profile">
                     <li>
-                        <NavLink to={`/logout`} className="navbar__nav-link">
+                        <NavLink
+                            to={`/logout`}
+                            onClick={handleClick}
+                            className="navbar__nav-link"
+                        >
                             Logga ut
                         </NavLink>
                     </li>
