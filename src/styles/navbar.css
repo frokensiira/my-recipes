@@ -63,12 +63,16 @@
     position: relative;
 }
 
-.navbar__profile-button {
+.navbar__dropdown-button {
     background-color: transparent;
     border: none;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.navbar__hamburger {
+    width: 1rem;
 }
 
 .navbar__dropdown {

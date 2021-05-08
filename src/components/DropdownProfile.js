@@ -15,7 +15,7 @@ function DropdownProfile() {
     return (
         <li className="navbar__nav-item navbar__nav-item-dropdown">
             <button
-                className="navbar__profile-button"
+                className="navbar__dropdown-button"
                 aria-expanded="false"
                 onClick={handleClick}
             >

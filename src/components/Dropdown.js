@@ -15,14 +15,14 @@ function Dropdown() {
     return (
         <li className="navbar__nav-item navbar__nav-item-dropdown navbar__dropdown-items">
             <button
-                className="navbar__profile-button"
+                className="navbar__dropdown-button navbar__hamburger"
                 aria-expanded="false"
                 onClick={handleClick}
             >
                 {showDropdown ? (
-                    <HamburgerOpen className="navbar__hamburger navbar__hamburger--closed" />
+                    <HamburgerOpen/>
                 ) : (
-                    <HamburgerClosed className="navbar__hamburger navbar__hamburger--closed" />
+                    <HamburgerClosed/>
                 )}
             </button>
 
