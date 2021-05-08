@@ -87,7 +87,7 @@
     }
 
     .page__title {
-        width: var(100%-2 * (--page-margin));
+        width: calc(100% - 2 * var(--page-margin));
     }
 }
 
