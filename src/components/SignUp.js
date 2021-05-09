@@ -43,7 +43,6 @@ const SignUp = () => {
 
     return (
         <>
-            <h1 className="page__title">Skapa konto</h1>
             {loading && <Loading />}
             <motion.div
                 initial={{ y: 10, opacity: 0 }}

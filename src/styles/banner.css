@@ -16,6 +16,7 @@
     font-weight: 800;
     font-size: 5rem;
     line-height: 5rem;
+    color: #052729;
 }
 
 .banner__heading:not(:last-child) {
@@ -40,6 +41,7 @@
     width: 35vw;
     max-width: 30rem;
     transform: rotate(-15deg);
+    fill: #052729;
 }
 
 @media (min-width: 2309px) {

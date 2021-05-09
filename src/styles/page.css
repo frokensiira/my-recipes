@@ -17,6 +17,7 @@
     text-align: center;
     margin: 0 auto;
     white-space: nowrap;
+    color: #052729;
 }
 
 .page__title::before,

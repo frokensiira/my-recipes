@@ -5,6 +5,7 @@
     grid-template-columns: repeat(2, 1fr);
     margin: 0 var(--page-margin);
     max-width: 50rem;
+    margin-top: 3rem;
 }
 
 .form__wrapper {
@@ -147,6 +148,7 @@
     .form {
         grid-template-columns: 1fr;
         max-width: 30rem;
+        margin: 0;
     }
 }
 

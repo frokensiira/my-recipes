@@ -7,7 +7,6 @@ import FormButton from "./FormButton";
 import InputMail from "./InputMail";
 import InputPassword from "./InputPassword";
 import { motion } from "framer-motion";
-import PageTitle from "./PageTitle";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -32,7 +31,6 @@ const Login = () => {
 
     return (
         <main>
-            <PageTitle>Logga in</PageTitle>
             <motion.div
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
