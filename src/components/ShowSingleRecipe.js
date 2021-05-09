@@ -91,7 +91,7 @@ const ShowSingleRecipe = () => {
                         .doc(doc.id)
                         .delete()
                         .then(() => {
-                            getLikesForRecipe();
+                            navigate("/my-recipes/");
                         })
                         .catch((err) => {
                             console.log(
