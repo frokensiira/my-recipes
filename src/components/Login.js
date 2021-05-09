@@ -7,6 +7,7 @@ import FormButton from "./FormButton";
 import InputMail from "./InputMail";
 import InputPassword from "./InputPassword";
 import { motion } from "framer-motion";
+import PageTitle from "./PageTitle";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -24,6 +25,9 @@ const Login = () => {
             await login(emailRef.current.value, passwordRef.current.value);
             navigate("/");
         } catch (error) {
+            console.log('error', error);
+            console.log('error message', error.message);
+            
             setError(error.message);
             setLoading(false);
         }
@@ -31,7 +35,7 @@ const Login = () => {
 
     return (
         <main>
-            <h1 className="page__title">Logga in</h1>
+            <PageTitle>Logga in</PageTitle>
             {loading && <Loading />}
             <motion.div
                 initial={{ y: 10, opacity: 0 }}
