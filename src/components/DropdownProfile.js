@@ -1,19 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import onClickOutside from "react-onclickoutside";
 import { useAuth } from "../contexts/AuthContext";
 import { ReactComponent as User } from "../assets/user.svg";
 
 function DropdownProfile() {
     const { currentUser } = useAuth();
     const [showDropdown, setShowDropdown] = useState(false);
-    DropdownProfile.handleClickOutside = () => setShowDropdown(false);
+    const dropdownList = useRef();
 
-    const handleClick = () => {
+    const handleClickOutside = (e) => {        
+        if (dropdownList.current && !dropdownList.current.contains(e.target)) {
+            setShowDropdown(false);
+        }
+    };
+
+    const handleClick = (e) => {
         setShowDropdown((prevState) => !prevState);
     };
+
+    useEffect(() => {
+        // add event listener when component mounts
+        document.addEventListener("mousedown", handleClickOutside);
+        // return function to be called when unmounted
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+        };
+      }, []);
     return (
-        <li className="navbar__nav-item navbar__nav-item-dropdown">
+        <li className="navbar__nav-item navbar__nav-item-dropdown" ref={dropdownList}>
             <button
                 className="navbar__dropdown-button"
                 aria-expanded="false"
@@ -44,8 +58,4 @@ function DropdownProfile() {
     );
 }
 
-const clickOutsideConfig = {
-    handleClickOutside: () => DropdownProfile.handleClickOutside,
-};
-
-export default onClickOutside(DropdownProfile, clickOutsideConfig);
+export default DropdownProfile;
