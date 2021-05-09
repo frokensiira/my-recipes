@@ -7,10 +7,12 @@ import useAllRecipes from "../hooks/useAllRecipes";
 import Loading from "./Loading";
 import NoRecipes from "./NoRecipes";
 import PageTitle from "./PageTitle";
+import { useAuth } from "../contexts/AuthContext";
 
 const AllRecipes = () => {
     const [vegan, setVegan] = useState(false);
     const { recipes, loading } = useAllRecipes(vegan);
+    const { currentUser } = useAuth();
 
     const handleFilterSearch = (e) => {
         if (e.target.id === "vegan") {
@@ -46,7 +48,10 @@ const AllRecipes = () => {
                     !loading && <NoRecipes vegan={vegan} />
                 )}
 
-                <AddRecipeButton />
+                {
+                    currentUser && (<AddRecipeButton />)
+                }
+
             </div>
         </main>
     );
