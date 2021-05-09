@@ -46,16 +46,18 @@ const Home = () => {
                                 favoritrecept eller spara andras.
                             </motion.p>
 
-                            <Link
-                                className="button link"
-                                to={`/signup`}
-                            >
+                            <Link className="button link" to={`/signup`}>
                                 Skapa konto
                             </Link>
                         </div>
-                        <div className="banner__image banner__image--desktop">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.1, duration: 1 }}
+                            className="banner__image banner__image--desktop"
+                        >
                             <Banner />
-                        </div>
+                        </motion.div>
                     </>
                 )}
             </section>
