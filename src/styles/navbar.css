@@ -32,6 +32,7 @@
 .navbar__logo svg {
     height: 3rem;
     width: auto;
+    margin-bottom: 0.3rem;
 }
 
 .navbar__nav-items {
@@ -146,10 +147,6 @@
 
     .navbar__dropdown-items {
         display: none;
-    }
-
-    .navbar__logo svg {
-        margin-bottom: 0.3rem;
     }
 }
 
