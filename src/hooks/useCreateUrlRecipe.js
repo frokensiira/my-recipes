@@ -36,7 +36,7 @@ const useCreateUrlRecipe = (recipe, submit) => {
                 setLoading(false);
                 console.error("something went wrong", err);
             });
-    }, [submit]);
+    }, [submit]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return { error, setError, loading, setLoading };
 };

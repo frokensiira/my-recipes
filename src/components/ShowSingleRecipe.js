@@ -112,7 +112,7 @@ const ShowSingleRecipe = () => {
         return () => {
             setLikes(false);
         };
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (initialRender.current) {
@@ -166,7 +166,7 @@ const ShowSingleRecipe = () => {
                 deleteLikeFromRecipe();
             }
         }
-    }, [like]);
+    }, [like]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const deleteRecipe = () => {
         // delete recipe from database

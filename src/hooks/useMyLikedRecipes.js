@@ -80,7 +80,7 @@ const useMyRecipes = (vegan) => {
                 console.error(error);
                 setLoadingLikes(false);
             });
-    }, [currentUser.uid, vegan, disLiked]);
+    }, [currentUser.uid, vegan, disLiked]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return { likedRecipes, setDisLiked, loadingLikes, errorLikes };
 };

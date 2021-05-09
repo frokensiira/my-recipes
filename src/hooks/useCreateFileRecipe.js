@@ -39,7 +39,7 @@ const useCreateFileRecipe = (recipe, submit) => {
                 setError(true);
                 console.error(error);
             });
-    }, [submit]);
+    }, [submit]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return { error, setError, loading, setLoading };
 };

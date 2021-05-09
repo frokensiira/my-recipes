@@ -241,7 +241,7 @@ const CreateRecipeWithFile = () => {
                 </div>
                 {error && (
                     <div className="error">
-                        <p className="error__message">{errorMessage ? errorMessage : 'Något gick fel, försök igen.'}</p>
+                        <p>{errorMessage ? errorMessage : 'Något gick fel, försök igen.'}</p>
                     </div>
                 )}
             </form>

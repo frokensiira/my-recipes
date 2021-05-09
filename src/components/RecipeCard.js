@@ -102,7 +102,7 @@ const RecipeCard = ({ recipe, handleDislike }) => {
         return () => {
             setLikes(false);
         };
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         //do not do anything when like is being set during initial render
@@ -155,7 +155,7 @@ const RecipeCard = ({ recipe, handleDislike }) => {
                 deleteLikeFromRecipe();
             }
         }
-    }, [like]);
+    }, [like]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <article className="card">

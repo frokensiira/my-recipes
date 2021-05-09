@@ -25,9 +25,6 @@ const Login = () => {
             await login(emailRef.current.value, passwordRef.current.value);
             navigate("/");
         } catch (error) {
-            console.log('error', error);
-            console.log('error message', error.message);
-            
             setError(error.message);
             setLoading(false);
         }
@@ -36,13 +33,13 @@ const Login = () => {
     return (
         <main>
             <PageTitle>Logga in</PageTitle>
-            {loading && <Loading />}
             <motion.div
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.1, duration: 1 }}
                 className="form__wrapper"
             >
+                {loading && <Loading />}
                 <div className="form">
                     <div className="form__image-wrapper">
                         <h1 className="form__heading">Välkommen tillbaka!</h1>
@@ -56,11 +53,17 @@ const Login = () => {
 
                     <form onSubmit={handleSubmit}>
                         <h2 className="form__heading">Logga in!</h2>
+                        {error && (
+                            <div className="error">
+                                <p>{error}</p>
+                            </div>
+                        )}
                         <div className="form__inputs">
                             <InputMail emailRef={emailRef} />
                             <InputPassword passwordRef={passwordRef} />
                         </div>
-                        <FormButton loading={loading}>Logga in</FormButton>
+                        
+                        <FormButton loading={loading} disabled={loading}>Logga in</FormButton>
 
                         <p className="form__text">
                             Har du inget konto?&nbsp;{" "}
