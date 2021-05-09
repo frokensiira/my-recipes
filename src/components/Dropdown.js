@@ -27,7 +27,7 @@ function Dropdown() {
       }, []);
 
     return (
-        <li className="navbar__nav-item navbar__nav-item-dropdown navbar__dropdown-items" ref={dropdownList}>
+        <li className="navbar__nav-item navbar__dropdown-items" ref={dropdownList}>
             <button
                 className="navbar__dropdown-button navbar__hamburger"
                 aria-expanded="false"
