@@ -1,0 +1,21 @@
+.not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 var(--page-margin);
+}
+
+.not-found span {
+    font-size: 5rem;
+}
+
+.not-found pre {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.not-found svg {
+    height: 40vw;
+    max-height: 15rem;
+    margin-top: 2rem;
+}
