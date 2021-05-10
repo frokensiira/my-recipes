@@ -159,6 +159,7 @@ const RecipeCard = ({ recipe, handleDislike }) => {
 
     return (
         <article className="card">
+            <div className="card__overlay"></div>
             {recipe.vegan && <p className="card__flag">Veganskt</p>}
             <Link to={`/my-recipes/${recipe.id}`} className="card__link">
                 <img

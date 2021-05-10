@@ -47,12 +47,9 @@
     margin-bottom: 2rem;
 }
 
-.recipe__link {
+a.recipe__link {
     text-decoration: none;
-    background-color: var(--secondary);
-    color: #fff;
     padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
     display: inline-block;
 }
 
@@ -83,13 +80,26 @@
 
 .recipe__delete-button {
     background-color: var(--red);
+    border: 2px solid var(--red);
     letter-spacing: 0;
     margin-right: 0.5rem;
 }
 
+.recipe__delete-button:hover {
+    color: var(--red);
+    background-color: transparent;
+}
+
+
 .recipe__edit-link {
     background-color: var(--green);
+    border: 2px solid var(--green);
     text-decoration: none;
+}
+
+.recipe__edit-link:hover {
+    color: var(--green);
+    background-color: transparent;
 }
 
 .recipe__delete-button,
@@ -98,10 +108,10 @@
     cursor: pointer;
     color: #fff;
     padding: 0.5rem 1rem;
-    border: none;
     border-radius: var(--border-radius);
     font-size: 0.7rem;
     white-space: nowrap;
+    transition: 0.5s;
 }
 
 .recipe__about {

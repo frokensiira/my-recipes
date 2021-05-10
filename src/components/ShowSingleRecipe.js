@@ -298,7 +298,7 @@ const ShowSingleRecipe = () => {
                                             href={recipe.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="recipe__link recipe__recipe"
+                                            className="button recipe__link recipe__recipe"
                                         >
                                             Länk till receptet
                                             <FontAwesomeIcon

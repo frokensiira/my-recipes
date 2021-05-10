@@ -19,8 +19,19 @@
     position: relative;
 }
 
-.card__wrapper:hover {
-    box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.3);
+/* .card__overlay {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    transition: 0.3s;
+} */
+
+.card__overlay:hover {
+    background-color: transparent;
 }
 
 .card__flag {
