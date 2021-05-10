@@ -14,6 +14,7 @@ import { ReactComponent as Heart } from "../assets/heart.svg";
 import { ReactComponent as HeartFilled } from "../assets/heart-filled.svg";
 import profilePlaceholder from "../assets/profile-placeholder.svg";
 import Loading from "./Loading";
+import { ReactComponent as Logo } from "../assets/logo.svg";
 
 const ShowSingleRecipe = () => {
     const { recipeId } = useParams();
@@ -258,7 +259,7 @@ const ShowSingleRecipe = () => {
                                         title="Visa bild"
                                         data-attribute="SRL"
                                     >
-                                        <div className="recipe_image-link">
+                                        <div className="recipe__image-link">
                                         <img
                                             src={recipe.photoUrl}
                                             className="recipe__image"
@@ -273,7 +274,7 @@ const ShowSingleRecipe = () => {
                                     </a>
                                 </SRLWrapper>
                             ) : (
-                                <div className="recipe_image-link">
+                                <div className="recipe__image-link">
                                     <img
                                         src={foodPlaceholder}
                                         className="recipe__image"
@@ -282,6 +283,9 @@ const ShowSingleRecipe = () => {
                                     {recipe.vegan && (
                                         <p className="card__flag">Veganskt</p>
                                     )}
+                                    <div className="recipe__overlay">
+                                        <Logo/>
+                                    </div>
                                 </div>
                             )}
 

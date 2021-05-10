@@ -25,6 +25,27 @@
     transform: scale(1.02);
 }
 
+.card__image-wrapper {
+    position: relative;
+}
+
+.card__overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card__overlay svg {
+    height: 50%;
+    opacity: 0.9;
+}
+
 .card__flag {
     background-color: rgba(255, 255, 255, 0.85);
     color: #000000;

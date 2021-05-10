@@ -6,6 +6,7 @@ import { ReactComponent as Heart } from "../assets/heart.svg";
 import { ReactComponent as HeartFilled } from "../assets/heart-filled.svg";
 import profilePlaceholder from "../assets/profile-placeholder.svg";
 import { db } from "../firebase";
+import { ReactComponent as Logo } from "../assets/logo.svg";
 
 const RecipeCard = ({ recipe, handleDislike }) => {
     const { currentUser } = useAuth();
@@ -161,11 +162,19 @@ const RecipeCard = ({ recipe, handleDislike }) => {
         <article className="card">
             {recipe.vegan && <p className="card__flag">Veganskt</p>}
             <Link to={`/my-recipes/${recipe.id}`} className="card__link">
+                <div className="card__image-wrapper">
                 <img
                     src={recipe.photoUrl ? recipe.photoUrl : foodPlaceholder}
                     className="card__image"
                     alt=""
-                />
+                /> {
+                    !recipe.photoUrl &&
+                    <div className="card__overlay">
+                        <Logo/>
+                    </div>
+
+                }
+                </div>
                 <h1 className="card__title">{recipe.name}</h1>
             </Link>
 
