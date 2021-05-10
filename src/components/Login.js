@@ -35,10 +35,10 @@ const Login = () => {
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.1, duration: 1 }}
-                className="form__wrapper"
+                className="form"
             >
                 {loading && <Loading />}
-                <div className="form">
+                <div className="form__wrapper">
                     <div className="form__image-wrapper">
                         <h1 className="form__heading">Välkommen tillbaka!</h1>
                         <p className="form__text">

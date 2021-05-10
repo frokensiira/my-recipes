@@ -122,4 +122,8 @@
     .page__text {
         font-size: 0.8rem;
     }
+
+    .page__title {
+        font-size: 1.5rem;
+    }
 }

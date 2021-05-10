@@ -1,17 +1,17 @@
 .form {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 0 var(--page-margin);
+}
+
+.form__wrapper {
     background-color: rgb(255, 255, 255);
     border-radius: var(--border-radius);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    margin: 0 var(--page-margin);
     max-width: 50rem;
     margin-top: 3rem;
-}
-
-.form__wrapper {
-    display: flex;
-    justify-content: center;
-    position: relative;
 }
 
 .form__inputs {
@@ -86,7 +86,7 @@
 }
 
 .form__image-wrapper,
-.form form {
+.form__wrapper form {
     padding: 4rem 3rem;
 }
 
@@ -145,7 +145,7 @@
 }
 
 @media (max-width: 900px) {
-    .form {
+    .form__wrapper {
         grid-template-columns: 1fr;
         max-width: 30rem;
         margin: 0;
@@ -157,7 +157,7 @@
         display: none;
     }
 
-    .form form {
+    .form__wrapper form {
         padding: 2rem var(--page-margin);
     }
 }
