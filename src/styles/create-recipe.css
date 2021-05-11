@@ -20,6 +20,13 @@ a.create-recipe__button {
     margin-bottom: 2rem;
 }
 
+.create-recipe__icon {
+    height: 1rem;
+    width: auto;
+    fill: #fff;
+    margin-left: 1rem;
+}
+
 @media (max-width: 905px) {
     a.create-recipe__button {
         font-size: 0.8rem;

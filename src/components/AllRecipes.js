@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import RecipeCard from "./RecipeCard";
-import AddRecipeButton from "./AddRecipeButton";
+import { useAuth } from "../contexts/AuthContext";
+import { motion } from "framer-motion";
 import { ReactComponent as Broccoli } from "../assets/broccoli.svg";
-import Filter from "./Filter";
 import useAllRecipes from "../hooks/useAllRecipes";
+import AddRecipeButton from "./AddRecipeButton";
+import Filter from "./Filter";
 import Loading from "./Loading";
 import NoRecipes from "./NoRecipes";
 import PageTitle from "./PageTitle";
-import { useAuth } from "../contexts/AuthContext";
-import { motion } from "framer-motion";
+import RecipeCard from "./RecipeCard";
+
 
 const AllRecipes = () => {
     const [vegan, setVegan] = useState(false);

@@ -6,9 +6,6 @@ const CreateRecipeButton = ({ link, children }) => {
         <Link
             className="button create-recipe__button"
             to={`/my-recipes/create-recipe/${link}/`}
-            initial={{ y: 10, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.1, duration: 1 }}
         >
             {children}
         </Link>

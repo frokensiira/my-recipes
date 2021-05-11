@@ -2,6 +2,9 @@ import React from "react";
 import CreateRecipeButton from "./CreateRecipeButton";
 import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
 import PageTitle from "./PageTitle";
+import { ReactComponent as Link } from "../assets/link.svg";
+import { ReactComponent as Upload } from "../assets/upload.svg";
+import { motion } from "framer-motion";
 
 const CreateRecipe = () => {
     return (
@@ -12,12 +15,23 @@ const CreateRecipe = () => {
             </PageTitle>
             <p className="page__text">Steg 1 av 2</p>
             <p className="page__text">Välj ett av nedanstående alternativ:</p>
-            <div className="create-recipe">
+            <motion.div
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.1, duration: 1 }}
+                className="create-recipe"
+            >
                 <div className="create-recipe__wrapper">
-                    <CreateRecipeButton link="url">Lägg in länk till ett recept</CreateRecipeButton>
-                    <CreateRecipeButton link="file">Ladda upp en receptfil</CreateRecipeButton>
+                    <CreateRecipeButton link="url">
+                        Lägg in länk till ett recept
+                        <Link className="create-recipe__icon" />
+                    </CreateRecipeButton>
+                    <CreateRecipeButton link="file">
+                        Ladda upp en receptfil
+                        <Upload className="create-recipe__icon"/>
+                    </CreateRecipeButton>
                 </div>
-            </div>
+            </motion.div>
         </main>
     );
 };
