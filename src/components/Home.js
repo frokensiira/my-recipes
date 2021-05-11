@@ -14,41 +14,53 @@ const Home = () => {
             <section className="banner">
                 {loading ? (
                     <Loading />
-                ) : currentUser ? (
-                    <>
-                        <p>
-                            Välkommen <strong>{currentUser.displayName}</strong>
-                            !
-                        </p>
-                    </>
                 ) : (
                     <>
                         <div className="banner__text-area">
                             <motion.h1
-                                className="banner__heading"
+                                className={
+                                    currentUser
+                                        ? "banner__user"
+                                        : "banner__heading"
+                                }
                                 initial={{ x: -20, opacity: 0 }}
                                 animate={{ x: 0, opacity: 1 }}
                                 transition={{ delay: 0.1, duration: 1 }}
                             >
-                                My Veggie Recipes
+                                {currentUser
+                                    ? `Välkommen ${currentUser.displayName}!`
+                                    : "My Veggie Recipes"}
                             </motion.h1>
                             <div className="banner__image banner__image--mobile">
                                 <Banner />
                             </div>
-                            <motion.p
-                                initial={{ y: 10, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                transition={{ delay: 0.1, duration: 1 }}
-                                className="banner__text"
-                            >
-                                Skapa och inspireras av nya vegetariska recept!
-                                Skapa konto för att kunna lägga in dina
-                                favoritrecept eller spara andras.
-                            </motion.p>
+                            {currentUser ? (
+                                ""
+                            ) : (
+                                <motion.p
+                                    initial={{ y: 10, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    transition={{ delay: 0.1, duration: 1 }}
+                                    className="banner__text"
+                                >
+                                    Skapa och inspireras av nya vegetariska
+                                    recept! Skapa konto för att kunna lägga in
+                                    dina favoritrecept eller spara andras.
+                                </motion.p>
+                            )}
 
-                            <Link className="button link" to={`/signup`}>
-                                Skapa konto
-                            </Link>
+                            {currentUser ? (
+                                <Link
+                                    className="button link"
+                                    to={`/my-recipes/create-recipe`}
+                                >
+                                    Skapa recept
+                                </Link>
+                            ) : (
+                                <Link className="button link" to={`/signup`}>
+                                    Skapa konto
+                                </Link>
+                            )}
                         </div>
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}

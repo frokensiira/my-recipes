@@ -15,11 +15,18 @@
 .banner__heading {
     font-weight: 800;
     font-size: 5rem;
-    line-height: 5rem;
+    line-height: 100%;
     color: #052729;
 }
 
-.banner__heading:not(:last-child) {
+.banner__user {
+    font-size: 3rem;
+    color: #052729;
+    font-weight: 800;
+}
+
+.banner__heading:not(:last-child),
+.banner__user:not(:last-child) {
     margin-bottom: 2rem;
 }
 
