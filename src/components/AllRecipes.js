@@ -8,6 +8,7 @@ import Loading from "./Loading";
 import NoRecipes from "./NoRecipes";
 import PageTitle from "./PageTitle";
 import { useAuth } from "../contexts/AuthContext";
+import { motion } from "framer-motion";
 
 const AllRecipes = () => {
     const [vegan, setVegan] = useState(false);
@@ -28,14 +29,21 @@ const AllRecipes = () => {
 
     return (
         <main>
-            <PageTitle>Recept <Broccoli className="icon" /></PageTitle>
-            
+            <PageTitle>
+                Recept <Broccoli className="icon" />
+            </PageTitle>
+
             {loading && <Loading />}
             <div className="page">
                 <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
                 {recipes.length !== 0 ? (
-                    <div className="cards">
+                    <motion.section
+                        initial={{ y: 10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.3, duration: 1 }}
+                        className="cards"
+                    >
                         {recipes.map((recipe) => (
                             <RecipeCard
                                 recipe={recipe}
@@ -43,15 +51,12 @@ const AllRecipes = () => {
                                 handleDislike={handleDislike}
                             />
                         ))}
-                    </div>
+                    </motion.section>
                 ) : (
                     !loading && <NoRecipes vegan={vegan} />
                 )}
 
-                {
-                    currentUser && (<AddRecipeButton />)
-                }
-
+                {currentUser && <AddRecipeButton />}
             </div>
         </main>
     );

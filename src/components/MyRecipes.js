@@ -51,9 +51,12 @@ const MyRecipes = () => {
                 <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
                 {allRecipes.length !== 0 ? (
-                    <motion.section initial={{ y: 10, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3, duration: 1 }}className="cards">
+                    <motion.section
+                        initial={{ y: 10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.3, duration: 1 }}
+                        className="cards"
+                    >
                         {allRecipes.map((recipe) => (
                             <RecipeCard
                                 recipe={recipe}
