@@ -16,37 +16,34 @@ const Home = () => {
                     <Loading />
                 ) : (
                     <>
-                        <div className="banner__text-area">
-                            <motion.h1
+                        <motion.div
+                            initial={{ x: -20, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ delay: 0.1, duration: 1 }}
+                            className="banner__text-area"
+                        >
+                            <h1
                                 className={
                                     currentUser
                                         ? "banner__user"
                                         : "banner__heading"
                                 }
-                                initial={{ x: -20, opacity: 0 }}
-                                animate={{ x: 0, opacity: 1 }}
-                                transition={{ delay: 0.1, duration: 1 }}
                             >
                                 {currentUser
                                     ? `Välkommen ${currentUser.displayName}!`
                                     : "My Veggie Recipes"}
-                            </motion.h1>
+                            </h1>
                             <div className="banner__image banner__image--mobile">
                                 <Banner />
                             </div>
                             {currentUser ? (
                                 ""
                             ) : (
-                                <motion.p
-                                    initial={{ y: 10, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    transition={{ delay: 0.1, duration: 1 }}
-                                    className="banner__text"
-                                >
+                                <p className="banner__text">
                                     Skapa och inspireras av nya vegetariska
                                     recept! Skapa konto för att kunna lägga in
                                     dina favoritrecept eller spara andras.
-                                </motion.p>
+                                </p>
                             )}
 
                             {currentUser ? (
@@ -61,7 +58,7 @@ const Home = () => {
                                     Skapa konto
                                 </Link>
                             )}
-                        </div>
+                        </motion.div>
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}

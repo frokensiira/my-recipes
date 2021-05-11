@@ -15,6 +15,7 @@ import { ReactComponent as HeartFilled } from "../assets/heart-filled.svg";
 import profilePlaceholder from "../assets/profile-placeholder.svg";
 import Loading from "./Loading";
 import { ReactComponent as Logo } from "../assets/logo.svg";
+import { motion } from "framer-motion";
 
 const ShowSingleRecipe = () => {
     const { recipeId } = useParams();
@@ -251,7 +252,12 @@ const ShowSingleRecipe = () => {
             ) : (
                 recipe && (
                     <div className="recipe__wrapper">
-                        <div className="recipe">
+                        <motion.div
+                            initial={{ y: 10, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.1, duration: 1 }}
+                            className="recipe"
+                        >
                             {recipe.photoUrl ? (
                                 <SRLWrapper>
                                     <a
@@ -260,16 +266,16 @@ const ShowSingleRecipe = () => {
                                         data-attribute="SRL"
                                     >
                                         <div className="recipe__image-link">
-                                        <img
-                                            src={recipe.photoUrl}
-                                            className="recipe__image"
-                                            alt="food"
-                                        />
-                                        {recipe.vegan && (
-                                            <p className="card__flag">
-                                                Veganskt
-                                            </p>
-                                        )}
+                                            <img
+                                                src={recipe.photoUrl}
+                                                className="recipe__image"
+                                                alt="food"
+                                            />
+                                            {recipe.vegan && (
+                                                <p className="card__flag">
+                                                    Veganskt
+                                                </p>
+                                            )}
                                         </div>
                                     </a>
                                 </SRLWrapper>
@@ -284,7 +290,7 @@ const ShowSingleRecipe = () => {
                                         <p className="card__flag">Veganskt</p>
                                     )}
                                     <div className="recipe__overlay">
-                                        <Logo/>
+                                        <Logo />
                                     </div>
                                 </div>
                             )}
@@ -400,7 +406,7 @@ const ShowSingleRecipe = () => {
                                     ""
                                 )}
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 )
             )}
