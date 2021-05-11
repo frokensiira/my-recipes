@@ -27,8 +27,13 @@ a.create-recipe__button {
     margin-left: 1rem;
 }
 
+.button:hover .create-recipe__icon {
+    fill: var(--secondary);
+}
+
 @media (max-width: 905px) {
-    a.create-recipe__button {
+    a.create-recipe__button,
+    .create-recipe__icon  {
         font-size: 0.8rem;
     }
 }

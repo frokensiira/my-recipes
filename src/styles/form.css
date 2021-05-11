@@ -76,6 +76,12 @@
     padding: 0.7rem;
 }
 
+.form__textarea:focus {
+    outline: none;
+    border: 2px solid var(--secondary);
+    background-color: #f9f9f9;
+}
+
 .form__input input:hover {
     border: 1px solid #aaa;
 }

@@ -2,7 +2,7 @@
     margin: 1rem auto;
     max-width: 40rem;
     padding: 3rem;
-    background-color: rgba(255, 255, 255, 0.815);
+    background-color: rgba(255, 255, 255);
     display: flex;
     flex-direction: column;
     border-radius: var(--border-radius);
@@ -24,7 +24,7 @@
 .recipe-form__image img {
     display: block;
     width: 100%;
-    height: 16rem;
+    height: 16.4rem;
     object-fit: cover;
 }
 
