@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     position: relative;
-    margin: 0 var(--page-margin);
 }
 
 .form__wrapper {
@@ -154,8 +153,7 @@
     .form__wrapper {
         grid-template-columns: 1fr;
         max-width: 30rem;
-        margin: 0;
-        margin-bottom: 2rem;
+        margin: 0 var(--page-margin) 2rem var(--page-margin);
     }
 }
 

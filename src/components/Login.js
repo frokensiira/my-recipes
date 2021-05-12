@@ -30,7 +30,6 @@ const Login = () => {
     };
 
     return (
-        <main>
             <motion.div
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -70,7 +69,6 @@ const Login = () => {
                     </form>
                 </div>
             </motion.div>
-        </main>
     );
 };
 
