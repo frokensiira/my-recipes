@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { storage } from "../firebase";
-import { useParams } from "react-router-dom";
-import useRecipe from "../hooks/useRecipe";
-import { useNavigate } from "react-router-dom";
-import { db } from "../firebase";
+import { db, storage } from "../firebase";
+import { useParams, useNavigate } from "react-router-dom";
 import { ReactComponent as Radish } from "../assets/radish.svg";
-import Loading from "./Loading";
-import ImageUpload from "./ImageUpload";
-import RecipeFormDescription from "./RecipeFormDescription";
-import VeganCheckbox from "./VeganCheckbox";
+import useRecipe from "../hooks/useRecipe";
 import Dropzone from "./Dropzone";
+import ImageUpload from "./ImageUpload";
+import Loading from "./Loading";
+import RecipeFormDescription from "./RecipeFormDescription";
 import RecipeSubmitButton from "./RecipeSubmitButton";
+import VeganCheckbox from "./VeganCheckbox";
 
 const EditRecipeWithFile = () => {
-    const [photo, setPhoto] = useState(null);
-    const [file, setFile] = useState(null);
     const { recipeId } = useParams();
     const { recipe } = useRecipe(recipeId);
-    const [newRecipe, setNewRecipe] = useState(null);
     const navigate = useNavigate();
+    const [photo, setPhoto] = useState(null);
+    const [file, setFile] = useState(null);
+    const [newRecipe, setNewRecipe] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
 
     useEffect(() => {
         if (recipe.length !== 0) {
@@ -35,6 +35,11 @@ const EditRecipeWithFile = () => {
         };
     }, [recipe]);
 
+    const resetError = () => {
+        setError(false);
+        setErrorMessage(null);
+    }
+
     const handleCheckbox = (e) => {
         setNewRecipe((prevstate) => ({
             ...prevstate,
@@ -49,14 +54,20 @@ const EditRecipeWithFile = () => {
             .doc(recipeId)
             .set(newRecipe)
             .then(() => {
+                resetError();
+                setLoading(false);
                 navigate("/my-recipes/");
             })
-            .catch((err) => {
-                console.log("error", err);
+            .catch((error) => {
+                setError(true);
+                setErrorMessage(error.message);
+                setLoading(false);
             });
     };
 
     const handleInput = (e) => {
+        console.log('trying to');
+        
         setNewRecipe((prevState) => ({
             ...prevState,
             [e.target.id]: e.target.value,
@@ -83,6 +94,7 @@ const EditRecipeWithFile = () => {
         photoRef
             .put(selectedPhoto)
             .then((snapshot) => {
+                resetError();
                 //retrieve url to uploaded photo
                 snapshot.ref.getDownloadURL().then((url) => {
                     setNewRecipe((prevState) => ({
@@ -98,7 +110,9 @@ const EditRecipeWithFile = () => {
                 });
             })
             .catch((err) => {
-                console.log("problem uploading photo", err);
+                setError(true);
+                setErrorMessage('Problem med att ladda upp foto. Prova igen.');
+                setLoading(false);
             });
     };
 
@@ -108,6 +122,7 @@ const EditRecipeWithFile = () => {
             .child(photo.fullPathPhoto)
             .delete()
             .then(() => {
+                resetError();
                 // File deleted successfully
                 setPhoto(null);
                 //and add the new one instead if the user uploaded a new one manually
@@ -116,7 +131,9 @@ const EditRecipeWithFile = () => {
                 }
             })
             .catch((error) => {
-                console.log("could not delete photo", error);
+                console.error(error);
+                setError(true);
+                setErrorMessage('Problem med uppladdning av foto. Försök igen.');
                 setLoading(false);
             });
     };
@@ -124,16 +141,14 @@ const EditRecipeWithFile = () => {
     const handlePhotoChange = (e) => {
         const allowedPhotoTypes = ["image/jpeg", "image/png"];
         const selectedPhoto = e.target.files[0];
+        resetError();
 
         //if there is a photo and the type is ok, proceed
         if (selectedPhoto) {
             if (allowedPhotoTypes.includes(selectedPhoto.type)) {
                 setLoading(true);
                 //if the user changed photo, delete the old one from storage
-                console.log("photo before", photo);
                 if (photo) {
-                    console.log("photo", photo);
-
                     deletePhotoFromStorage(selectedPhoto);
                 } else {
                     addPhotoToStorage(selectedPhoto);
@@ -162,11 +177,14 @@ const EditRecipeWithFile = () => {
                     }));
                     //save the file in a state to see if the user changes file in the future
                     setFile({ fullPathFile: snapshot.ref.fullPath });
+                    setLoading(false);
+                    resetError();
                 });
-                setLoading(false);
             })
-            .catch((err) => {
-                console.log("something went wrong", err);
+            .catch((error) => {
+                console.error(error);
+                setError(true);
+                setErrorMessage('Problem med att ladda upp filen. Försök igen.');
                 setLoading(false);
             });
     };
@@ -177,13 +195,16 @@ const EditRecipeWithFile = () => {
             .child(file.fullPathFile)
             .delete()
             .then(() => {
+                resetError();
                 // File deleted successfully
                 setFile(null);
                 //add the new one instead
                 addFileToStorage(selectedFile);
             })
             .catch((error) => {
-                console.log("could not delete photo", error);
+                console.error(error);
+                setError(true);
+                setErrorMessage('Problem med att ladda upp filen. Försök igen.');
                 setLoading(false);
             });
     };
@@ -204,6 +225,7 @@ const EditRecipeWithFile = () => {
                             recipe={newRecipe}
                             file={file}
                             setLoading={setLoading}
+                            setError={setError}
                             deleteFileFromStorage={deleteFileFromStorage}
                             addFileToStorage={addFileToStorage}
                         />
@@ -232,7 +254,7 @@ const EditRecipeWithFile = () => {
 
                         <RecipeFormDescription
                             handleInput={handleInput}
-                            recipe={recipe}
+                            recipe={newRecipe}
                         />
 
                         <VeganCheckbox
@@ -240,6 +262,11 @@ const EditRecipeWithFile = () => {
                             recipe={newRecipe}
                         />
                         <RecipeSubmitButton>Spara recept</RecipeSubmitButton>
+                    </div>
+                )}
+                {error && (
+                    <div className="error">
+                        <p>{errorMessage ? errorMessage : 'Något gick fel, försök igen.'}</p>
                     </div>
                 )}
             </form>

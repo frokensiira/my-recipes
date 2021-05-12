@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import { storage } from "../firebase";
+import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
 import useCreateUrlRecipe from "../hooks/useCreateUrlRecipe";
 import axios from "axios";
-import { storage } from "../firebase";
-import Loading from "./Loading";
-import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
-import StepCounter from "./StepCounter";
 import ImageUpload from "./ImageUpload";
-import RecipeFormDescription from "./RecipeFormDescription";
-import VeganCheckbox from "./VeganCheckbox";
-import RecipeSubmitButton from "./RecipeSubmitButton";
+import Loading from "./Loading";
 import PageTitle from "./PageTitle";
+import RecipeFormDescription from "./RecipeFormDescription";
+import RecipeSubmitButton from "./RecipeSubmitButton";
+import StepCounter from "./StepCounter";
+import VeganCheckbox from "./VeganCheckbox";
 
 const CreateRecipeWithUrl = () => {
     const [submit, setSubmit] = useState(null);

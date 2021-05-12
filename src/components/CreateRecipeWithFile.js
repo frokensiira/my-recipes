@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import useCreateFileRecipe from "../hooks/useCreateFileRecipe";
-import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
 import { storage } from "../firebase";
-import Loading from "./Loading";
-import StepCounter from "./StepCounter";
-import RecipeFormDescription from "./RecipeFormDescription";
-import ImageUpload from "./ImageUpload";
-import VeganCheckbox from "./VeganCheckbox";
+import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
+import useCreateFileRecipe from "../hooks/useCreateFileRecipe";
 import Dropzone from "./Dropzone";
-import RecipeSubmitButton from "./RecipeSubmitButton";
+import ImageUpload from "./ImageUpload";
+import Loading from "./Loading";
 import PageTitle from "./PageTitle";
+import RecipeFormDescription from "./RecipeFormDescription";
+import RecipeSubmitButton from "./RecipeSubmitButton";
+import StepCounter from "./StepCounter";
+import VeganCheckbox from "./VeganCheckbox";
 
 const CreateRecipeWithFile = () => {
-    const [photo, setPhoto] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
     const [file, setFile] = useState(null);
+    const [photo, setPhoto] = useState(null);
     const [recipe, setRecipe] = useState({
         name: "",
         comment: "",
@@ -25,7 +26,6 @@ const CreateRecipeWithFile = () => {
     });
     const [submit, setSubmit] = useState(null);
     const { error, setError, loading, setLoading } = useCreateFileRecipe(recipe, submit);
-    const [errorMessage, setErrorMessage] = useState(null);
 
     const resetError = () => {
         setError(false);
@@ -92,7 +92,7 @@ const CreateRecipeWithFile = () => {
             })
             .catch((error) => {
                 setError(true);
-                setErrorMessage('Problem med att ladda upp foto. Prova igen.')
+                setErrorMessage('Problem med att ladda upp foto. Prova igen.');
                 console.error(error);
             });
     };
@@ -113,7 +113,6 @@ const CreateRecipeWithFile = () => {
                 console.error(error);
                 setError(true);
                 setErrorMessage('Problem med uppladdning av foto. Försök igen.');
-                console.error(error);
                 setLoading(false);
             });
     };
@@ -165,7 +164,7 @@ const CreateRecipeWithFile = () => {
             .catch((error) => {
                 console.error(error);
                 setError(true);
-                setErrorMessage('Problem med att ladda upp filen. Försök igen.')
+                setErrorMessage('Problem med att ladda upp filen. Försök igen.');
                 setLoading(false);
             });
     };
@@ -203,9 +202,9 @@ const CreateRecipeWithFile = () => {
                         recipe={recipe}
                         file={file}
                         setLoading={setLoading}
+                        setError={setError}
                         deleteFileFromStorage={deleteFileFromStorage}
                         addFileToStorage={addFileToStorage}
-                        setError={setError}
                     />
 
                     <ImageUpload

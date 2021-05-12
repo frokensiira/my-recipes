@@ -12,7 +12,6 @@ const Dropzone = ({recipe, file, setLoading, setError, deleteFileFromStorage, ad
             }
             setLoading(true);
             setError(false);
-            console.log('setting error to false');
             
             //check if a user already uploaded a file
             if (file) {

@@ -1,10 +1,10 @@
 import React from "react";
-import CreateRecipeButton from "./CreateRecipeButton";
 import { ReactComponent as Artichoke } from "../assets/artichoke.svg";
-import PageTitle from "./PageTitle";
 import { ReactComponent as Link } from "../assets/link.svg";
 import { ReactComponent as Upload } from "../assets/upload.svg";
 import { motion } from "framer-motion";
+import CreateRecipeButton from "./CreateRecipeButton";
+import PageTitle from "./PageTitle";
 
 const CreateRecipe = () => {
     return (

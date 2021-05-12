@@ -227,7 +227,7 @@ const EditRecipeWithUrl = () => {
                             />
                         </div>
 
-                        <RecipeFormDescription handleInput={handleInput} recipe={recipe} />
+                        <RecipeFormDescription handleInput={handleInput} recipe={newRecipe} />
 
                         <VeganCheckbox handleCheckbox={handleCheckbox} recipe={newRecipe} />
                         
