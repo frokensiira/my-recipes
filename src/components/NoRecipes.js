@@ -11,7 +11,7 @@ const NoRecipes = ({ vegan }) => {
             ) : (
                 <p>Det finns inga recept än. Skapa det allra första!</p>
             )}
-            <Link to="/create-recipe" className="button link">
+            <Link to="/my-recipes/create-recipe" className="button link">
                 Skapa recept
             </Link>
         </div>

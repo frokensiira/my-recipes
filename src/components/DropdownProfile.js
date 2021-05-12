@@ -34,11 +34,6 @@ function DropdownProfile() {
                 onClick={handleClick}
             >
                 <User className="navbar__profile-icon" />
-                {currentUser && (
-                    <p className="navbar__displayname">
-                        {currentUser.displayName}
-                    </p>
-                )}
             </button>
 
             {showDropdown && (

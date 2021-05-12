@@ -25,7 +25,7 @@ const ShowSingleRecipe = () => {
     const initialRender = useRef(true);
     const [likes, setLikes] = useState([]);
     const [like, setLike] = useState(false);
-    const [error, setError] = useState(true);
+    const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
 
     const handleLike = (e) => {
@@ -72,8 +72,8 @@ const ShowSingleRecipe = () => {
                     return unsubscribe;
                 }
             }).catch(error => {
-                setError(true);
-                setErrorMessage(error.message);
+                console.error(error.message);
+                
             })
     };
 
