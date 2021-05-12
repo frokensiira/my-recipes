@@ -161,7 +161,6 @@ a.recipe__link {
 
 @media (min-width: 821px) {
     .recipe {
-        display: grid;
         grid-template-areas:
             "image   title"
             "image   comment"
@@ -170,9 +169,6 @@ a.recipe__link {
         grid-template-rows: repeat(4, auto);
         grid-template-columns: repeat(2, 1fr);
         column-gap: 3rem;
-        background-color: rgba(255, 255, 255, 0.815);
-        box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
-        padding: 2rem;
         max-width: 40rem;
     }
 

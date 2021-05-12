@@ -13,12 +13,14 @@ import VeganCheckbox from "./VeganCheckbox";
 import RecipeSubmitButton from "./RecipeSubmitButton";
 
 const EditRecipeWithUrl = () => {
-    const [photo, setPhoto] = useState(null);
     const { recipeId } = useParams();
     const { recipe } = useRecipe(recipeId);
-    const [newRecipe, setNewRecipe] = useState(null);
     const navigate = useNavigate();
+    const [photo, setPhoto] = useState(null);
+    const [newRecipe, setNewRecipe] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
 
     useEffect(() => {
         if (recipe && recipe.length !== 0) {
@@ -32,6 +34,11 @@ const EditRecipeWithUrl = () => {
             setNewRecipe(null);
         };
     }, [recipe]);
+
+    const resetError = () => {
+        setError(false);
+        setErrorMessage(null);
+    }
 
     const handleCheckbox = (e) => {
         setNewRecipe((prevstate) => ({
@@ -47,10 +54,14 @@ const EditRecipeWithUrl = () => {
             .doc(recipeId)
             .set(newRecipe)
             .then(() => {
+                resetError();
+                setLoading(false);
                 navigate("/my-recipes/");
             })
-            .catch((err) => {
-                console.log("error", err);
+            .catch((error) => {
+                setError(true);
+                setErrorMessage(error.message);
+                setLoading(false);
             });
     };
 
@@ -119,6 +130,7 @@ const EditRecipeWithUrl = () => {
         photoRef
             .put(selectedPhoto)
             .then((snapshot) => {
+                resetError();
                 //retrieve url to uploaded photo
                 snapshot.ref.getDownloadURL().then((url) => {                    
                     setNewRecipe((prevState) => ({
@@ -134,7 +146,9 @@ const EditRecipeWithUrl = () => {
                 });
             })
             .catch((err) => {
-                console.log("problem uploading photo", err);
+                setError(true);
+                setErrorMessage('Problem med att ladda upp foto. Prova igen.');
+                setLoading(false);
             });
     };
 
@@ -144,6 +158,7 @@ const EditRecipeWithUrl = () => {
             .child(photo.fullPathPhoto)
             .delete()
             .then(() => {
+                resetError();
                 // File deleted successfully
                 setPhoto(null);
                 setNewRecipe((prevstate) => ({
@@ -157,7 +172,9 @@ const EditRecipeWithUrl = () => {
                 }
             })
             .catch((error) => {
-                console.log("could not delete photo", error);
+                console.error(error);
+                setError(true);
+                setErrorMessage('Problem med uppladdning av foto. Försök igen.');
                 setLoading(false);
             });
     };
@@ -165,6 +182,7 @@ const EditRecipeWithUrl = () => {
     const handlePhotoChange = (e) => {
         const allowedPhotoTypes = ["image/jpeg", "image/png"];
         const selectedPhoto = e.target.files[0];
+        resetError();
 
         //if there is a photo and the type is ok, proceed
         if (selectedPhoto) {
@@ -232,6 +250,11 @@ const EditRecipeWithUrl = () => {
                         <VeganCheckbox handleCheckbox={handleCheckbox} recipe={newRecipe} />
                         
                         <RecipeSubmitButton>Spara recept</RecipeSubmitButton>
+                    </div>
+                )}
+                {error && (
+                    <div className="error">
+                        <p>{errorMessage ? errorMessage : 'Något gick fel, försök igen.'}</p>
                     </div>
                 )}
             </form>

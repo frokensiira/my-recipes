@@ -65,9 +65,7 @@ const EditRecipeWithFile = () => {
             });
     };
 
-    const handleInput = (e) => {
-        console.log('trying to');
-        
+    const handleInput = (e) => {        
         setNewRecipe((prevState) => ({
             ...prevState,
             [e.target.id]: e.target.value,
