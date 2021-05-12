@@ -51,8 +51,6 @@ const SignUp = () => {
                 className="form"
             >
                 <div className="form__wrapper">
-                    {error && <div className="">{error}</div>}
-
                     <div className="form__image-wrapper">
                         <h1 className="form__heading">
                             Inspirera och inspireras!
@@ -67,6 +65,11 @@ const SignUp = () => {
 
                     <form onSubmit={handleSubmit}>
                         <h2 className="form__heading">Registrera mig!</h2>
+                        {error && (
+                            <div className="error">
+                                <p>{error}</p>
+                            </div>
+                        )}
                         <div className="form__inputs">
                             <div className="form__input-wrapper" htmlFor="name">
                                 <div className="form-input__user form-input__container"></div>

@@ -42,10 +42,10 @@ const MyRecipes = () => {
             <PageTitle>
                 Mina recept <Cabbage className="icon" />
             </PageTitle>
-            {error ? <p>Problem med att ladda recept...</p> : ""}
-            {loading ? <Loading /> : ""}
+            {loading && <Loading />}
 
             <div className="page">
+            {error && <p>Problem med att ladda recept...</p>}
                 <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
 
                 {allRecipes.length !== 0 ? (
