@@ -21,35 +21,43 @@ const ShowSingleRecipe = () => {
     const { recipeId } = useParams();
     const { recipe, loading } = useRecipe(recipeId);
     const { currentUser } = useAuth();
+    const navigate = useNavigate();
+    const initialRender = useRef(true);
     const [likes, setLikes] = useState([]);
     const [like, setLike] = useState(false);
-    const initialRender = useRef(true);
-    const navigate = useNavigate();
+    const [error, setError] = useState(true);
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const handleLike = (e) => {
         setLike((prevState) => !prevState);
     };
 
+    const resetError = () => {
+        setError(false);
+        setErrorMessage(null);
+    }
+
     const getLikesForRecipe = () => {
         //check if collection likes exist
         db.collection("likes")
-            .get()
-            .then((data) => {
-                if (data.size > 0) {
-                    const unsubscribe = db
-                        .collection("likes")
-                        .where("recipeId", "==", recipeId)
-                        .onSnapshot((snapshot) => {
-                            const snapshotLikes = [];
-                            snapshot.forEach((doc) => {
-                                snapshotLikes.push({
-                                    id: doc.id,
-                                    ...doc.data(),
-                                });
-                            });
-                            setLikes(snapshotLikes);
-
-                            if (
+        .get()
+        .then((data) => {
+            if (data.size > 0) {
+                const unsubscribe = db
+                .collection("likes")
+                .where("recipeId", "==", recipeId)
+                .onSnapshot((snapshot) => {
+                    const snapshotLikes = [];
+                    snapshot.forEach((doc) => {
+                        snapshotLikes.push({
+                            id: doc.id,
+                            ...doc.data(),
+                        });
+                    });
+                    setLikes(snapshotLikes);
+                    resetError();
+                    
+                    if (
                                 currentUser &&
                                 currentUser.uid !== recipe.creator &&
                                 snapshotLikes.length !== 0
@@ -63,10 +71,14 @@ const ShowSingleRecipe = () => {
                         });
                     return unsubscribe;
                 }
-            });
+            }).catch(error => {
+                setError(true);
+                setErrorMessage(error.message);
+            })
     };
 
     const addLikeToRecipe = (docRef) => {
+        resetError();
         db.collection("likes")
             .add({
                 liker: currentUser.uid,
@@ -75,12 +87,14 @@ const ShowSingleRecipe = () => {
             .then(() => {
                 getLikesForRecipe();
             })
-            .catch((err) => {
-                console.log("err", err);
+            .catch((error) => {
+                setError(true);
+                setErrorMessage(error.message);
             });
     };
 
     const deleteLikeFromRecipe = () => {
+        resetError();
         //find document with the recipe like
         db.collection("likes")
             .where("recipeId", "==", recipeId)
@@ -103,8 +117,9 @@ const ShowSingleRecipe = () => {
                         });
                 });
             })
-            .catch((err) => {
-                console.log("could not remove like from recipe", err);
+            .catch((error) => {
+                console.error(error);
+                setError(true);
             });
     };
 
@@ -152,15 +167,17 @@ const ShowSingleRecipe = () => {
                                         addLikeToRecipe();
                                     }
                                 })
-                                .catch((err) => {
-                                    console.log("err", err);
+                                .catch((error) => {
+                                    console.error(error.message);
+                                    setError(true);
                                 });
                         } else {
                             addLikeToRecipe();
                         }
                     })
-                    .catch((err) => {
-                        console.log("error", err);
+                    .catch((error) => {
+                        console.error(error.message);
+                        setError(true);
                     });
             }
             //want to delete recipe from favourites
@@ -171,6 +188,7 @@ const ShowSingleRecipe = () => {
     }, [like]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const deleteRecipe = () => {
+        resetError();
         // delete recipe from database
         db.collection("recipes")
             .doc(recipeId)
@@ -189,7 +207,8 @@ const ShowSingleRecipe = () => {
                 deleteLikes();
             })
             .catch((error) => {
-                console.log("error", error);
+                console.error(error.message);
+                setError(true);
             });
     };
 
@@ -406,6 +425,15 @@ const ShowSingleRecipe = () => {
                                     ""
                                 )}
                             </div>
+                            {error && (
+                                <div className="error">
+                                    <p>
+                                        {errorMessage
+                                            ? errorMessage
+                                            : "Något gick fel, försök igen."}
+                                    </p>
+                                </div>
+                            )}
                         </motion.div>
                     </div>
                 )
