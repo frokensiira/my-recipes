@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    padding: 2rem var(--page-margin);
+    padding: 0 var(--page-margin) 4rem var(--page-margin);
 }
 
 .banner__text-area {

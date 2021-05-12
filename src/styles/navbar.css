@@ -8,7 +8,7 @@
     align-items: center;
     position: relative;
     z-index: 5;
-    padding: 2rem var(--page-margin);
+    padding: 2rem var(--page-margin) 4rem var(--page-margin);
 }
 
 .navbar__nav {
@@ -154,6 +154,7 @@
 
     .navbar {
         justify-content: space-between;
+        padding-bottom: 2rem;
     }
 
     .navbar__nav {
@@ -178,6 +179,7 @@
     .navbar__logo svg {
         height: 2rem;
     }
+
     .navbar__logotext {
         display: none;
     }

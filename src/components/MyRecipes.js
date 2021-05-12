@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import RecipeCard from "./RecipeCard";
+import { ReactComponent as Cabbage } from "../assets/cabbage.svg";
+import { motion } from "framer-motion";
 import useMyRecipes from "../hooks/useMyRecipes";
 import useMyLikedRecipes from "../hooks/useMyLikedRecipes";
-import { ReactComponent as Cabbage } from "../assets/cabbage.svg";
 import AddRecipeButton from "./AddRecipeButton";
 import Filter from "./Filter";
 import Loading from "./Loading";
 import NoRecipes from "./NoRecipes";
 import PageTitle from "./PageTitle";
-import { motion } from "framer-motion";
+import RecipeCard from "./RecipeCard";
 
 const MyRecipes = () => {
     const [vegan, setVegan] = useState(false);

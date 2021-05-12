@@ -1,11 +1,11 @@
 .page {
-    margin: var(--page-margin);
+    margin: 0 var(--page-margin);
     position: relative;
 }
 
 .page__title:not(:last-child) {
     padding-top: 2rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .page__title {
