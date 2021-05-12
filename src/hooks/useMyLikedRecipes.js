@@ -3,8 +3,6 @@ import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 
 const useMyRecipes = (vegan) => {
-    const [errorLikes, setErrorLikes] = useState(false);
-    const [loadingLikes, setLoadingLikes] = useState(true);
     const [likedRecipes, setLikedRecipes] = useState([]);
     const [disLiked, setDisLiked] = useState(false);
     const { currentUser } = useAuth();
@@ -37,24 +35,18 @@ const useMyRecipes = (vegan) => {
             Promise.all(promises)
                 .then(() => {
                     setLikedRecipes(favouriteRecipes);
-                    setLoadingLikes(false);
                 })
                 .catch((error) => {
-                    setErrorLikes(error);
                     console.error(error);
-                    setLoadingLikes(false);
                 });
         } catch (error) {
-            setErrorLikes(error);
             console.error(error);
-            setLoadingLikes(false);
         }
     };
 
     useEffect(() => {
         setLikedRecipes([]);
         setDisLiked(false);
-        setErrorLikes(false);
 
         //get a list of all the recipes that the user likes
         db.collection("likes")
@@ -69,20 +61,17 @@ const useMyRecipes = (vegan) => {
 
                 //if the user doesn't have any likes recipes return
                 if (likedRecipeList.length === 0) {
-                    setLoadingLikes(false);
                     return;
                 }
 
                 getLikedRecipes();
             })
             .catch((error) => {
-                setErrorLikes(error);
                 console.error(error);
-                setLoadingLikes(false);
             });
     }, [currentUser.uid, vegan, disLiked]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    return { likedRecipes, setDisLiked, loadingLikes, errorLikes };
+    return { likedRecipes, setDisLiked };
 };
 
 export default useMyRecipes;

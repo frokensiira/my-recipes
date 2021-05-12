@@ -15,8 +15,6 @@ const MyRecipes = () => {
     const { recipes, loading, error } = useMyRecipes(vegan);
     const {
         likedRecipes,
-        loadingLikes,
-        errorLikes,
         setDisLiked,
     } = useMyLikedRecipes(vegan);
     const [allRecipes, setAllRecipes] = useState([]);
@@ -44,8 +42,8 @@ const MyRecipes = () => {
             <PageTitle>
                 Mina recept <Cabbage className="icon" />
             </PageTitle>
-            {error || errorLikes ? <p>Problem med att ladda recept...</p> : ""}
-            {loading || loadingLikes ? <Loading /> : ""}
+            {error ? <p>Problem med att ladda recept...</p> : ""}
+            {loading ? <Loading /> : ""}
 
             <div className="page">
                 <Filter vegan={vegan} handleFilterSearch={handleFilterSearch} />
@@ -66,7 +64,7 @@ const MyRecipes = () => {
                         ))}
                     </motion.section>
                 ) : (
-                    !loading && !loadingLikes && <NoRecipes vegan={vegan} />
+                    !loading && <NoRecipes vegan={vegan} />
                 )}
                 <AddRecipeButton />
             </div>
