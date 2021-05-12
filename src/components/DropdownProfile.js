@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
 import { ReactComponent as User } from "../assets/user.svg";
 
 function DropdownProfile() {
-    const { currentUser } = useAuth();
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownList = useRef();
 

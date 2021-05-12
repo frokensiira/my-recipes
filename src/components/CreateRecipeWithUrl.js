@@ -50,13 +50,14 @@ const CreateRecipeWithUrl = () => {
 
         if (e.target.id === "url") {
             if (e.target.value.includes("http")) {
-                setLoading(true);
+                
                 const url = e.target.value;
                 const urlEncoded = encodeURIComponent(url);
                 try {
-                    const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
+                    setLoading(true);
+                    const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;                    
                     const response = await axios.get(requestUrl);
-
+                    
                     if (!response.data.error) {
                         setRecipe({
                             ...recipe,
@@ -82,11 +83,13 @@ const CreateRecipeWithUrl = () => {
                         }
                         setLoading(false);
                         resetError();
+                    } else {
+                        setLoading(false);
                     }
                 } catch (error) {
                     setLoading(false);
                     setErrorMessage(true);
-                    setErrorMessage('Kunde inte hämta receptet. Försök igen.');
+                    setErrorMessage('Kunde inte hämta receptet.');
                     console.error(error);
                 }
             } else {
