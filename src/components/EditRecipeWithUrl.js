@@ -25,8 +25,8 @@ const EditRecipeWithUrl = () => {
     useEffect(() => {
         if (recipe && recipe.length !== 0) {
             setNewRecipe(recipe);
-            if(recipe.fullPathPhoto && recipe.fullPathPhoto !== "") {
-                setPhoto({fullPathPhoto: recipe.fullPathPhoto});
+            if (recipe.fullPathPhoto && recipe.fullPathPhoto !== "") {
+                setPhoto({ fullPathPhoto: recipe.fullPathPhoto });
             }
         }
 
@@ -38,7 +38,7 @@ const EditRecipeWithUrl = () => {
     const resetError = () => {
         setError(false);
         setErrorMessage(null);
-    }
+    };
 
     const handleCheckbox = (e) => {
         setNewRecipe((prevstate) => ({
@@ -65,20 +65,20 @@ const EditRecipeWithUrl = () => {
             });
     };
 
-    const handleInput = async (e) => {        
+    const handleInput = async (e) => {
         setNewRecipe((prevstate) => ({
             ...prevstate,
             [e.target.id]: e.target.value,
         }));
-        
+
         if (e.target.id === "url") {
-            
-            if (e.target.value.includes("http")) {                
+            if (e.target.value.includes("http")) {
                 setLoading(true);
                 const url = e.target.value;
                 const urlEncoded = encodeURIComponent(url);
-                const requestUrl = await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
-                const response = await axios.get(requestUrl);                
+                const requestUrl =
+                    await `https://ogp-api.herokuapp.com/?url=${urlEncoded}`;
+                const response = await axios.get(requestUrl);
 
                 if (!response.data.error) {
                     setNewRecipe({
@@ -99,7 +99,7 @@ const EditRecipeWithUrl = () => {
                         url: e.target.value,
                     });
                     //if user uploaded an image before, remove it from storage
-                    if (photo) {                        
+                    if (photo) {
                         deletePhotoFromStorage();
                     }
                     setLoading(false);
@@ -132,7 +132,7 @@ const EditRecipeWithUrl = () => {
             .then((snapshot) => {
                 resetError();
                 //retrieve url to uploaded photo
-                snapshot.ref.getDownloadURL().then((url) => {                    
+                snapshot.ref.getDownloadURL().then((url) => {
                     setNewRecipe((prevState) => ({
                         ...prevState,
                         photoUrl: url,
@@ -147,7 +147,7 @@ const EditRecipeWithUrl = () => {
             })
             .catch((err) => {
                 setError(true);
-                setErrorMessage('Problem med att ladda upp foto. Prova igen.');
+                setErrorMessage("Problem med att ladda upp foto. Prova igen.");
                 setLoading(false);
             });
     };
@@ -165,7 +165,7 @@ const EditRecipeWithUrl = () => {
                     ...prevstate,
                     fullPathPhoto: null,
                 }));
-                
+
                 //and add the new one instead if the user uploaded a new one manually
                 if (selectedPhoto) {
                     addPhotoToStorage(selectedPhoto);
@@ -173,8 +173,6 @@ const EditRecipeWithUrl = () => {
             })
             .catch((error) => {
                 console.error(error);
-                setError(true);
-                setErrorMessage('Problem med uppladdning av foto. Försök igen.');
                 setLoading(false);
             });
     };
@@ -206,9 +204,7 @@ const EditRecipeWithUrl = () => {
                 <Radish className="icon" />
             </h1>
             <form className="recipe-form" onSubmit={handleSaveChanges}>
-                {loading && (
-                    <Loading/>
-                )}
+                {loading && <Loading />}
 
                 {newRecipe && (
                     <div className="recipe-form__content">
@@ -226,7 +222,10 @@ const EditRecipeWithUrl = () => {
                             />
                         </div>
 
-                        <ImageUpload handlePhotoChange={handlePhotoChange} recipe={newRecipe}/>
+                        <ImageUpload
+                            handlePhotoChange={handlePhotoChange}
+                            recipe={newRecipe}
+                        />
 
                         <div className="recipe-form__field">
                             <label
@@ -245,16 +244,26 @@ const EditRecipeWithUrl = () => {
                             />
                         </div>
 
-                        <RecipeFormDescription handleInput={handleInput} recipe={newRecipe} />
+                        <RecipeFormDescription
+                            handleInput={handleInput}
+                            recipe={newRecipe}
+                        />
 
-                        <VeganCheckbox handleCheckbox={handleCheckbox} recipe={newRecipe} />
-                        
+                        <VeganCheckbox
+                            handleCheckbox={handleCheckbox}
+                            recipe={newRecipe}
+                        />
+
                         <RecipeSubmitButton>Spara recept</RecipeSubmitButton>
                     </div>
                 )}
                 {error && (
                     <div className="error">
-                        <p>{errorMessage ? errorMessage : 'Något gick fel, försök igen.'}</p>
+                        <p>
+                            {errorMessage
+                                ? errorMessage
+                                : "Något gick fel, försök igen."}
+                        </p>
                     </div>
                 )}
             </form>

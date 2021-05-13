@@ -11,7 +11,7 @@ const RecipeFormDescription = ({recipe, handleInput}) => {
                 className="form__textarea"
                 id="comment"
                 rows="4"
-                maxLength="300"
+                maxLength="500"
                 onChange={handleInput}
                 value={recipe.comment}
             ></textarea>
